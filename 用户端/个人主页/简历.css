@@ -1,0 +1,489 @@
+:root {
+    --primary: #7A8CA3;
+    --primary-dark: #607080;
+    --primary-darker: #4a5868;
+    --text-main: #333333;
+    --text-title: #1a3a4a;
+    --border: #7A8CA3;
+    --bg-light: #f8f8f8;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Microsoft YaHei", "PingFang SC", "Helvetica Neue", sans-serif;
+    background: #ffffff;
+    color: var(--text-main);
+    line-height: 1.6;
+    padding-top: 80px;
+}
+
+/* 修改/保存简历按钮 */
+.resume-actions {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.btn-edit-resume,
+.btn-save-resume {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+}
+
+.btn-save-resume {
+    background: #28a745;
+}
+
+.btn-edit-resume:hover {
+    background: var(--primary-dark);
+}
+
+.btn-save-resume:hover {
+    background: #218838;
+}
+
+/* 简历编辑输入框 */
+.resume-edit-input {
+    border: 1px solid #999;
+    padding: 2px 4px;
+    font-size: 15px;
+    font-family: inherit;
+    color: #333;
+    background: #fff;
+    outline: none;
+    width: auto;
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1.4;
+    border-radius: 3px;
+    margin: 0;
+}
+
+.resume-edit-input:focus {
+    border-color: #0052D9;
+}
+
+textarea.resume-edit-input {
+    width: 100%;
+    min-height: 160px;
+    resize: vertical;
+    display: block;
+    margin: 0;
+}
+
+/* 编辑状态高亮 */
+[data-editable="true"] {
+    background-color: rgba(255, 247, 150, 0.4);
+    border-radius: 2px;
+    padding: 0 3px;
+    outline: none;
+    cursor: text;
+}
+
+[data-editable="true"]:focus {
+    background-color: rgba(255, 247, 150, 0.8);
+    box-shadow: 0 0 0 2px var(--primary);
+}
+
+/* 简历页面 */
+.resume-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 30px 80px;
+    background: #fff;
+    transform: scale(1.1);
+    transform-origin: top center;
+    margin-bottom: 120px;
+}
+
+/* 顶部标题区 */
+.resume-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 12px;
+}
+
+.resume-title {
+    font-size: 52px;
+    color: #2c4a5a;
+    font-weight: 700;
+    letter-spacing: 4px;
+    font-family: "SimHei", "Microsoft YaHei", sans-serif;
+}
+
+.resume-icons {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 8px;
+}
+
+.icon-circle {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #7A8CA3;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+/* 青绿色横条，左侧斜切 */
+.resume-bar-wrapper {
+    margin-bottom: 20px;
+    position: relative;
+    height: 24px;
+    background: var(--primary);
+    margin-top: -8px;
+}
+
+.resume-bar-wrapper::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-bottom: 24px solid #ffffff;
+    border-right: 55px solid transparent;
+    z-index: 1;
+}
+
+.resume-bar {
+    height: 24px;
+    background: var(--primary);
+    width: 100%;
+}
+
+/* 简历主体 */
+.resume-body {
+    border-left: 2px solid var(--primary);
+    margin-left: 15px;
+    padding-left: 18px;
+}
+
+/* 模块区块 */
+.resume-section {
+    margin-bottom: 0;
+    position: relative;
+}
+
+.section-header {
+    position: relative;
+    margin-bottom: 0;
+    height: 34px;
+    display: flex;
+    align-items: flex-end;
+    margin-left: -18px;
+}
+
+/* 丝带标签 */
+.section-tag {
+    display: inline-block;
+    background: var(--primary);
+    color: #fff;
+    padding: 6px 22px 6px 18px;
+    font-size: 16px;
+    font-weight: 600;
+    position: relative;
+    margin-left: 18px;
+    height: 34px;
+    line-height: 22px;
+    box-sizing: border-box;
+    z-index: 2;
+}
+
+/* 右侧箭头 */
+.section-tag::after {
+    content: '';
+    position: absolute;
+    right: -16px;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-top: 17px solid transparent;
+    border-bottom: 17px solid transparent;
+    border-left: 16px solid var(--primary);
+}
+
+/* 模块内容 */
+.section-content {
+    padding: 14px 20px 18px 22px;
+}
+
+/* 基本信息 */
+.basic-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 30px;
+}
+
+.info-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.info-row {
+    display: flex;
+}
+
+.info-item {
+    flex: 1;
+    font-size: 15px;
+    color: var(--text-main);
+    min-width: 0;
+    min-height: 24px;
+}
+
+.info-item .label {
+    color: var(--text-title);
+    font-weight: 500;
+    letter-spacing: 2px;
+    display: inline-block;
+    min-width: 80px;
+}
+
+.info-photo {
+    width: 115px;
+    height: 150px;
+    border: 1px solid #ddd;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: var(--bg-light);
+    position: relative;
+    cursor: pointer;
+}
+
+.info-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.photo-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.45);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.info-photo:hover .photo-overlay {
+    opacity: 1;
+}
+
+.photo-overlay i {
+    font-size: 16px;
+}
+
+/* 教育背景/经历标题行 */
+.item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-title);
+    margin-bottom: 8px;
+}
+
+.item-header span:nth-child(1) {
+    flex: 1;
+    text-align: left;
+}
+
+.item-header span:nth-child(2) {
+    flex: 1;
+    text-align: center;
+}
+
+.item-header span:nth-child(3) {
+    flex: 1;
+    text-align: right;
+}
+
+.content-text {
+    font-size: 15px;
+    line-height: 1.85;
+    text-align: justify;
+}
+
+/* 列表 */
+.bullet-list {
+    list-style: disc;
+    padding-left: 18px;
+}
+
+.bullet-list li {
+    margin-bottom: 6px;
+    font-size: 15px;
+    line-height: 1.75;
+    text-align: justify;
+}
+
+/* 技能证书 */
+.skills-content p {
+    margin-bottom: 6px;
+    font-size: 15px;
+    line-height: 1.75;
+}
+
+/* 按钮 */
+.resume-actions {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.btn-back {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    padding: 10px 28px;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-back:hover {
+    background: var(--primary-dark);
+}
+
+/* 页脚 */
+.footer {
+    background: #fafafa;
+    padding: 30px 20px;
+    border-top: 1px solid #eee;
+    text-align: center;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0;
+    margin-bottom: 15px;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: #666;
+    padding: 0 12px;
+    font-size: 13px;
+    position: relative;
+}
+
+.footer-links a:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 12px;
+    background: #ccc;
+}
+
+.copyright {
+    color: #999;
+    font-size: 12px;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .resume-page {
+        padding: 20px 15px 40px;
+    }
+    .resume-title {
+        font-size: 34px;
+        letter-spacing: 4px;
+    }
+    .resume-bar-wrapper {
+        height: 16px;
+    }
+    .resume-bar-wrapper::before {
+        border-bottom-width: 16px;
+        border-right-width: 40px;
+    }
+    .resume-bar {
+        height: 16px;
+    }
+    .resume-body {
+        margin-left: 8px;
+        padding-left: 10px;
+    }
+    .section-header {
+        margin-left: -10px;
+        height: 28px;
+    }
+    .section-tag {
+        padding: 4px 16px 4px 12px;
+        font-size: 14px;
+        height: 28px;
+        line-height: 20px;
+        margin-left: 14px;
+    }
+    .section-tag::after {
+        right: -12px;
+        border-top-width: 14px;
+        border-bottom-width: 14px;
+        border-left-width: 12px;
+    }
+    .section-content {
+        padding: 12px 14px 14px 16px;
+    }
+    .basic-info {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .info-main {
+        gap: 30px;
+    }
+    .info-photo {
+        align-self: flex-start;
+    }
+    .item-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 3px;
+    }
+    .item-header span {
+        text-align: left !important;
+    }
+}

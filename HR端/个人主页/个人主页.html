@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR企业主页 - 就业平台</title>
+    <link rel="stylesheet" href="个人主页.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="../首页/index.html" class="logo">
+            <span style="font-style: italic;">HR</span>
+            <span>招聘中心</span>
+        </a>
+        <div class="nav-container">
+            <div class="nav-menu">
+                <a href="../首页/index.html">首页</a>
+                <a href="../企业主页/HR端导航栏企业主页.html">企业主页</a>
+                <a href="../求职招聘/求职招聘.html">职位管理</a>
+                <a href="../聊天窗口/index.html">消息中心</a>
+            </div>
+            <div class="nav-right">
+                <a href="javascript:void(0)" class="logout-btn" onclick="logout()">退出</a>
+                <a href="个人主页.html" class="nav-avatar active" title="个人主页">
+                    <img src="https://img.bosszhipin.com/beijin/upload/avatar/20210609/d8922c74373c386934f3231f94096cc42569bf6476d1f21550636549e45f988b_s.png" alt="企业Logo" id="header-avatar">
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container" style="padding-top: 100px;">
+        <!-- HR个人资料卡片 -->
+        <div class="profile-card" role="region" aria-label="HR个人信息">
+            <div class="profile-info">
+                <div class="avatar-wrapper" id="avatar-wrapper">
+                    <img src="https://img.bosszhipin.com/beijin/upload/avatar/20210609/d8922c74373c386934f3231f94096cc42569bf6476d1f21550636549e45f988b_s.png" alt="HR头像" class="profile-avatar" id="profile-avatar">
+                    <div class="generated-avatar-large" id="generated-avatar-large" style="display: none;"></div>
+                    <div class="avatar-overlay">
+                        <span class="avatar-hint">更换头像</span>
+                    </div>
+                    <input type="file" id="avatar-input" accept="image/*" hidden>
+                </div>
+                <div class="profile-details">
+                    <h2 id="user-nickname">王经理</h2>
+                    <p id="user-basic-info">招聘经理 |马鞍山市花山区星峰</p>
+                    <p id="user-education-info">人力资源 | 民营 | 100-200人</p>
+                    <div class="disability-tags" id="user-disability-types">
+                        <span class="disability-tag"><i class="fas fa-check-circle"></i> 企业认证</span>
+                        <span class="disability-tag"><i class="fas fa-shield-alt"></i> 实名认证</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 编辑资料表单 -->
+        <div id="edit-profile-view" class="edit-profile-container" style="background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-top: 20px; padding: 30px;">
+            <h3 style="margin: 0 0 25px 0; font-size: 18px; font-weight: 600;"><i class="fas fa-user-edit" style="margin-right: 8px;"></i>编辑资料</h3>
+            
+            <form id="edit-profile-form">
+                <!-- 个人信息 -->
+                <div class="form-section" style="margin-bottom: 30px;">
+                    <h4 style="margin: 0 0 20px 0; color: #0052d9; font-size: 16px; font-weight: 500;"><i class="fas fa-user" style="margin-right: 6px;"></i>个人信息</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div class="form-group">
+                            <label style="display: block; margin-bottom: 8px; color: #333; font-size: 14px;">姓名 <span style="color: #ff4d4f;">*</span></label>
+                            <input type="text" id="edit-hr-name" name="hrName" placeholder="请输入真实姓名" required style="width: 100%; padding: 10px 12px; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 14px; box-sizing: border-box;">
+                        </div>
+                        <div class="form-group">
+                            <label style="display: block; margin-bottom: 8px; color: #333; font-size: 14px;">性别</label>
+                            <select id="edit-hr-gender" name="hrGender" style="width: 100%; padding: 10px 12px; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 14px; background: #fff; box-sizing: border-box;">
+                                <option value="男">男</option>
+                                <option value="女">女</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label style="display: block; margin-bottom: 8px; color: #333; font-size: 14px;">职位 <span style="color: #ff4d4f;">*</span></label>
+                            <select id="edit-hr-position" name="hrPosition" required style="width: 100%; padding: 10px 12px; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 14px; background: #fff; box-sizing: border-box;">
+                                <option value="">请选择职位</option>
+                                <option value="招聘专员">招聘专员</option>
+                                <option value="招聘主管">招聘主管</option>
+                                <option value="招聘经理">招聘经理</option>
+                                <option value="人事专员">人事专员</option>
+                                <option value="人事主管">人事主管</option>
+                                <option value="人事经理">人事经理</option>
+                                <option value="HRBP">HRBP</option>
+                                <option value="HRD">HRD</option>
+                                <option value="其他">其他</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label style="display: block; margin-bottom: 8px; color: #333; font-size: 14px;">手机号 <span style="color: #ff4d4f;">*</span></label>
+                            <input type="tel" id="edit-hr-phone" name="hrPhone" placeholder="请输入手机号" required style="width: 100%; padding: 10px 12px; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 14px; box-sizing: border-box;">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 企业信息 -->
+                <div class="form-section">
+                    <h4 style="margin: 0 0 20px 0; color: #0052d9; font-size: 16px; font-weight: 500;"><i class="fas fa-building" style="margin-right: 6px;"></i>企业信息</h4>
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 8px; color: #333; font-size: 14px;">企业名称 <span style="color: #ff4d4f;">*</span></label>
+                        <input type="text" id="edit-company-name" name="companyName" value="南京顺众人力资源开发服务有限公司" placeholder="请输入企业全称" required style="width: 100%; padding: 10px 12px; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 14px; box-sizing: border-box;">
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                        <div class="form-group">
+                            <label style="display: block; margin-bottom: 8px; color: #333; font-size: 14px;">所属行业 <span style="color: #ff4d4f;">*</span></label>
+                            <select id="edit-industry" name="industry" required style="width: 100%; padding: 10px 12px; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 14px; background: #fff; box-sizing: border-box;">
+                                <option value="人力资源" selected>人力资源</option>
+                                <option value="互联网/IT">互联网/IT</option>
+                                <option value="金融">金融</option>
+                                <option value="教育培训">教育培训</option>
+                                <option value="制造业">制造业</option>
+                                <option value="服务业">服务业</option>
+                                <option value="房地产">房地产</option>
+                                <option value="医疗健康">医疗健康</option>
+                                <option value="其他">其他</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label style="display: block; margin-bottom: 8px; color: #333; font-size: 14px;">企业性质 <span style="color: #ff4d4f;">*</span></label>
+                            <select id="edit-company-type" name="companyType" required style="width: 100%; padding: 10px 12px; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 14px; background: #fff; box-sizing: border-box;">
+                                <option value="民营" selected>民营企业</option>
+                                <option value="国企">国有企业</option>
+                                <option value="外企">外资企业</option>
+                                <option value="合资">合资企业</option>
+                                <option value="上市公司">上市公司</option>
+                                <option value="事业单位">事业单位</option>
+                                <option value="政府机关">政府机关</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                        <div class="form-group">
+                            <label style="display: block; margin-bottom: 8px; color: #333; font-size: 14px;">企业规模 <span style="color: #ff4d4f;">*</span></label>
+                            <select id="edit-company-size" name="companySize" required style="width: 100%; padding: 10px 12px; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 14px; background: #fff; box-sizing: border-box;">
+                                <option value="">请选择企业规模</option>
+                                <option value="0-20人">0-20人</option>
+                                <option value="20-99人">20-99人</option>
+                                <option value="100-499人">100-499人</option>
+                                <option value="500-999人">500-999人</option>
+                                <option value="1000-9999人">1000-9999人</option>
+                                <option value="10000人以上">10000人以上</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label style="display: block; margin-bottom: 8px; color: #333; font-size: 14px;">企业地址 <span style="color: #ff4d4f;">*</span></label>
+                            <input type="text" id="edit-location" name="location" value="南京市-江宁区" placeholder="如：南京市-江宁区" required style="width: 100%; padding: 10px 12px; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 14px; box-sizing: border-box;">
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                        <div class="form-group">
+                            <label style="display: block; margin-bottom: 8px; color: #333; font-size: 14px;">企业邮箱</label>
+                            <input type="email" id="edit-company-email" name="companyEmail" placeholder="如：hr@company.com" style="width: 100%; padding: 10px 12px; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 14px; box-sizing: border-box;">
+                        </div>
+                        <div class="form-group">
+                            <label style="display: block; margin-bottom: 8px; color: #333; font-size: 14px;">企业官网</label>
+                            <input type="url" id="edit-company-website" name="companyWebsite" placeholder="如：www.company.com" style="width: 100%; padding: 10px 12px; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 14px; box-sizing: border-box;">
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                        <div class="form-group">
+                            <label style="display: block; margin-bottom: 8px; color: #333; font-size: 14px;">成立时间</label>
+                            <input type="date" id="edit-founded-date" name="foundedDate" style="width: 100%; padding: 10px 12px; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 14px; box-sizing: border-box;">
+                        </div>
+                        <div class="form-group">
+                            <label style="display: block; margin-bottom: 8px; color: #333; font-size: 14px;">注册资本</label>
+                            <input type="text" id="edit-registered-capital" name="registeredCapital" placeholder="如：1000万元" style="width: 100%; padding: 10px 12px; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 14px; box-sizing: border-box;">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 8px; color: #333; font-size: 14px;">统一社会信用代码</label>
+                        <input type="text" id="edit-credit-code" name="creditCode" placeholder="请输入18位统一社会信用代码" maxlength="18" style="width: 100%; padding: 10px 12px; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 14px; box-sizing: border-box;">
+                    </div>
+                    <div class="form-group">
+                        <label style="display: block; margin-bottom: 8px; color: #333; font-size: 14px;">企业简介</label>
+                        <textarea id="edit-company-intro" name="companyIntro" rows="4" placeholder="请输入企业简介，包括主营业务、企业文化等" style="width: 100%; padding: 10px 12px; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 14px; box-sizing: border-box; resize: vertical;"></textarea>
+                    </div>
+                </div>
+
+                <!-- 按钮 -->
+                <div class="form-actions" style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 30px; padding-top: 20px; border-top: 1px solid #f0f0f0;">
+                    <button type="button" class="btn-cancel" onclick="cancelEdit()" style="padding: 10px 24px; border: 1px solid #d9d9d9; background: #fff; border-radius: 6px; cursor: pointer; font-size: 14px;">取消</button>
+                    <button type="button" class="btn-save" onclick="saveProfile()" style="padding: 10px 24px; border: none; background: #0052d9; color: #fff; border-radius: 6px; cursor: pointer; font-size: 14px;">保存</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- 基本资料展示视图（默认隐藏） -->
+        <div id="profile-display-view" class="profile-display-container" style="display: none; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-top: 20px; padding: 30px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #f0f0f0; padding-bottom: 15px;">
+                <h3 style="margin: 0; font-size: 18px; font-weight: 600;">基本资料</h3>
+                <button type="button" onclick="showEditView()" style="padding: 6px 16px; border: 1px solid #0052d9; background: #fff; color: #0052d9; border-radius: 4px; cursor: pointer; font-size: 14px;">修改</button>
+            </div>
+            
+            <div class="info-list" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px 40px; font-size: 14px; line-height: 1.8;">
+                <!-- 第一列：个人信息 -->
+                <div class="info-column">
+                    <div style="display: flex; margin-bottom: 16px;">
+                        <div class="info-label" style="color: #666; width: 120px; flex-shrink: 0;">姓名：</div>
+                        <div class="info-value" id="display-name" style="color: #333;">-</div>
+                    </div>
+                    <div style="display: flex; margin-bottom: 16px;">
+                        <div class="info-label" style="color: #666; width: 120px; flex-shrink: 0;">性别：</div>
+                        <div class="info-value" id="display-gender" style="color: #333;">-</div>
+                    </div>
+                    <div style="display: flex; margin-bottom: 16px;">
+                        <div class="info-label" style="color: #666; width: 120px; flex-shrink: 0;">职位：</div>
+                        <div class="info-value" id="display-position" style="color: #333;">-</div>
+                    </div>
+                    <div style="display: flex; margin-bottom: 16px;">
+                        <div class="info-label" style="color: #666; width: 120px; flex-shrink: 0;">手机号：</div>
+                        <div class="info-value" id="display-phone" style="color: #333;">-</div>
+                    </div>
+                    <div style="display: flex; margin-bottom: 16px;">
+                        <div class="info-label" style="color: #666; width: 120px; flex-shrink: 0;">企业名称：</div>
+                        <div class="info-value" id="display-company" style="color: #333;">-</div>
+                    </div>
+                    <div style="display: flex; margin-bottom: 16px;">
+                        <div class="info-label" style="color: #666; width: 120px; flex-shrink: 0;">所属行业：</div>
+                        <div class="info-value" id="display-industry" style="color: #333;">-</div>
+                    </div>
+                    <div style="display: flex; margin-bottom: 16px;">
+                        <div class="info-label" style="color: #666; width: 120px; flex-shrink: 0;">企业性质：</div>
+                        <div class="info-value" id="display-company-type" style="color: #333;">-</div>
+                    </div>
+                </div>
+                
+                <!-- 第二列：企业信息 -->
+                <div class="info-column">
+                    <div style="display: flex; margin-bottom: 16px;">
+                        <div class="info-label" style="color: #666; width: 120px; flex-shrink: 0;">企业规模：</div>
+                        <div class="info-value" id="display-company-size" style="color: #333;">-</div>
+                    </div>
+                    <div style="display: flex; margin-bottom: 16px;">
+                        <div class="info-label" style="color: #666; width: 120px; flex-shrink: 0;">企业地址：</div>
+                        <div class="info-value" id="display-location" style="color: #333;">-</div>
+                    </div>
+                    <div style="display: flex; margin-bottom: 16px;">
+                        <div class="info-label" style="color: #666; width: 120px; flex-shrink: 0;">企业邮箱：</div>
+                        <div class="info-value" id="display-company-email" style="color: #333;">-</div>
+                    </div>
+                    <div style="display: flex; margin-bottom: 16px;">
+                        <div class="info-label" style="color: #666; width: 120px; flex-shrink: 0;">企业官网：</div>
+                        <div class="info-value" id="display-company-website" style="color: #333;">-</div>
+                    </div>
+                    <div style="display: flex; margin-bottom: 16px;">
+                        <div class="info-label" style="color: #666; width: 120px; flex-shrink: 0;">成立时间：</div>
+                        <div class="info-value" id="display-founded-date" style="color: #333;">-</div>
+                    </div>
+                    <div style="display: flex; margin-bottom: 16px;">
+                        <div class="info-label" style="color: #666; width: 120px; flex-shrink: 0;">注册资本：</div>
+                        <div class="info-value" id="display-registered-capital" style="color: #333;">-</div>
+                    </div>
+                    <div style="display: flex; margin-bottom: 16px;">
+                        <div class="info-label" style="color: #666; width: 120px; flex-shrink: 0;">统一社会信用代码：</div>
+                        <div class="info-value" id="display-credit-code" style="color: #333;">-</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 企业简介（单独一行，全宽显示） -->
+            <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #f0f0f0;">
+                <div style="display: flex;">
+                    <div class="info-label" style="color: #666; width: 120px; flex-shrink: 0;">企业简介：</div>
+                    <div class="info-value" id="display-company-intro" style="color: #333; line-height: 1.6; flex: 1;">-</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="toast-notification" class="toast-notification" aria-live="assertive" aria-atomic="true"></div>
+
+    <script src="个人主页.js"></script>
+    <script>
+        // 显示编辑视图
+        function showEditView() {
+            document.getElementById('edit-profile-view').style.display = 'block';
+            document.getElementById('profile-display-view').style.display = 'none';
+        }
+
+        // 显示资料展示视图
+        function showDisplayView() {
+            document.getElementById('edit-profile-view').style.display = 'none';
+            document.getElementById('profile-display-view').style.display = 'block';
+        }
+
+        // 保存资料
+        function saveProfile() {
+            // 获取表单值
+            const name = document.getElementById('edit-hr-name').value;
+            const gender = document.getElementById('edit-hr-gender').value;
+            const position = document.getElementById('edit-hr-position').value;
+            const phone = document.getElementById('edit-hr-phone').value;
+            const company = document.getElementById('edit-company-name').value;
+            const industry = document.getElementById('edit-industry').value;
+            const companyType = document.getElementById('edit-company-type').value;
+            const companySize = document.getElementById('edit-company-size').value;
+            const location = document.getElementById('edit-location').value;
+            const companyEmail = document.getElementById('edit-company-email').value;
+            const companyWebsite = document.getElementById('edit-company-website').value;
+            const foundedDate = document.getElementById('edit-founded-date').value;
+            const registeredCapital = document.getElementById('edit-registered-capital').value;
+            const creditCode = document.getElementById('edit-credit-code').value;
+            const companyIntro = document.getElementById('edit-company-intro').value;
+
+            // 简单验证
+            if (!name || !position || !phone || !company || !industry || !companyType || !companySize || !location) {
+                alert('请填写所有必填项');
+                return;
+            }
+
+            // 构建资料数据对象
+            const profileData = {
+                name, gender, position, phone,
+                company, industry, companyType, companySize, location,
+                companyEmail, companyWebsite, foundedDate, registeredCapital,
+                creditCode, companyIntro
+            };
+
+            // 保存到 localStorage
+            localStorage.setItem('hrProfileData', JSON.stringify(profileData));
+
+            // 更新展示视图的值
+            updateDisplayView(profileData);
+
+            // 同时更新顶部个人资料卡片
+            document.getElementById('user-nickname').textContent = name;
+            document.getElementById('user-basic-info').textContent = position + ' | ' + company;
+            document.getElementById('user-education-info').textContent = industry + ' | ' + companyType + ' | ' + companySize;
+
+            // 切换到展示视图
+            showDisplayView();
+
+            // 显示提示
+            showToast('资料保存成功');
+        }
+
+        // 更新展示视图
+        function updateDisplayView(data) {
+            document.getElementById('display-name').textContent = data.name || '-';
+            document.getElementById('display-gender').textContent = data.gender || '-';
+            document.getElementById('display-position').textContent = data.position || '-';
+            document.getElementById('display-phone').textContent = data.phone || '-';
+            document.getElementById('display-company').textContent = data.company || '-';
+            document.getElementById('display-industry').textContent = data.industry || '-';
+            document.getElementById('display-company-type').textContent = data.companyType || '-';
+            document.getElementById('display-company-size').textContent = data.companySize || '-';
+            document.getElementById('display-location').textContent = data.location || '-';
+            document.getElementById('display-company-email').textContent = data.companyEmail || '未填写';
+            document.getElementById('display-company-website').textContent = data.companyWebsite || '未填写';
+            document.getElementById('display-founded-date').textContent = data.foundedDate || '未填写';
+            document.getElementById('display-registered-capital').textContent = data.registeredCapital || '未填写';
+            document.getElementById('display-credit-code').textContent = data.creditCode || '未填写';
+            document.getElementById('display-company-intro').textContent = data.companyIntro || '未填写';
+        }
+
+        // 填充表单
+        function fillForm(data) {
+            document.getElementById('edit-hr-name').value = data.name || '';
+            document.getElementById('edit-hr-gender').value = data.gender || '男';
+            document.getElementById('edit-hr-position').value = data.position || '';
+            document.getElementById('edit-hr-phone').value = data.phone || '';
+            document.getElementById('edit-company-name').value = data.company || '';
+            document.getElementById('edit-industry').value = data.industry || '人力资源';
+            document.getElementById('edit-company-type').value = data.companyType || '民营';
+            document.getElementById('edit-company-size').value = data.companySize || '';
+            document.getElementById('edit-location').value = data.location || '';
+            document.getElementById('edit-company-email').value = data.companyEmail || '';
+            document.getElementById('edit-company-website').value = data.companyWebsite || '';
+            document.getElementById('edit-founded-date').value = data.foundedDate || '';
+            document.getElementById('edit-registered-capital').value = data.registeredCapital || '';
+            document.getElementById('edit-credit-code').value = data.creditCode || '';
+            document.getElementById('edit-company-intro').value = data.companyIntro || '';
+        }
+
+        // 从 localStorage 加载资料
+        function loadProfile() {
+            const savedData = localStorage.getItem('hrProfileData');
+            if (savedData) {
+                const profileData = JSON.parse(savedData);
+                // 填充表单
+                fillForm(profileData);
+                // 更新展示视图
+                updateDisplayView(profileData);
+                // 更新顶部卡片
+                if (profileData.name) {
+                    document.getElementById('user-nickname').textContent = profileData.name;
+                    document.getElementById('user-basic-info').textContent = profileData.position + ' | ' + profileData.company;
+                    document.getElementById('user-education-info').textContent = profileData.industry + ' | ' + profileData.companyType + ' | ' + profileData.companySize;
+                }
+                // 切换到展示视图
+                showDisplayView();
+            }
+        }
+
+        // 取消编辑
+        function cancelEdit() {
+            // 如果已经保存过数据，回到展示视图；否则保持在编辑视图
+            const savedData = localStorage.getItem('hrProfileData');
+            if (savedData) {
+                // 重新加载已保存的数据到表单
+                fillForm(JSON.parse(savedData));
+                showDisplayView();
+            }
+        }
+
+        // 显示提示消息
+        function showToast(message) {
+            const toast = document.getElementById('toast-notification');
+            toast.textContent = message;
+            toast.style.display = 'block';
+            toast.style.opacity = '1';
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 300);
+            }, 2000);
+        }
+
+        // 页面加载时自动加载已保存的资料
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProfile();
+        });
+
+        // 退出登录功能
+        function logout() {
+            localStorage.removeItem('loginInfo');
+            sessionStorage.removeItem('loginInfo');
+            alert('已退出登录');
+            window.location.href = '../../用户端/首页/index.html';
+        }
+    </script>
+</body>
+</html>

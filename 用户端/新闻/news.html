@@ -1,0 +1,592 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>最新动态 - 手语翻译与求职平台</title>
+    <link rel="stylesheet" href="../首页/style.css">
+    <link rel="stylesheet" href="news.css">
+</head>
+<body>
+    <header class="main-header">
+        <a href="../首页/index.html" class="logo">
+            <span style="font-style: italic;">Platform</span>
+            <span>就业平台</span>
+        </a>
+        <div class="nav-container">
+            <ul class="nav-menu">
+                <li><a href="../首页/index.html" data-i18n="navHome">首页</a></li>
+                <li><a href="../求职招聘/求职招聘.html" data-i18n="navJobs">求职招聘</a></li>
+                <li><a href="news.html" class="active" data-i18n="navNews">相关新闻</a></li>
+                <li><a href="../聊天窗口(新增)/聊天窗口/index.html">消息中心</a></li>
+            </ul>
+            <div class="nav-right">
+                <a href="../登录界面/login.html" class="login-btn" id="loginBtn" data-i18n="navLogin">登录</a>
+                <div class="user-info" id="userInfo" style="display: none;">
+                    <span class="user-name" id="userName"></span>
+                    <a href="#" class="logout-btn" id="logoutBtn" data-i18n="navLogout">退出</a>
+                </div>
+                <a href="../个人主页/个人主页.html" class="nav-avatar" id="navAvatar" title="个人主页" style="display: none;">
+                    <img src="" alt="头像" id="header-avatar" style="display: none;">
+                    <div class="generated-avatar" id="generatedAvatar" style="display: none;"></div>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="hero-carousel">
+            <div class="carousel-slide active" style="background-image: url('images/slide1.webp'); cursor: pointer;" onclick="location.href='carousel-1.html'">
+                <div class="carousel-caption">
+                    <h2>为2700万听障人群搭建"有声桥梁"</h2>
+                    <p>"集善菩及·悦（粤）听新声"项目启动</p>
+                </div>
+            </div>
+            <div class="carousel-slide" style="background-image: url('images/slide2.webp'); cursor: pointer;" onclick="location.href='carousel-2.html'">
+                <div class="carousel-caption">
+                    <h2>代表八千万残障者</h2>
+                    <p>他们在国新办发布会讲述"折翼"亦能追光</p>
+                </div>
+            </div>
+            <div class="carousel-slide" style="background-image: url('images/slide3.png'); cursor: pointer;" onclick="location.href='carousel-3.html'">
+                <div class="carousel-caption">
+                    <h2>关爱听障儿童</h2>
+                    <p>"悦听新声"项目近日启动</p>
+                </div>
+            </div>
+            <button class="carousel-arrow carousel-prev">&#10094;</button>
+            <button class="carousel-arrow carousel-next">&#10095;</button>
+            <div class="carousel-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+
+        <section class="news-page-section">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all" data-i18n="filterAll">全部</button>
+                <button class="filter-btn" data-filter="1">新闻动态</button>
+                <button class="filter-btn" data-filter="2">政策法规</button>
+                <button class="filter-btn" data-filter="3">通知公告</button>
+            </div>
+            <div class="news-page-grid">
+                <div class="news-page-card card-white" data-category="1" onclick="location.href='article-1.html'">
+                    <div class="card-image">
+                        <img src='新闻图片/滨州市举办残疾人就业税费政策线上解读直播活动.png' alt='滨州市举办残疾人就业税费政策线上解读直播活动'>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-date"><span>2026.03.27</span></div>
+                        <h3 class="card-title">滨州市举办残疾人就业税费政策线上解读直播活动</h3>
+                        <p class="card-desc">滨州市残联、市税务局联合开展残疾人就业税费政策线上解读直播，精准推送惠企助残政策，助力残疾人高质量就业。</p>
+                    </div>
+                </div>
+                <div class="news-page-card card-blue" data-category="1" onclick="location.href='article-2.html'">
+                    <div class="card-image">
+                        <img src='新闻图片/共植希望林·助残同富行.png' alt='共植希望林·助残同富行 合肥市残联赴蜀山区残疾人农疗基地开展助残融合活动'>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-date"><span>2026.03.20</span></div>
+                        <h3 class="card-title">共植希望林·助残同富行 合肥市残联赴蜀山区残疾人农疗基地开展助残融合活动</h3>
+                        <p class="card-desc">合肥市残联联动爱心企业开展助残融合活动，揭牌残疾人帮扶性就业基地，共植希望林，全力推动残疾人就业创业工作再上新台阶。</p>
+                    </div>
+                </div>
+                <div class="news-page-card card-gray" data-category="1" onclick="location.href='article-3.html'">
+                    <div class="card-image">
+                        <img src='新闻图片/丁薛祥在全国高校毕业生等青年就业创业工作视频会议上强调.png' alt='丁薛祥在全国高校毕业生等青年就业创业工作视频会议上强调 促进高校毕业生高质量充分就业 更好服务大局、服务民生、服务发展'>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-date"><span>2026.03.19</span></div>
+                        <h3 class="card-title">丁薛祥在全国高校毕业生等青年就业创业工作视频会议上强调 促进高校毕业生高质量充分就业 更好服务大局、服务民生、服务发展</h3>
+                        <p class="card-desc">全国高校毕业生等青年就业创业工作视频会议在京举行，部署促进高校毕业生高质量充分就业各项工作，全力保障青年就业大局稳定。</p>
+                    </div>
+                </div>
+                <div class="news-page-card card-white" data-category="1" onclick="location.href='article-4.html'">
+                    <div class="card-image">
+                        <img src='新闻图片/广东：三地联动春风送岗 助残启航共促就业.png' alt='广东：三地联动春风送岗 助残启航共促就业——2026年广东省残疾人就业援助季暨"春风送岗 粤助启航"（粤西片区）系列活动在湛江启动'>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-date"><span>2026.03.18</span></div>
+                        <h3 class="card-title">广东：三地联动春风送岗 助残启航共促就业——2026年广东省残疾人就业援助季暨"春风送岗 粤助启航"（粤西片区）系列活动在湛江启动</h3>
+                        <p class="card-desc">湛江、阳江、茂名三地联动举办残疾人就业援助季活动，搭建跨区域就业平台，提供大量优质岗位，助力粤西残疾人高质量就业。</p>
+                    </div>
+                </div>
+                <div class="news-page-card card-dark-blue" data-category="1" onclick="location.href='article-5.html'">
+                    <div class="card-image">
+                        <img src="新闻图片/为“春天的事业”添砖加瓦.png" alt='为"春天的事业"添砖加瓦：阜阳市临泉县探索多元化路径助力残疾人就业'>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-date"><span>2026.03.12</span></div>
+                        <h3 class="card-title">为"春天的事业"添砖加瓦：阜阳市临泉县探索多元化路径助力残疾人就业</h3>
+                        <p class="card-desc">临泉县通过政策引导、企业参与、社会支持的多元模式，拓宽残疾人就业渠道，让更多残疾人融入产业体系、实现稳定就业。</p>
+                    </div>
+                </div>
+                <div class="news-page-card card-gray" data-category="1" onclick="location.href='article-6.html'">
+                    <div class="card-image">
+                        <img src='新闻图片/中国残联就业服务指导中心组织开展学雷锋助残志愿服务联学共建活动.png' alt='中国残联就业服务指导中心组织开展学雷锋助残志愿服务联学共建活动'>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-date"><span>2026.03.06</span></div>
+                        <h3 class="card-title">中国残联就业服务指导中心组织开展学雷锋助残志愿服务联学共建活动</h3>
+                        <p class="card-desc">学雷锋助残志愿服务联学共建活动举办，弘扬雷锋精神，开展残疾人就业创业帮扶与技能培训，凝聚助残服务合力。</p>
+                    </div>
+                </div>
+                <div class="news-page-card card-white" data-category="1" onclick="location.href='article-7.html'">
+                    <div class="card-image">
+                        <img src='新闻图片/江苏常州残疾人集中就业企业，福利待遇好，快来报名吧！！！.png' alt='江苏常州残疾人集中就业企业，福利待遇好，快来报名吧！！！'>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-date"><span>2026.03.05</span></div>
+                        <h3 class="card-title">江苏常州残疾人集中就业企业，福利待遇好，快来报名吧！！！</h3>
+                        <p class="card-desc">常州海盟塑业有限公司招聘残疾人员工，提供优质岗位与完善福利，恒温车间、五险一金、食宿全包，欢迎符合条件者报名。</p>
+                    </div>
+                </div>
+                <div class="news-page-card card-blue" data-category="3" onclick="location.href='article-35.html'">
+                    <div class="card-image">
+                        <img src="图片/中国残联召开2025年高校残疾人毕业生就业工作视频推进会/b545863534f94931bdc026f5bd2acbb0.jpg" alt='中国残联召开2025年高校残疾人大学生毕业工作视频推进会'>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-date"><span>2025.05.13</span></div>
+                        <h3 class="card-title">中国残联召开2025年高校残疾人大学生毕业工作视频推进会</h3>
+                        <p class="card-desc">中国残联召开2025年高校残疾人大学生毕业工作视频推进会，部署高校残疾人大学生就业工作。</p>
+                    </div>
+                </div>
+                <div class="news-page-card card-gray" data-category="3" onclick="location.href='article-34.html'">
+                    <div class="card-image">
+                        <img src="图片/第35次全国助残日.jpg" alt='第35次全国助残日 中国残联就业服务平台开展多项助残活动'>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-date"><span>2025.05.19</span></div>
+                        <h3 class="card-title">第35次全国助残日 中国残联就业服务平台开展多项助残活动</h3>
+                        <p class="card-desc">中国残联就业服务平台开展多项助残活动，助力残疾人就业。</p>
+                    </div>
+                </div>
+                <div class="news-page-card card-dark-blue" data-category="3" onclick="location.href='article-33.html'">
+                    <div class="card-image">
+                        <img src='图片/“筑梦职场·无碍前行”2025年促进残疾人大学生就业活动在京启动/960af02a327246e2a94396e762fdc565.jpg' alt='“筑梦职场·无碍前行”2025年促进残疾人大学生就业活动在京启动'>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-date"><span>2025.11.13</span></div>
+                        <h3 class="card-title">"筑梦职场·无碍前行"2025年促进残疾人大学生就业活动在京启动</h3>
+                        <p class="card-desc">中国残联就业服务平台与BOSS直聘联合承办，推动残疾人大学生高质量就业。</p>
+                    </div>
+                </div>
+                <div class="news-page-card card-white" data-category="3" onclick="location.href='article-32.html'">
+                    <div class="card-image">
+                        <img src="图片/筑梦职场.jpg" alt='筑梦职场·无碍前行 2025年残疾人大学生网络招聘会'>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-date"><span>2025.11.04</span></div>
+                        <h3 class="card-title">筑梦职场·无碍前行 2025年残疾人大学生网络招聘会万余职位已上线，速来投递！</h3>
+                        <p class="card-desc">中国残联就业服务平台与BOSS直聘联合举办，提供十万余个岗位。</p>
+                    </div>
+                </div>
+                <div class="news-page-card card-gray" data-category="3" onclick="location.href='article-31.html'">
+                    <div class="card-image">
+                        <img src="图片/中国残联召开2025年高校残疾人毕业生就业工作视频推进会.jpg" alt='促进残疾人就业三年行动方案'>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-date"><span>2025.06.30</span></div>
+                        <h3 class="card-title">促进残疾人就业三年行动方案（2025—2027年）</h3>
+                        <p class="card-desc">政府扶持、部门协同、市场推动，多渠道多形式促进残疾人就业。</p>
+                    </div>
+                </div>
+                <div class="news-page-card card-blue" data-category="1" onclick="location.href='article-8.html'">
+                    <div class="card-image">
+                        <img src='新闻图片/关于开展2025年度残疾人按比例就业情况联网认证工作的通告.png' alt='关于开展2025年度残疾人按比例就业情况联网认证工作的通告'>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-date"><span>2026.02.26</span></div>
+                        <h3 class="card-title">关于开展2025年度残疾人按比例就业情况联网认证工作的通告</h3>
+                        <p class="card-desc">2025年度残疾人按比例就业情况联网认证工作启动，明确申报对象、时间、方式及要求，用人单位需按时完成申报。</p>
+                    </div>
+                </div>
+                <div class="news-page-card card-gray" data-category="1" onclick="location.href='article-9.html'">
+                    <div class="card-image">
+                        <img src='新闻图片/美丽工坊新春交流活动在京举办.png' alt='美丽工坊新春交流活动在京举办'>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-date"><span>2026.02.13</span></div>
+                        <h3 class="card-title">美丽工坊新春交流活动在京举办</h3>
+                        <p class="card-desc">2月12日，农历马年春节即将到来之际，一场以"数智赋能匠心传承，助力残疾女性就业增收"为主题的美丽工坊2026年新春交流活动在北京市残疾人服务示范中心举办。</p>
+                    </div>
+                </div>
+                <div class="news-page-card card-dark-blue" data-category="2" onclick="location.href='article-25.html'">
+                    <div class="card-image">
+                        <img src='新闻图片/《盲人医疗按摩管理办法》.png' alt='盲人医疗按摩管理办法'>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-date"><span>2026.02.10</span></div>
+                        <h3 class="card-title">盲人医疗按摩管理办法</h3>
+                        <p class="card-desc">《盲人医疗按摩管理办法》规范盲人医疗按摩活动，保障盲人医疗按摩人员权益。</p>
+                    </div>
+                </div>
+                <div class="news-page-card card-white" data-category="1" onclick="location.href='article-10.html'">
+                    <div class="card-image">
+                        <img src='新闻图片/青海省：关于征集商标的公告.png' alt='青海省：关于征集商标的公告'>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-date"><span>2026.02.09</span></div>
+                        <h3 class="card-title">青海省：关于征集商标的公告</h3>
+                        <p class="card-desc">为深入贯彻落实《青海省促进残疾人就业三年行动实施方案(2025-2027年)》，进一步拓宽残疾人就业渠道，提升残疾人就业产品市场竞争力与社会认可度，现面向全社会开展残疾人就业产品、就业品牌和盲人保健按摩品牌商标征集。</p>
+                    </div>
+                </div>
+                <div class="news-page-card card-gray" data-category="2" onclick="location.href='article-24.html'">
+                    <div class="card-image">
+                        <img src='新闻图片/《残疾人就业条例》.png' alt='残疾人就业条例'>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-date"><span>2026.02.09</span></div>
+                        <h3 class="card-title">残疾人就业条例</h3>
+                        <p class="card-desc">《残疾人就业条例》保障残疾人就业权利，促进残疾人平等就业。</p>
+                    </div>
+                </div>
+                <div class="news-page-card card-white" data-category="2" onclick="location.href='article-23.html'">
+                    <div class="card-image">
+                        <img src='新闻图片/《无障碍环境建设条例》.png' alt='无障碍环境建设条例'>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-date"><span>2026.02.08</span></div>
+                        <h3 class="card-title">无障碍环境建设条例</h3>
+                        <p class="card-desc">《无障碍环境建设条例》为残疾人平等参与社会生活创造无障碍环境。</p>
+                    </div>
+                </div>
+                <div class="news-page-card card-dark-blue" data-category="2" onclick="location.href='article-22.html'">
+                    <div class="card-image">
+                        <img src='新闻图片/促进残疾人就业，实用服务一图get1.png' alt='促进残疾人就业，实用服务一图get！'>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-date"><span>2026.02.07</span></div>
+                        <h3 class="card-title">促进残疾人就业，实用服务一图get！</h3>
+                        <p class="card-desc">一图读懂促进残疾人就业实用服务，助力残疾人更好地实现就业创业梦想。</p>
+                    </div>
+                </div>
+                <div class="news-page-card card-gray" data-category="2" onclick="location.href='article-21.html'">
+                    <div class="card-image">
+                        <img src="新闻图片/中国残联办公厅关于明确按比例就业联网认证 “跨省通办”工作有关事项的通知2.jpg" alt='中国残联办公厅关于明确按比例就业联网认证"跨省通办"工作有关事项的通知'>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-date"><span>2026.02.06</span></div>
+                        <h3 class="card-title">中国残联办公厅关于明确按比例就业联网认证"跨省通办"工作有关事项的通知</h3>
+                        <p class="card-desc">明确按比例就业联网认证"跨省通办"工作有关事项，方便用人单位办理残疾人就业认证。</p>
+                    </div>
+                </div>
+                <div class="news-page-card card-white" data-category="2" onclick="location.href='article-20.html'">
+                    <div class="card-image">
+                        <img src='新闻图片/《中华人民共和国无障碍环境建设法》(中华人民共和国主席令第六号).png' alt='中华人民共和国无障碍环境建设法'>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-date"><span>2026.02.05</span></div>
+                        <h3 class="card-title">中华人民共和国无障碍环境建设法</h3>
+                        <p class="card-desc">《中华人民共和国无障碍环境建设法》正式实施，为残疾人平等参与社会生活提供法律保障。</p>
+                    </div>
+                </div>
+                <div class="news-page-card card-dark-blue" data-category="2" onclick="location.href='article-19.html'">
+                    <div class="card-image">
+                        <img src='新闻图片/关于残疾人就业法律法规政策 ，你想知道的都在这里.jpeg' alt='关于残疾人就业法律法规政策，你想知道都在这里'>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-date"><span>2026.02.04</span></div>
+                        <h3 class="card-title">关于残疾人就业法律法规政策，你想知道都在这里</h3>
+                        <p class="card-desc">全面梳理残疾人就业相关法律法规政策，为您答疑解惑，保障残疾人就业权益。</p>
+                    </div>
+                </div>
+                <div class="news-page-card card-gray" data-category="2" onclick="location.href='article-18.html'">
+                    <div class="card-image">
+                        <img src='新闻图片/北京市用人（工）单位招用残疾人岗位补贴和社会保险补贴政策问答.jpg' alt='北京市用人单位招用残疾人岗位补贴和社会保险补贴政策问题问答'>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-date"><span>2026.02.03</span></div>
+                        <h3 class="card-title">北京市用人单位招用残疾人岗位补贴和社会保险补贴政策问题问答</h3>
+                        <p class="card-desc">北京市用人单位招用残疾人可享受岗位补贴和社会保险补贴政策，本文为您解答常见问题。</p>
+                    </div>
+                </div>
+                <div class="news-page-card card-white" data-category="2" onclick="location.href='article-17.html'">
+                    <div class="card-image">
+                        <img src='新闻图片/《促进残疾人就业三年行动方案（2025—2027年）》.png' alt='促进残疾人就业三年行动方案（2025—2027年）'>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-date"><span>2026.02.02</span></div>
+                        <h3 class="card-title">促进残疾人就业三年行动方案（2025—2027年）</h3>
+                        <p class="card-desc">深入实施促进残疾人就业三年行动方案，助力残疾人实现更充分更高质量就业。</p>
+                    </div>
+                </div>
+                <div class="news-page-card card-dark-blue" data-category="2" onclick="location.href='article-16.html'">
+                    <div class="card-image">
+                        <img src='新闻图片/国办印发方案，推出4方面13项政策举措 着力解决残疾人就业急难愁盼.png' alt='国办印发方案，推出4方面13项政策举措 着力解决残疾人就业急难愁盼'>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-date"><span>2026.02.01</span></div>
+                        <h3 class="card-title">国办印发方案，推出4方面13项政策举措 着力解决残疾人就业急难愁盼</h3>
+                        <p class="card-desc">国办印发《促进残疾人就业三年行动方案》，推出4方面13项政策举措，着力解决残疾人就业急难愁盼问题。</p>
+                    </div>
+                </div>
+                <div class="news-page-card card-blue" data-category="1" onclick="location.href='article-11.html'">
+                    <div class="card-image">
+                        <img src='新闻图片/拓宽发展路径 托举稳稳幸福生活.png' alt='拓宽发展路径 托举稳稳幸福生活——2025年滁州市残疾人教育就业和社会保障工作回眸'>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-date"><span>2026.01.28</span></div>
+                        <h3 class="card-title">拓宽发展路径 托举稳稳幸福生活——2025年滁州市残疾人教育就业和社会保障工作回眸</h3>
+                        <p class="card-desc">2025年，滁州市残联以增进残疾人福祉、促进残疾人全面发展为主线，在教育公平、就业增收、服务赋能、社会保障等方面持续精准发力，助力每一位残疾人朋友拥抱梦想、融入社会。</p>
+                    </div>
+                </div>
+                <div class="news-page-card card-gray" data-category="1" onclick="location.href='article-12.html'">
+                    <div class="card-image">
+                        <img src='新闻图片/滁州市残联举办市直机关事业单位和国有企业按比例安排残疾人就业暨残保金征收业务培训班.png' alt='滁州市残联举办市直机关事业单位和国有企业按比例安排残疾人就业暨残保金征收业务培训班'>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-date"><span>2026.01.28</span></div>
+                        <h3 class="card-title">滁州市残联举办市直机关事业单位和国有企业按比例安排残疾人就业暨残保金征收业务培训班</h3>
+                        <p class="card-desc">1月21日上午，由滁州市残联精心组织的市直机关事业单位和国有企业按比例安排残疾人就业暨残保金征收业务培训班顺利举办，市残联党组成员、副理事长张宏清出席活动并作开班动员讲话。</p>
+                    </div>
+                </div>
+                <div class="news-page-card card-white no-image" data-category="1" onclick="location.href='article-13.html'">
+                    <div class="card-image">
+                        <img src="新闻图片/安徽省11项举措力促残疾人高质量就业.png" >
+                    </div>
+                    <div class="card-content">
+                        <div class="card-date"><span>2026.01.28</span></div>
+                        <h3 class="card-title">安徽省11项举措力促残疾人高质量就业</h3>
+                        <p class="card-desc">近日，安徽省政府办公厅印发《安徽省促进残疾人就业三年行动实施方案（2025—2027年）》，着眼提高残疾人就业规模和质量，明确2025—2027年我省促进残疾人就业的主要任务，具体内容是实施11项行动。</p>
+                    </div>
+                </div>
+                <div class="news-page-card card-blue" data-category="1" onclick="location.href='article-14.html'">
+                    <div class="card-image">
+                        <img src="新闻图片/阳程折翼天使画院“定岗优培”成果展在深成功举行.png" alt='阳程折翼天使画院"定岗优培"成果展在深成功举行'>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-date"><span>2026.01.13</span></div>
+                        <h3 class="card-title">阳程折翼天使画院"定岗优培"成果展在深成功举行</h3>
+                        <p class="card-desc">1月9日下午， "大爱无疆、自强奋斗"阳程折翼天使画院"定岗优培"油画成果展在深圳宝安区金宝科创中心启幕，各界嘉宾齐聚现场，共赏艺术，共商助残。</p>
+                    </div>
+                </div>
+                <div class="news-page-card card-gray" data-category="1" onclick="location.href='article-15.html'">
+                    <div class="card-image">
+                        <img src="新闻图片/阳程折翼天使画院“定岗优培”成果展在深成功举行4.png" alt='河北构建多层次辅助性就业体系 托起困难残疾人"就业梦"'>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-date"><span>2025.12.29</span></div>
+                        <h3 class="card-title">河北构建多层次辅助性就业体系 托起困难残疾人"就业梦"</h3>
+                        <p class="card-desc">智力残疾、精神残疾及重度肢体残疾群体，常因社会适应能力较弱或出行不便，难以踏入竞争性劳动力市场。河北构建多层次辅助性就业体系，为他们铺就就业增收、实现自我的阳光大道。</p>
+                    </div>
+                </div>
+
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p data-i18n="footer">我们致力于为残障人士提供便捷的求职和交流服务。</p>
+    </footer>
+
+    <script>
+        // 根据名字生成头像颜色
+        function generateAvatarColor(name) {
+            const colors = [
+                '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7',
+                '#DDA0DD', '#98D8C8', '#F7DC6F', '#BB8FCE', '#85C1E2',
+                '#F8B500', '#6C5CE7', '#A29BFE', '#74B9FF', '#00B894'
+            ];
+            let hash = 0;
+            for (let i = 0; i < name.length; i++) {
+                hash = name.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            return colors[Math.abs(hash) % colors.length];
+        }
+
+        // 获取显示名称的首字母
+        function getInitials(name) {
+            if (!name) return '?';
+            return name.slice(-2);
+        }
+
+        // 加载用户头像和登录状态
+        function loadUserState() {
+            const loginBtn = document.getElementById('loginBtn');
+            const userInfo = document.getElementById('userInfo');
+            const userName = document.getElementById('userName');
+            const navAvatar = document.getElementById('navAvatar');
+            const headerAvatar = document.getElementById('header-avatar');
+            const generatedAvatar = document.getElementById('generatedAvatar');
+
+            const loginInfo = localStorage.getItem('loginInfo') || sessionStorage.getItem('loginInfo');
+
+            if (!loginInfo) {
+                // 未登录状态
+                if (loginBtn) loginBtn.style.display = 'block';
+                if (userInfo) userInfo.style.display = 'none';
+                if (navAvatar) navAvatar.style.display = 'none';
+                return;
+            }
+
+            const info = JSON.parse(loginInfo);
+            // 兼容没有显式 isLoggedIn 字段的情况
+            if (info.isLoggedIn === false) {
+                if (loginBtn) loginBtn.style.display = 'block';
+                if (userInfo) userInfo.style.display = 'none';
+                if (navAvatar) navAvatar.style.display = 'none';
+                return;
+            }
+
+            // 已登录状态
+            if (loginBtn) loginBtn.style.display = 'none';
+            if (userInfo) userInfo.style.display = 'flex';
+            if (navAvatar) navAvatar.style.display = 'flex';
+
+            let displayName = '';
+            const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
+            if (profile.nickname) {
+                displayName = profile.nickname;
+            } else if (profile.name) {
+                displayName = profile.name;
+            } else if (info.userName) {
+                displayName = info.userName;
+            } else {
+                displayName = info.account || '用户';
+            }
+
+            if (userName) userName.textContent = `欢迎，${displayName}`;
+
+            const savedAvatar = localStorage.getItem('userAvatar');
+            if (savedAvatar && headerAvatar) {
+                headerAvatar.src = savedAvatar;
+                headerAvatar.style.display = 'block';
+                if (generatedAvatar) generatedAvatar.style.display = 'none';
+            } else if (generatedAvatar) {
+                if (headerAvatar) headerAvatar.style.display = 'none';
+                generatedAvatar.style.display = 'flex';
+                generatedAvatar.textContent = getInitials(displayName);
+                generatedAvatar.style.backgroundColor = generateAvatarColor(displayName);
+            }
+        }
+
+        loadUserState();
+
+        // 退出登录
+        document.getElementById('logoutBtn')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.removeItem('loginInfo');
+            sessionStorage.removeItem('loginInfo');
+            localStorage.removeItem('userProfile');
+            localStorage.removeItem('userAvatar');
+            window.location.reload();
+        });
+
+        // 监听登录状态变化，实时更新导航栏
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'loginInfo' || e.key === 'userProfile' || e.key === 'userAvatar') {
+                loadUserState();
+            }
+        });
+
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const newsCards = document.querySelectorAll('.news-page-card');
+
+        // 应用筛选的函数
+        function applyFilter(filter) {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            filterBtns.forEach(b => {
+                if (b.dataset.filter === filter) {
+                    b.classList.add('active');
+                }
+            });
+
+            newsCards.forEach(card => {
+                if (filter === 'all' || card.dataset.category === filter) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+
+        // 页面加载时，检查 sessionStorage 是否有保存的筛选状态
+        const savedFilter = sessionStorage.getItem('newsFilter');
+        if (savedFilter) {
+            applyFilter(savedFilter);
+        }
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.dataset.filter;
+                
+                // 保存到 sessionStorage（页面刷新后会自动清除）
+                sessionStorage.setItem('newsFilter', filter);
+                
+                applyFilter(filter);
+            });
+        });
+
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dots = document.querySelectorAll('.carousel-dots .dot');
+        const prevBtn = document.querySelector('.carousel-prev');
+        const nextBtn = document.querySelector('.carousel-next');
+        let currentSlide = 0;
+        const slideInterval = 5000;
+        let autoPlay;
+
+        function showSlide(index) {
+            slides.forEach((s, i) => {
+                s.classList.toggle('active', i === index);
+                dots[i].classList.toggle('active', i === index);
+            });
+            currentSlide = index;
+        }
+
+        function nextSlide() {
+            showSlide((currentSlide + 1) % slides.length);
+        }
+
+        function prevSlide() {
+            showSlide((currentSlide - 1 + slides.length) % slides.length);
+        }
+
+        nextBtn.addEventListener('click', () => {
+            nextSlide();
+            resetAutoPlay();
+        });
+
+        prevBtn.addEventListener('click', () => {
+            prevSlide();
+            resetAutoPlay();
+        });
+
+        dots.forEach((dot, i) => {
+            dot.addEventListener('click', () => {
+                showSlide(i);
+                resetAutoPlay();
+            });
+        });
+
+        function resetAutoPlay() {
+            clearInterval(autoPlay);
+            autoPlay = setInterval(nextSlide, slideInterval);
+        }
+
+        autoPlay = setInterval(nextSlide, slideInterval);
+    </script>
+
+    <!-- 置顶按钮 -->
+    <div class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18,15 12,9 6,15"></polyline></svg>
+    </div>
+
+    <script>
+        // 置顶按钮功能
+        const backToTopBtn = document.getElementById('backToTop');
+        
+        // 滚动时显示/隐藏按钮
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+    </script>
+</body>
+</html>
+
+

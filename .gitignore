@@ -1,0 +1,18 @@
+# 编辑器与系统文件
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 一次性编码修复 / 资源生成脚本（不参与项目运行）
+用户端/fix_gbk.bat
+用户端/fix_gbk.js
+用户端/fix_encoding.ps1
+用户端/fix_encoding.py
+用户端/convert_gbk.ps1
+志愿者端/新闻/gen_grid.py
+
+# 依赖与构建产物（当前项目零依赖，仅作预留）
+node_modules/
+dist/

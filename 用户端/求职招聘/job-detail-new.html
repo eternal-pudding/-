@@ -1,0 +1,3020 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>职位详情</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        
+        body {
+            background: #f5f5f5;
+            padding-bottom: 80px;
+        }
+        
+        /* 顶部导航 */
+        .header {
+            background: #fff;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .back-btn {
+            font-size: 20px;
+            color: #333;
+            text-decoration: none;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .header-icon {
+            font-size: 20px;
+            color: #333;
+        }
+        
+        /* 主要内容区 */
+        .main-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+        
+        /* 职位标题区 */
+        .job-header-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 12px;
+        }
+        
+        .job-title-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+        
+        .job-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #333;
+            line-height: 1.4;
+            flex: 1;
+            margin-right: 12px;
+        }
+        
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: #fff5f0;
+            color: #ff6b35;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .live-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: #ff6b35;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .job-salary {
+            font-size: 24px;
+            color: #ff6b35;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        
+        .job-tags-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+        
+        .job-tag {
+            background: #f5f5f5;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .job-tag.highlight {
+            background: #e6f7ff;
+            color: #1890ff;
+        }
+        
+        /* 公司信息 */
+        .company-section {
+            background: #fff;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+        }
+        
+        .info-row {
+            display: flex;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .info-row:last-child {
+            border-bottom: none;
+        }
+        
+        .info-label {
+            width: 80px;
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .info-value {
+            flex: 1;
+            color: #333;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .info-value.gray {
+            color: #666;
+            font-weight: normal;
+        }
+        
+        /* 提示信息 */
+        .tips-section {
+            background: #fff;
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        
+        .tips-icon {
+            color: #999;
+            font-size: 14px;
+            margin-top: 2px;
+        }
+        
+        .tips-text {
+            color: #999;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        
+        /* 地图区域 */
+        .map-section {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+        
+        .map-container {
+            height: 180px;
+            background: #e8e8e8;
+            position: relative;
+        }
+        
+        .map-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            font-size: 48px;
+        }
+        
+        .map-info {
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .map-address {
+            flex: 1;
+            font-size: 14px;
+            color: #333;
+            line-height: 1.5;
+            padding-right: 12px;
+        }
+        
+        .nav-btn {
+            background: #ff6b35;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        
+        /* 职位详情 */
+        .detail-section {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 12px;
+        }
+        
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 16px;
+        }
+        
+        .detail-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .detail-tag {
+            background: #f5f5f5;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .detail-tag.orange {
+            background: #fff5f0;
+            color: #ff6b35;
+        }
+        
+        .detail-content {
+            color: #333;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+        
+        .detail-content h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin: 16px 0 8px;
+            color: #333;
+        }
+        
+        .detail-content p {
+            margin-bottom: 8px;
+        }
+        
+        /* 底部操作栏 */
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #fff;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .chat-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 0 16px;
+            color: #666;
+            font-size: 12px;
+            text-decoration: none;
+        }
+        
+        .chat-btn i {
+            font-size: 22px;
+        }
+        
+        .apply-btn {
+            flex: 1;
+            background: #ff6b35;
+            color: #fff;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 24px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        
+        /* 加载状态 */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+        
+        .not-found {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+        
+        .not-found i {
+            font-size: 48px;
+            margin-bottom: 16px;
+            color: #ddd;
+        }
+
+        /* 客服聊天窗口 */
+        .chat-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            display: none;
+        }
+
+        .chat-overlay.active {
+            display: block;
+        }
+
+        .chat-panel {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 480px;
+            max-width: 90vw;
+            height: 600px;
+            max-height: 80vh;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            z-index: 2001;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-panel.active {
+            display: flex;
+        }
+
+        .chat-header {
+            padding: 16px 20px;
+            background: linear-gradient(135deg, #0052D9, #00c6ff);
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .chat-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .chat-avatar.service {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .chat-info h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .chat-status {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .chat-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .chat-close:hover {
+            opacity: 1;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f5f7fa;
+        }
+
+        .chat-time {
+            text-align: center;
+            color: #999;
+            font-size: 12px;
+            margin-bottom: 16px;
+        }
+
+        .message-bubble {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 12px;
+            word-wrap: break-word;
+        }
+
+        .service-bubble {
+            background: #fff;
+            color: #333;
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-bubble {
+            background: #0052D9;
+            color: #fff;
+            border-bottom-right-radius: 4px;
+            margin-left: auto;
+        }
+
+        .chat-input-area {
+            padding: 16px 20px;
+            background: #fff;
+            border-top: 1px solid #eee;
+        }
+
+        .chat-input-box {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .chat-input:focus {
+            border-color: #0052D9;
+        }
+
+        .chat-send {
+            padding: 10px 20px;
+            background: #0052D9;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .chat-send:hover {
+            background: #003BB3;
+        }
+
+        @media (max-width: 768px) {
+            .chat-panel {
+                width: 100%;
+                max-width: 100%;
+                height: 100%;
+                max-height: 100%;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <header class="main-header" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 0 60px; height: 80px; display: flex; align-items: center; justify-content: space-between; background: #fff; box-shadow: 0 2px 20px rgba(0,0,0,0.08);">
+        <a href="#" class="header-logo" style="font-size: 24px; font-weight: 700; color: #0052D9; text-decoration: none; display: flex; align-items: center; gap: 8px;">
+            <span style="font-style: italic;">Platform</span>
+            <span>就业平台</span>
+        </a>
+        <div class="header-nav" style="display: flex; align-items: center; gap: 40px;">
+            <div class="header-links" style="display: flex; align-items: center; gap: 40px;">
+                <a href="../首页/index.html" style="color: #333; text-decoration: none; font-size: 16px; font-weight: 500; padding: 10px 0; display: block; transition: all 0.3s; position: relative;">首页</a>
+                <a href="求职招聘.html" style="color: #333; text-decoration: none; font-size: 16px; font-weight: 500; padding: 10px 0; display: block; transition: all 0.3s; position: relative;">求职招聘</a>
+                <a href="../新闻/news.html" style="color: #333; text-decoration: none; font-size: 16px; font-weight: 500; padding: 10px 0; display: block; transition: all 0.3s; position: relative;">相关新闻</a>
+            </div>
+            <a href="../个人主页/个人主页.html" class="header-avatar" title="个人主页" style="width: 36px; height: 36px; border-radius: 50%; overflow: hidden; margin-left: 20px; border: 2px solid rgba(0,0,0,0.1); transition: all 0.3s; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <img src="https://img.bosszhipin.com/beijin/mcs/user/20240313/16c9b92fe9f76e6f748a36501b9948e8cfcd208495d565ef66e7dff9f98764DE.jpg?x-oss-process=image/resize,w_120,h_120,limit_0" alt="头像" style="width: 100%; height: 100%; object-fit: cover; object-position: center; border-radius: 50%; display: block; flex-shrink: 0;">
+            </a>
+        </div>
+    </header>
+    <!-- 占位空间，避免内容被导航栏遮挡 -->
+    <div style="height: 80px;"></div>
+
+    <!-- 主要内容 -->
+    <div class="main-content" id="jobContent">
+        <!-- 内容由JavaScript动态生成 -->
+    </div>
+
+    <!-- 客服聊天窗口 -->
+    <div class="chat-overlay" id="chatOverlay" onclick="closeChat()"></div>
+    <div class="chat-panel" id="chatPanel">
+        <div class="chat-header">
+            <div class="chat-user">
+                <div class="chat-avatar service">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <div class="chat-info">
+                    <h4>在线客服</h4>
+                    <span class="chat-status">在线</span>
+                </div>
+            </div>
+            <button class="chat-close" onclick="closeChat()">&times;</button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="chat-time">今天 10:30</div>
+            <div class="message-bubble service-bubble">
+                欢迎来到就业平台！我是您的专属客服，有任何问题都可以随时咨询我哦~ 😊
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <div class="chat-input-box">
+                <input type="text" class="chat-input" id="chatInput" placeholder="请输入消息...">
+                <button class="chat-send" onclick="sendMessage()">发送</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部操作栏 -->
+    <div class="bottom-bar">
+        <a href="#" class="chat-btn" onclick="startCommunication(); return false;">
+            <i class="far fa-comment-dots"></i>
+            <span>立即沟通</span>
+        </a>
+        <button class="apply-btn" onclick="applyJob()">申请职位</button>
+    </div>
+
+    <script>
+        // 职位数据
+        const jobData = [
+            {
+                id: 1,
+                title: "人事专员，朝九晚四，周末双休",
+                urgent: true,
+                salary: "8000-20000元/月",
+                salaryRange: "1.5万以上",
+                location: "南京市",
+                locationDetail: "南京市-江宁区",
+                education: "学历不限",
+                experience: "经验不限",
+                company: "南京顺众人力资源开发服务有限公司",
+                companyDesc: "人力资源 | 民营 | 100-200人",
+                disability: ["听力残疾", "言语残疾"],
+                jobType: "全职",
+                tags: ["五险一金", "周末双休", "招聘与配置"],
+                // 详情页特有数据
+                headcount: "招10人",
+                payDay: "每月25号",
+                commission: "有责底薪5000（招6个人在厂里打卡10天以上）+超出人数按60%提成算综合工资：6000-9000/月；模式二：提成100%，多劳多得，综合工资：8000-20000",
+                requirements: "年龄17-38周岁，上进心强，真正想挣钱的，而不是天天说想挣钱，假装努力的人，结果不会陪我们演戏。较强的责任感，语言沟通能力强，思路明确，有独立判断能力。",
+                vehicleType: "无",
+                address: "南京江宁亦朋家居广场5楼516",
+                detailTags: ["五险一金", "人力资源相关专业", "派遣/外包经验", "招聘与配置", "周末双休"],
+                responsibilities: `招聘劳务网招专员数名
+
+工作内容：招人进厂拿返费，多劳多得，招聘软件：58同城，boss直聘，抖音
+
+上班时间：早9:30晚16:30，不忙的情况双休，节假日正常休息。`,
+                jobRequirements: `1、招聘要求：年龄17-38周岁，上进心强，真正想挣钱的，而不是天天说想挣钱，假装努力的人，结果不会陪我们演戏。
+2、工作要求：较强的责任感，语言沟通能力强，思路明确，有独立判断能力。
+3、具备自然沟通意识，优秀的沟通能力，谈吐清晰。`,
+                benefits: `（1）模式一：有责底薪5000（招6个人在厂里打卡10天以上）+超出人数按60%提成算综合工资：6000-9000/月。
+（2）模式二：提成100%，多劳多得，综合工资：8000-20000。
+（3）公司会不定期团建。发放过节礼品。`
+            },
+            {
+                id: 2,
+                title: "周末双休：南京急招小车驾驶员",
+                urgent: true,
+                salary: "7500-12000元/月",
+                salaryRange: "6千-1.5万",
+                location: "南京市",
+                locationDetail: "南京市-雨花台区",
+                education: "学历不限",
+                experience: "经验不限",
+                company: "滴滴出行合作供应商",
+                companyDesc: "网约车 | 民营 | 500-1000人",
+                disability: ["听力残疾", "言语残疾"],
+                jobType: "全职",
+                tags: ["C1驾照", "周末双休", "时间自由"],
+                headcount: "招30人",
+                payDay: "每月25号",
+                commission: "按单结算，系统自动派单",
+                requirements: "会骑电动车、熟练使用导航、退伍军人优先",
+                vehicleType: "公司提供车、自带车",
+                address: "江苏省-南京市-雨花台区龙西路77号金飞龙机动车检测站内",
+                detailTags: ["C1驾照", "C2驾照", "3-5年驾龄", "B1驾照", "无酒驾及重大交通...", "无一次性扣12分...", "周末双休"],
+                responsibilities: `1、通过手机软件接单，系统会自动派单，收到订单后跟随导航到达乘客上车点。待乘客上车后安全的将乘客送达目的地。全程自动一键导航。无需熟悉路况，简单方便，会用智能手机会看导航即可。
+2、滴滴出行车辆供应商提供车源，24小时免费专人提供专业服务。
+3、工作时间自由，24小时均可接单，车辆由司机自行使用，可用于个人用途`,
+                jobRequirements: `1、男21-63岁，女21-55岁。
+2、驾照C2、C1及以上。
+3、无酒驾、醉驾、吸毒，一次性扣12分的记录，无拘留犯罪记录。
+4、符合法律法规规定的其他条件。`,
+                benefits: `1、我们有专业的司管和车管一对一对接，二十四小时在线服务。
+2、车辆可根据自己安排进行。
+
+网约车属于新业态就业关系，司机与滴滴仅构成服务合作关系，滴滴出行车辆供应商提供车源，具体内容以实际合作协议为准`
+            },
+            {
+                id: 3,
+                title: "外卖骑手加班补助饭补五险",
+                urgent: true,
+                salary: "5-8元/单",
+                salaryRange: "6-9千",
+                location: "南京市",
+                locationDetail: "南京市-秦淮区",
+                education: "学历不限",
+                experience: "经验不限",
+                company: "美团配送合作商",
+                companyDesc: "外卖配送 | 民营 | 200-500人",
+                disability: ["听力残疾", "言语残疾"],
+                jobType: "全职",
+                tags: ["五险", "包吃", "加班补助", "饭补"],
+                headcount: "招15人",
+                payDay: "每月25号",
+                commission: "5-8元/单；每天40-90单",
+                requirements: "会骑电动车、熟练使用导航、退伍军人",
+                vehicleType: "公司提供车、自带车",
+                address: "南京秦淮江苏省戏剧学校-戏校排练楼",
+                detailTags: ["退伍军人", "熟练使用导航", "会骑电动车", "自带车", "公司提供车", "薪资月结", "五险", "包吃", "交通补助", "加班补助", "饭补", "话补"],
+                responsibilities: `- 负责外卖订单的准时配送，确保客户满意
+- 按要求完成短途骑车配送任务`,
+                jobRequirements: `- 退伍军人优先，会骑电动车，熟练使用导航
+- 自带车或公司提供车辆，需能适应户外工作
+- 全职、兼职、短期工均可，工作年限不限`,
+                benefits: `- 综合月薪7000-9500元，月结，计件工资，可预支
+- 五险、包吃、交通补助、加班补助、饭补、话补`
+            },
+            {
+                id: 4,
+                title: "学历不限包吃月9500外卖骑手",
+                urgent: true,
+                salary: "7-9元/单",
+                salaryRange: "6千-1.5万",
+                location: "南京市",
+                locationDetail: "南京市-江宁区",
+                education: "学历不限",
+                experience: "经验不限",
+                company: "饿了么配送合作商",
+                companyDesc: "外卖配送 | 民营 | 200-500人",
+                disability: ["听力残疾", "言语残疾"],
+                jobType: "全职",
+                tags: ["包住", "包吃", "交通补助", "话补"],
+                headcount: "招25人",
+                payDay: "每月25号",
+                commission: "7-9元/单；每天40-90单",
+                requirements: "会骑电动车、熟练使用导航、退伍军人",
+                vehicleType: "公司提供车、自带车",
+                address: "南京江宁武夷花园",
+                detailTags: ["会骑电动车", "熟练使用导航", "退伍军人", "短途骑车配送", "公司提供车", "自带车", "五险", "包住", "包吃", "交通补助", "加班补助", "饭补", "话补"],
+                responsibilities: `- 负责短途骑车配送，准时完成订单任务
+- 熟练使用导航软件，确保配送效率与准确率`,
+                jobRequirements: `- 退伍军人优先，会骑电动车，熟练使用导航
+- 自带车或公司提供车辆，需具备基本驾驶技能
+- 全职、兼职、短期工均可，工作年限不限，学历不限`,
+                benefits: `- 综合月薪：7500-9500元，月结工资，可预支
+- 五险齐全，包住、包吃，交通补助、加班补助、饭补、话补一应俱全`
+            },
+            {
+                id: 5,
+                title: "外卖骑手话补五险包吃",
+                urgent: true,
+                salary: "6-9元/单",
+                salaryRange: "6千-1.5万",
+                location: "南京市",
+                locationDetail: "南京市-江宁区",
+                education: "学历不限",
+                experience: "经验不限",
+                company: "闪送配送合作商",
+                companyDesc: "即时配送 | 民营 | 100-200人",
+                disability: ["听力残疾", "言语残疾"],
+                jobType: "全职",
+                tags: ["五险", "包住", "话补", "加班补助"],
+                headcount: "招14人",
+                payDay: "每月25号",
+                commission: "6-9元/单；每天40-90单",
+                requirements: "会骑电动车、熟练使用导航、退伍军人",
+                vehicleType: "公司提供车、自带车",
+                address: "南京江宁江宁区政府",
+                detailTags: ["退伍军人", "熟练使用导航", "会骑电动车", "自带车", "短途骑车配送", "公司提供车", "五险", "包住", "包吃", "饭补", "加班补助", "话补"],
+                responsibilities: `· 负责短途骑车配送，准时完成订单任务`,
+                jobRequirements: `· 退伍军人优先 · 熟练使用导航 · 自带电动车或公司提供车辆 · 会骑电动车 · 不限学历、经验`,
+                benefits: `· 综合月薪7500-9500元，月结 · 计件工资，多劳多得 · 可预支工资 · 包住 · 包吃 · 五险 · 加班补助 · 饭补 · 话补`
+            },
+            {
+                id: 6,
+                title: "高薪外卖骑手全职兼职均可",
+                urgent: false,
+                salary: "7000-9500元/月",
+                salaryRange: "6-9千",
+                location: "南京市",
+                locationDetail: "南京市-鼓楼区",
+                education: "学历不限",
+                experience: "经验不限",
+                company: "顺丰同城配送",
+                companyDesc: "同城配送 | 上市 | 1000-5000人",
+                disability: ["听力残疾", "肢体残疾"],
+                jobType: "全职",
+                tags: ["可预支工资", "包住", "五险", "饭补"],
+                headcount: "招20人",
+                payDay: "每月25号",
+                commission: "按单结算，每单7-9元",
+                requirements: "会骑电动车、熟练使用导航",
+                vehicleType: "公司提供车、自带车",
+                address: "南京鼓楼区中央路",
+                detailTags: ["会骑电动车", "熟练使用导航", "退伍军人", "自带车", "公司提供车", "五险", "包住", "包吃", "饭补"],
+                responsibilities: `- 负责同城订单配送，准时送达
+- 维护配送工具，确保配送安全`,
+                jobRequirements: `- 会骑电动车，熟练使用导航
+- 自带车或公司提供车辆
+- 全职、兼职、短期工均可，工作年限不限，学历不限`,
+                benefits: `- 综合月薪7000-9500元，月结工资，可预支
+- 五险齐全，包住、包吃，加班补助、饭补一应俱全`
+            },
+            {
+                id: 7,
+                title: "研发实习生（AI数据智能）",
+                urgent: false,
+                salary: "150-200元/天",
+                salaryRange: "3-6千",
+                location: "南京市",
+                locationDetail: "南京市-栖霞区-马群街道石狮路10号",
+                education: "本科",
+                experience: "应届生",
+                company: "南京AI数据科技有限公司",
+                companyDesc: "AI/数据智能 | 民营 | 50-100人",
+                disability: ["听力残疾"],
+                jobType: "实习",
+                tags: ["AI数据", "前后端", "国家高新技术企业", "6个月实习"],
+                headcount: "招5人",
+                payDay: "月结",
+                commission: "150-200元/天",
+                requirements: "计算机相关专业，熟悉前后端开发或人工智能",
+                vehicleType: "无",
+                address: "南京市栖霞区马群街道石狮路10号11栋327室",
+                detailTags: ["AI数据", "前后端开发", "人工智能", "SaaS平台", "研发"],
+                responsibilities: `公司简介：
+公司以"AI数据智能驱动企业管理"为核心使命，专注于为快消品批发企业、经销商等提供智能化的SaaS管理平台，致力于将行业智慧和数据智能引入快消行业企业管理。公司自主研发14项软件著作权，覆盖智能库存管理、动态定价算法等关键技术模块；2022年入选南京市"大学生优秀创业项目"，团队获政府专项孵化支持；2023年荣获国家高新技术企业。
+
+岗位内容：
+招聘研发。前后端、人工智能等方向均有涉及。`,
+                jobRequirements: `任职要求：
+1.本科及以上学历，计算机相关专业
+2.熟悉前后端开发或人工智能技术
+3.实习期6个月，每周5天
+4.有项目经验者优先`,
+                benefits: `实习薪资：150-200元/天
+国家高新技术企业
+政府专项孵化支持项目
+AI数据智能领域前沿技术
+实习期6个月，每周5天
+朝九晚六，中午两个小时休息，有双休和节假日`
+            },
+            {
+                id: 8,
+                title: "应用戏剧/教育戏剧项目助理",
+                urgent: false,
+                salary: "80-160元/天",
+                salaryRange: "3-6千",
+                location: "南京市",
+                locationDetail: "南京市-鼓楼区",
+                education: "本科",
+                experience: "应届生",
+                company: "南京戏剧教育文化中心",
+                companyDesc: "文化教育/戏剧 | 民营 | 20-50人",
+                disability: ["听力残疾", "肢体残疾"],
+                jobType: "实习",
+                tags: ["戏剧教育", "新媒体运营", "跨学科", "6个月"],
+                headcount: "招3人",
+                payDay: "月结",
+                commission: "80-160元/天",
+                requirements: "对戏剧/教育/社会工作/心理等领域有兴趣",
+                vehicleType: "无",
+                address: "南京市-鼓楼区",
+                detailTags: ["学习能力", "综合素质", "跨学科能力", "教育培训", "运营管培生", "产品管培生"],
+                responsibilities: `工作内容：
+应用戏剧项目执行/运营/管理、新媒体运营、合作机构对接等（根据自己擅长和喜好具体安排，但也需要承担一定的"杂活"，或是不那么喜欢的工作内容）
+
+你将收获：
+与跨学科的优秀团队共事、丰富的应用戏剧学习机会`,
+                jobRequirements: `任职要求：
+1.本科及以上学历
+2.对戏剧/教育/社会工作/心理等领域有兴趣
+3.具备良好的学习能力和综合素质
+4.实习期6个月，每周3天`,
+                benefits: `实习薪资：80-160元/天
+与跨学科优秀团队共事
+丰富的应用戏剧学习机会
+运营管培生/产品管培生培养方向
+实习期6个月，每周3天`
+            },
+            {
+                id: 9,
+                title: "Unity 3D开发工程师",
+                urgent: true,
+                salary: "16-25K",
+                salaryRange: "1.5万以上",
+                location: "南京市",
+                locationDetail: "南京市-玄武区",
+                education: "大专",
+                experience: "1-3年",
+                company: "南京先极科技有限公司",
+                companyDesc: "游戏/软件 | 民营 | 50-100人",
+                disability: ["听力残疾"],
+                jobType: "全职",
+                tags: ["高薪", "技术岗", "双休"],
+                headcount: "招2人",
+                payDay: "每月15号",
+                commission: "月薪16-25K，年终奖",
+                requirements: "精通C#，熟悉Unity3D引擎，有游戏开发经验",
+                vehicleType: "无",
+                address: "南京市-玄武区-徐庄软件园",
+                detailTags: ["3ds Max", "C#", "C++", "游戏引擎", "移动端"],
+                responsibilities: `岗位职责：
+1.负责使用Unity3D引擎，开发游戏或虚拟仿真项目；
+2.快速理解游戏UI交互逻辑的设计编写相关功能模块的代码。`,
+                jobRequirements: `任职资格：
+1.至少2年以上Unity3D游戏或虚拟仿真项目相关工作经验；
+2.精通C#，并熟悉C/C++，java开发语言，熟悉基本算法和数据结构；
+3.熟悉Unity3D引擎架构，对Unity3D的各组件系统有深入的理解；
+4.思维活跃，具有严谨的逻辑推理能力及较强的高等数学运算能力；
+5.责任感强，工作认真负责，富于团队精神和敬业精神以及独立解决问题的能力。
+
+其他：
+1.满足以上招聘条件以外，Unity3d WebGL平台项目制作经验，或两年以上虚拟现实相关工作经验者优先考虑；
+2.满足以上招聘条件以外，有移动端、有增强现实、虚拟现实等AR、VR类项目经验者优先考虑。
+3.满足以上招聘条件以外，熟练利用各种地理分析软件或数据分析软件，如：ArcGIS 结合Unity3D进行三维地形模型转换处理、MATLAB数学模型与Unity3D整合辅助计算开发编程者优先考虑。`,
+                benefits: `薪资待遇：16-25K
+五险一金、双休、年终奖
+技术成长空间大
+参与前沿AR/VR项目开发`
+            },
+            {
+                id: 12,
+                title: "招聘 抖音 小红书 办公",
+                urgent: false,
+                salary: "10-15K",
+                salaryRange: "9千-1.5万",
+                location: "北京市",
+                locationDetail: "北京市-大兴区",
+                education: "学历不限",
+                experience: "经验不限",
+                company: "扬州离岸网络科技有限公司",
+                companyDesc: "互联网/直播 | 民营 | 50-100人",
+                disability: ["听力残疾"],
+                jobType: "全职",
+                tags: ["日结", "远程办公", "居家工作"],
+                headcount: "招10人",
+                payDay: "日结",
+                commission: "按工作量结算，日结",
+                requirements: "会普通话，有手机即可",
+                vehicleType: "无",
+                address: "北京市-大兴区-黄村（居家办公）",
+                detailTags: ["抖音", "小红书", "日结", "远程办公", "全职兼职均可", "在家"],
+                responsibilities: `要求：线上居家办公，会普通话，一部手机即可操作
+
+工作内容：我们的主播开直播你上麦回复弹幕，给你话术，配合聊天纯语音，不露脸。
+
+工作时长：兼职3小时，全职6小时，时间段24小时自己定。
+
+工作地点：居家办公，葛优躺都可以，收入可观就是枯燥`,
+                jobRequirements: `任职要求：
+1.会普通话，沟通能力强；
+2.有手机即可操作，无需露脸；
+3.学历不限，经验不限，全职兼职均可。`,
+                benefits: `综合薪资：
+兼职：平均一月4K-6K
+全职：平均一月8K-12K
+
+日结工资，时间灵活
+本工作全程没有任何收费项目`
+            },
+            {
+                id: 14,
+                title: "盒马鲜生招聘配送员",
+                urgent: true,
+                salary: "9-14K",
+                salaryRange: "9千-1.5万",
+                location: "北京市",
+                locationDetail: "北京市-全市就近安排门店",
+                education: "学历不限",
+                experience: "经验不限",
+                company: "盒马鲜生",
+                companyDesc: "新零售/生鲜 | 上市 | 10000+人",
+                disability: ["听力残疾"],
+                jobType: "全职",
+                tags: ["提供电动车", "保底8000", "超时不扣钱", "就近安排"],
+                headcount: "招50人",
+                payDay: "月结/周结",
+                commission: "计单薪资+阶梯奖励，单价5-7元/单",
+                requirements: "18-50周岁，会骑电动车，会用智能手机导航",
+                vehicleType: "公司提供电动车/可自带",
+                address: "北京市-全市就近安排门店",
+                detailTags: ["餐饮外卖", "自带电动车/摩托车", "全职兼职均可", "会用导航", "生鲜蔬果", "骑车配送", "商圈骑车配送", "有健康证", "月结工资", "公司提供电动车/摩托车", "半月结工资", "周结工资"],
+                responsibilities: `我们这个和外卖最大的区别有三点：
+①我们这边是提供电动车以及装备的（自己有的话也可以自带）
+②我们的配送范围是在3公里以内，是以一个超市为中心，并且我们配送的货物都是在同一个站点取
+③超时不扣钱，不超时还有绩效补贴
+
+全市就近安排门店
+提供车子无押金
+可预支，可周结
+系统派单，手机接单，骑上电动车，送订单物品`,
+                jobRequirements: `任职要求：
+18-50周岁，经验不限，身体健康
+会骑电动车，会使用智能手机导航，有责任心`,
+                benefits: `【薪资结构】
+新人享受保底8000元/月
+计单薪资+阶梯奖励，单价5-7元左右/单，单量越多单价越高，绩效补贴，重量补贴等，综合收入10000-14000以上元/月
+
+【上班时间】
+全天有三个班次，早中晚班，吃饭休息3-4小时，上六休一，可以连休
+
+提供电动车及装备、无押金、就近安排、超时不扣钱`
+            },
+            {
+                id: 15,
+                title: "网络游戏陪练（玩）",
+                urgent: false,
+                salary: "10-50元/时",
+                salaryRange: "3-6千",
+                location: "北京市",
+                locationDetail: "北京市-线上",
+                education: "学历不限",
+                experience: "经验不限",
+                company: "TT语音游戏陪玩平台",
+                companyDesc: "互联网/游戏 | 民营 | 500-1000人",
+                disability: ["肢体残疾"],
+                jobType: "兼职",
+                tags: ["时间自由", "日结", "游戏陪玩", "无任务"],
+                headcount: "招100人",
+                payDay: "日结",
+                commission: "每局最低10元起，多劳多得",
+                requirements: "满18周岁以上，会玩热门游戏",
+                vehicleType: "无",
+                address: "线上工作，地点不限",
+                detailTags: ["王者荣耀", "永劫无间", "金铲铲", "无畏契约", "和平精英", "游戏陪玩", "三角洲", "蛋仔派对"],
+                responsibilities: `工作内容是在《TT语音》内做游戏陪玩，时间自由，无任何收费，一对一包教包会，热门游戏（王者、吃鸡、金铲铲、永劫、联盟、三角洲、穿越、暗区、蛋仔、第五、光遇等），每局最低10米起，TT语音作为游戏开黑中国第一平台，每个人都会有单，多劳多得，不需要自己找老板，平台派单，每个人都一定赚到钱，只是多少的问题。可以利用闲暇时间赚外快！打游戏真的可以赚钱！`,
+                jobRequirements: `任职要求：
+满18周岁以上
+会玩热门游戏（王者荣耀、和平精英、金铲铲、永劫无间等）
+有基本的游戏沟通能力
+时间自由，无任务要求`,
+                benefits: `工作周期：长期兼职
+每周工期：无要求
+工作时间：不限
+工作时段：不限
+结算方式：日结
+招聘截止时间：2026-12-31
+
+时间自由 不收费 无任务
+多劳多得，平台派单
+适合利用闲暇时间赚外快
+不适合可以随时退！`
+            },
+            {
+                id: 16,
+                title: "平面设计实习生",
+                urgent: false,
+                salary: "100-150元/天",
+                salaryRange: "3-6千",
+                location: "北京市",
+                locationDetail: "北京市-朝阳区",
+                education: "学历不限",
+                experience: "应届生",
+                company: "北京创意文化传媒有限公司",
+                companyDesc: "文化传媒 | 民营 | 50-100人",
+                disability: ["听力残疾"],
+                jobType: "实习",
+                tags: ["实习证明", "转正机会", "短剧设计", "PS AI"],
+                headcount: "招3人",
+                payDay: "月结",
+                commission: "100-150元/天",
+                requirements: "熟练使用PS、AI等制图软件，会使用PR/AE等视频软件加分",
+                vehicleType: "无",
+                address: "北京市-朝阳区",
+                detailTags: ["封面设计", "广告设计", "海报传单设计"],
+                responsibilities: `职位详情：
+1.负责公司短剧项目组训、宣传图片、海报等设计
+2.负责剧照修图、调色
+3.公司其他视觉物料设计`,
+                jobRequirements: `岗位要求：
+1.熟练使用PS、AI等制图软件
+2.会使用PR/AE等视频软件加分！
+3.实习期2个月，每周至少3天`,
+                benefits: `实习薪资：100-150元/天
+提供实习证明
+表现优秀可转正
+良好的学习成长环境`
+            },
+            {
+                id: 17,
+                title: "2D游戏美术实习生",
+                urgent: false,
+                salary: "100-150元/天",
+                salaryRange: "3-6千",
+                location: "北京市",
+                locationDetail: "北京市-海淀区",
+                education: "学历不限",
+                experience: "应届生",
+                company: "北京游戏科技有限公司",
+                companyDesc: "游戏开发 | 民营 | 100-200人",
+                disability: ["听力残疾"],
+                jobType: "实习",
+                tags: ["游戏UI", "转正6-8K", "AE Spine", "长期实习优先"],
+                headcount: "招5人",
+                payDay: "月结",
+                commission: "100-150元/天，转正后6-8K",
+                requirements: "有一定的做动画经验，会使用AE、Spine软件，有审美和手绘基础",
+                vehicleType: "无",
+                address: "北京市-海淀区",
+                detailTags: ["界面设计", "休闲益智", "横版", "PS", "模拟经营", "Q版", "欧美现代", "手机游戏", "切图和标注", "平面设计", "俯瞰", "图标设计"],
+                responsibilities: `工作内容：
+游戏UI、礼包图、宣传图绘制
+
+公司使用AI出图、人工修改的工作模式，所以需要一定的审美和手绘基础
+能长期实习的优先，实习期满可以转正，转正薪酬6-8K`,
+                jobRequirements: `岗位要求：
+1.有一定的做动画的经验
+2.会使用AE、Spine软件，要求不高
+3.有审美和手绘基础
+4.实习期3个月，每周至少4天`,
+                benefits: `实习薪资：100-150元/天
+转正后薪酬：6-8K
+实习期满可转正
+长期实习优先
+游戏行业学习机会`
+            },
+            {
+                id: 18,
+                title: "3D模型制作",
+                urgent: false,
+                salary: "7-12K·15薪",
+                salaryRange: "6-9千",
+                location: "北京市",
+                locationDetail: "北京市-朝阳区",
+                education: "学历不限",
+                experience: "1-3年",
+                company: "北京数字艺术科技有限公司",
+                companyDesc: "数字艺术/游戏 | 民营 | 100-200人",
+                disability: ["肢体残疾"],
+                jobType: "全职",
+                tags: ["15薪", "AR VR", "Unity", "接受无经验"],
+                headcount: "招3人",
+                payDay: "每月15号",
+                commission: "月薪7-12K，15薪",
+                requirements: "有游戏或AR/VR项目经验者优先，做事认真仔细",
+                vehicleType: "无",
+                address: "北京市-朝阳区",
+                detailTags: ["数字艺术交互设计", "接受无相关经验", "甲方公司", "Unity", "3D模型"],
+                responsibilities: `3D模型制作：
+
+岗位职责：
+1.根据原画设计图与项目风格，能独立完成低、中、高模型制作与渲染图输出
+2.独立完成unity内模型Prefab创建与上传，并对模型资源进行管理与维护
+3.承接2D地编工作，协作完成unity内的2D场景搭建与资源整合
+4.与策划原画沟通紧密，能验证原画资源与策划配置的准确性`,
+                jobRequirements: `任职要求：
+1.有游戏或AR/VR项目经验者优先
+2.做事认真仔细，逻辑清晰有耐心
+3.具有良好的沟通能力和团队合作意识
+4.接受无相关经验/技能，有创意软件基础者优先`,
+                benefits: `薪资待遇：7-12K·15薪
+五险一金
+数字艺术交互设计，工作好玩有创意
+甲方公司，稳定可靠
+良好的职业发展空间`
+            },
+            {
+                id: 19,
+                title: "办公室文员助理",
+                urgent: false,
+                salary: "100-150元/天",
+                salaryRange: "3-6千",
+                location: "北京市",
+                locationDetail: "北京市-海淀区",
+                education: "大专",
+                experience: "应届生",
+                company: "京嵌兴业",
+                companyDesc: "企业管理 | 民营 | 20-50人",
+                disability: ["听力残疾"],
+                jobType: "实习",
+                tags: ["文员", "WPS", "招投标", "吃苦耐劳"],
+                headcount: "招2人",
+                payDay: "月结",
+                commission: "100-150元/天",
+                requirements: "熟练掌握WPS，会使用打印机、扫描仪，吃苦耐劳",
+                vehicleType: "无",
+                address: "北京市-海淀区",
+                detailTags: ["文员", "文字处理", "招投标", "WPS"],
+                responsibilities: `岗位职责：
+1、协助完成文字处理工作
+2、协助进行招投标文案编写
+3、公司日常行政事务处理`,
+                jobRequirements: `任职要求：
+1、大专及以上学历
+2、熟练掌握WPS办公软件
+3、会使用打印机、扫描仪等办公设备
+4、吃苦耐劳，工作认真负责
+5、实习期3个月，每周6天`,
+                benefits: `实习薪资：100-150元/天
+提供实习证明
+良好的办公环境
+学习招投标文案编写经验`
+            },
+            {
+                id: 20,
+                title: "泰康人寿保险销售、代理",
+                urgent: true,
+                salary: "30-40K",
+                salaryRange: "1.5万以上",
+                location: "北京市",
+                locationDetail: "北京市-朝阳区-兆泰国际大厦A座10层",
+                education: "高中",
+                experience: "1-3年",
+                company: "泰康人寿保险股份有限公司",
+                companyDesc: "保险/金融 | 上市 | 10000+人",
+                disability: ["听力残疾", "肢体残疾", "言语残疾", "精神残疾", "视力残疾", "智力残疾"],
+                jobType: "全职",
+                tags: ["高薪", "底薪1万起", "创业津贴", "终身事业"],
+                headcount: "招20人",
+                payDay: "每月15号",
+                commission: "薪资30000-100000元/月，上不封顶",
+                requirements: "高中及以上学历，有销售经验优先，更看重想掌控命运的野心",
+                vehicleType: "无",
+                address: "北京市-朝阳区-兆泰国际大厦A座10层",
+                detailTags: ["广告", "大健康", "金融产品销售", "面销", "电话销售", "网络销售"],
+                responsibilities: `泰康人寿保险销售、代理
+
+薪资范围：30000-100000元/月（上不封顶，收入自己说了算）
+底薪范围：10000-20000元/月（含专属创业津贴，面试定档）
+职位类型：全职（终身事业平台，不是临时工）
+
+如果你经历过这些，请看完这条招聘：
+公司架构调整，你被优化了。
+部门合并，你的岗位没了。
+业务收缩，领导找你谈话，暗示你主动走。
+干得好好的，突然来一个新领导，团队大换血。
+
+你明明没做错什么，却要被迫重新找工作。
+
+来泰康，做自己的老板，掌控自己的命运！`,
+                jobRequirements: `任职要求：
+1、高中及以上学历
+2、1-3年工作经验，有销售经验优先
+3、更看重想掌控命运的野心
+4、接受多种残疾类型：听力、肢体、言语、精神、视力、智力残疾`,
+                benefits: `薪资范围：30000-100000元/月（上不封顶）
+底薪：10000-20000元/月（含专属创业津贴）
+终身事业平台，不是临时工
+完善的培训体系
+广阔的职业发展空间
+上市保险公司，平台稳定可靠`
+            },
+            {
+                id: 21,
+                title: "校园合伙人-数据核查员",
+                urgent: false,
+                salary: "200-400元/天",
+                salaryRange: "3-6千",
+                location: "上海市",
+                locationDetail: "上海市-线上",
+                education: "学历不限",
+                experience: "经验不限",
+                company: "风智科技",
+                companyDesc: "互联网/数据 | 民营 | 50-100人",
+                disability: ["听力残疾", "视力残疾"],
+                jobType: "兼职",
+                tags: ["时间自由", "日结", "数据核查", "在校可做"],
+                headcount: "招50人",
+                payDay: "日结",
+                commission: "200-400元/天，多劳多得",
+                requirements: "熟悉word、vscode，会网页搜索",
+                vehicleType: "无",
+                address: "线上工作，地点不限",
+                detailTags: ["数据核查", "新闻核查", "信息补充", "在校可做"],
+                responsibilities: `【数据核查员】招募
+
+现招募多名数据核查员进行数据核查和补充。
+
+1、工作职责：
+完成新闻媒体数据核查工作，包括但不限于：
+（1）补充缺漏信息，根据新闻标题去浏览器中找到原始新闻发布媒体，部分新闻全文缺失，需要进行补充。
+（2）核对是否有错误信息，包含标题、新闻转发者、新闻简介、新闻全文。
+
+2、要求：
+时间自由安排，每天至少核对800条数据。
+熟悉word，vscode（2分钟即可上手），网页搜索关键词。
+
+3、薪资：
+工资日结，多劳多得。`,
+                jobRequirements: `任职要求：
+1.熟悉word、vscode等基本办公软件
+2.会使用网页搜索
+3.每天至少核对800条数据
+4.时间自由安排，在校可做`,
+                benefits: `薪资：200-400元/天，日结
+时间自由，多劳多得
+适合在校学生兼职
+线上工作，地点不限`
+            },
+            {
+                id: 22,
+                title: "急需大量女频短篇小说作家",
+                urgent: true,
+                salary: "5000-6000元/月",
+                salaryRange: "3-6千",
+                location: "上海市",
+                locationDetail: "上海市-线上",
+                education: "本科",
+                experience: "经验不限",
+                company: "楚雄开发区辰喀图文化传媒",
+                companyDesc: "文化艺术/娱乐 | 民营 | 0-20人",
+                disability: ["听力残疾"],
+                jobType: "兼职",
+                tags: ["网络小说", "按阅读量计费", "长期兼职", "10w+阅读"],
+                headcount: "招100人",
+                payDay: "月结",
+                commission: "按阅读量计费，5000-6000元/月",
+                requirements: "会写小说，有创意，本科以上学历",
+                vehicleType: "无",
+                address: "线上工作，地点不限",
+                detailTags: ["网络小说", "女频", "耽美/言情", "短篇小说", "爆文制造机"],
+                responsibilities: `新平台搭建中，急需大量女频短篇小说作家！
+
+1、关于我们：
+我们正致力于搭建一个针对女性用户的短篇小说阅读平台，包括但不限于古言、现言、古耽、现耽、甜宠、虐恋、奇幻、仙侠、穿越、重生、悬疑、探案、穿书、大女主等题材皆可，包括追妻火葬场、真假千金、弹幕、替身、团宠、逆袭、复仇打脸等剧情（需自行把握尺度！）
+
+我们平台的特色在于全新的合作模式，读者的阅读付费，平台不抽成，全部归作者所有。在这里，你可以尽情发挥自己的想象和优势。
+
+2、小说类型：
+字数：8000-15000字
+结构：参考知乎体（引子、分节）
+内容：言情、耽美都可，同人文百合暂时不收，甜文虐文爽文都可，注意把控尺度。`,
+                jobRequirements: `任职要求：
+1.本科及以上学历
+2.热爱写作，有创意
+3.熟悉女频小说题材
+4.能独立完成短篇故事创作`,
+                benefits: `按阅读量计费，月收入5000-6000元
+平台不抽成，全部归作者所有
+长期兼职，时间自由
+新平台机会多，发展空间大
+
+合作流程：
+有意向的作者，可以先打招呼了解详情，若可以接受，将稿子（仅限一篇）投稿到公司邮箱。文稿末尾附带V号，若通过，编辑会主动联系，即可后续合作。`
+            },
+            {
+                id: 23,
+                title: "外贸实习生-仓库管理",
+                urgent: false,
+                salary: "100-150元/天",
+                salaryRange: "3-6千",
+                location: "上海市",
+                locationDetail: "上海市-闵行区-浦江",
+                education: "学历不限",
+                experience: "应届生",
+                company: "上海骏煦自动化技术",
+                companyDesc: "自动化/外贸 | 民营 | 20-50人",
+                disability: ["听力残疾"],
+                jobType: "实习",
+                tags: ["周结工资", "做五休二", "坐班", "仓库管理"],
+                headcount: "招5人",
+                payDay: "周结",
+                commission: "100-150元/天，周结",
+                requirements: "家住浦江或周浦附近优先，有责任心",
+                vehicleType: "无",
+                address: "上海市-闵行区-浦江",
+                detailTags: ["做五休二", "坐班", "不看显微镜", "不穿无尘服", "周结工资"],
+                responsibilities: `仓库管理（实习生）
+
+职位描述：
+1、每日收货（清点数量），发货（写装箱单，写快递单，贴纸箱标签）
+2、按照公司要求进行产品组装、贴标签。
+3、对加工好的产品进行封装、打包。
+4、设备库存进行日常巡检，及时报告异常情况。
+5、定期安排库存盘点及其他内勤工作支持`,
+                jobRequirements: `任职要求：
+1、家住浦江或周浦附近可优先考虑（无班车）
+2、有责任心，认真负责。
+
+特别提醒：
+1.该岗位候选人请先确认通勤距离，浦江闵行周浦附近的候选人优先，通勤时间超过半小时的考虑清楚后再投递
+2.该岗位非全职岗位，目前只开放实习兼职权限，后期表现优异者或有留用机会
+3.该岗位工作相对单一轻松，坐班制，工资周结，目前大三大四或者想要稳定兼职实习等目标候选人考虑投递`,
+                benefits: `实习薪资：100-150元/天，周结
+做五休二，坐班制
+工作相对单一轻松
+后期表现优异者有留用机会
+不看显微镜，不穿无尘服`
+            },
+            {
+                id: 24,
+                title: "KFC驻店配送员",
+                urgent: true,
+                salary: "12-13K",
+                salaryRange: "9千-1.5万",
+                location: "上海市",
+                locationDetail: "上海市-各区域门店",
+                education: "学历不限",
+                experience: "经验不限",
+                company: "肯德基配送合作商",
+                companyDesc: "餐饮配送 | 民营 | 500-1000人",
+                disability: ["听力残疾"],
+                jobType: "全职",
+                tags: ["驻店配送", "只送一家店", "周结", "提供装备"],
+                headcount: "招30人",
+                payDay: "周结",
+                commission: "12-13K/月",
+                requirements: "会骑电动车，有责任心，能吃苦耐劳",
+                vehicleType: "公司提供",
+                address: "上海市-各区域KFC门店",
+                detailTags: ["驻店配送", "只送一家店", "周结工资", "提供装备", "餐饮外卖"],
+                responsibilities: `KFC驻店配送员
+
+岗位职责：
+1.负责指定KFC门店的订单配送
+2.只送一家店，配送范围固定
+3.保证配送时效和服务质量
+4.维护配送工具和设备
+
+工作特点：
+驻店配送，只送一家店
+配送范围小，单量稳定
+周结工资，收入有保障
+提供配送装备`,
+                jobRequirements: `任职要求：
+1.会骑电动车
+2.会使用智能手机导航
+3.有责任心，能吃苦耐劳
+4.身体健康，无不良嗜好`,
+                benefits: `薪资：12-13K/月，周结
+驻店配送，只送一家店
+配送范围固定，单量稳定
+提供配送装备
+工作时间灵活`
+            },
+            {
+                id: 25,
+                title: "理货员/拣货员",
+                urgent: true,
+                salary: "6-8K",
+                salaryRange: "6千-1万",
+                location: "南京市",
+                locationDetail: "南京市-建邺区-吾悦广场店",
+                education: "学历不限",
+                experience: "经验不限",
+                company: "盒马鲜生",
+                companyDesc: "生活服务(O2O) | 不需要融资 | 10000人以上",
+                disability: ["听力残疾", "言语残疾"],
+                jobType: "全职",
+                tags: ["货物出库", "高位货架", "计件提成", "晋升空间大"],
+                headcount: "招若干人",
+                payDay: "月结",
+                commission: "正常干6-8k，认真干8-9k，努力干9k-1w，计件提成，多劳多得",
+                requirements: "无需经验，一对一带教，超市内工作，上手快",
+                vehicleType: "无",
+                address: "南京市-建邺区-盒马鲜生(建邺吾悦广场店)",
+                detailTags: ["货物出库", "高位货架仓库", "线上拣货", "计件提成", "晋升空间大"],
+                responsibilities: `【工作职责】线上订单拣货配货
+超市内工作，上手快，一对一带教，无需经验`,
+                jobRequirements: `任职要求：
+1. 听力残疾或言语残疾，能正常进行手头工作
+2. 无需经验，一对一带教
+3. 工作认真负责，能吃苦耐劳
+4. 能适应超市工作环境`,
+                benefits: `【薪酬福利】
+正常干6-8k，认真干8-9k，努力干9k-1w，计件提成，多劳多得
+
+【晋升渠道】
+小二-师傅-主管-副店长-店长（晋升空间大）
+轻轻松松上班，不画饼！不洗脑！最重要的是福利多多，氛围超好！
+大学生兼职（勤劳致富，赚钱把车开回家）
+全南京范围就近安排，想赚钱想晋升的你就来，欢迎加入！`
+            },
+            {
+                id: 26,
+                title: "工业设计",
+                urgent: false,
+                salary: "10-15K",
+                salaryRange: "1-1.5万",
+                location: "苏州市",
+                locationDetail: "苏州市-吴中区",
+                education: "本科",
+                experience: "5-10年",
+                company: "梵诚漆器",
+                companyDesc: "工艺品/收藏品 | 未融资 | 0-20人",
+                disability: ["接受残障人群"],
+                jobType: "全职",
+                tags: ["工艺美术", "五感设计", "五险一金", "年终奖"],
+                headcount: "招2人",
+                payDay: "每月15号",
+                commission: "10-15K/月，13薪",
+                requirements: "设计类相关专业本科及以上，5-10年经验，熟悉Rhino、Keyshot等软件",
+                vehicleType: "无",
+                address: "苏州市-吴中区-苏州中茵皇冠国际公寓1号楼",
+                detailTags: ["工艺美术", "审美情趣", "五感设计", "餐具", "灯具", "生活用品", "文具"],
+                responsibilities: `【梵谷漆器】系列产品、包装的设计
+
+岗位职责：
+1. 负责【梵谷漆器】系列产品、包装的设计
+2. 参与产品概念开发，进行市场调研与用户分析，为设计提供方向
+3. 持续优化现有产品，提出改进方案，提升用户体验
+4. 关注行业趋势，结合传统工艺与现代设计，推动产品迭代`,
+                jobRequirements: `任职要求：
+1. 设计类相关专业本科及以上学历，具备扎实的设计理论基础
+2. 熟练掌握设计软件，如Rhino、Keyshot、Adobe Creative Suite等
+3. 热爱传统文化，对漆器工艺有浓厚兴趣，了解传统与现代设计结合的可能性
+4. 具备良好的沟通理解能力和团队协作精神，能够高效推进项目
+5. 具有创新思维，对细节有高度关注，能够独立完成设计任务`,
+                benefits: `岗位福利：
+五险一金、年终奖、股票期权、零食下午茶`
+            },
+            {
+                id: 27,
+                title: "兼职书法老师",
+                urgent: false,
+                salary: "5-6K",
+                salaryRange: "5-6千",
+                location: "苏州市",
+                locationDetail: "苏州市-张家港市",
+                education: "大专",
+                experience: "1-3年",
+                company: "善水美学工作室",
+                companyDesc: "培训/辅导机构 | 0-20人",
+                disability: ["接受残障人群"],
+                jobType: "兼职",
+                tags: ["教师", "软笔硬笔", "考级经验", "长期合作"],
+                headcount: "招3人",
+                payDay: "月结",
+                commission: "按课时计费，5-6K/月",
+                requirements: "有软笔/硬笔教学经验，有考级经验优先，熟悉儿童心理",
+                vehicleType: "无",
+                address: "苏州市-张家港市-善水美学工作室80/82号",
+                detailTags: ["教师", "软笔", "硬笔", "考级经验", "儿童心理"],
+                responsibilities: `寻求书法/托管合作老师
+
+岗位职责：
+1. 能自主进行软笔/硬笔教学
+2. 熟练掌握各类字体，有教学经验和考级经验的优先
+3. 熟悉儿童心理，善于和学员沟通`,
+                jobRequirements: `任职要求：
+1. 有1-3年书法教学经验
+2. 能自主进行软笔/硬笔教学
+3. 熟练掌握各类字体，有考级经验者优先
+4. 熟悉儿童心理，善于和学员沟通
+5. 有责任心，能长期稳定合作`,
+                benefits: `合作方式：私聊面议
+按课时计费，收入可观
+长期稳定合作机会`
+            },
+            {
+                id: 28,
+                title: "硬笔书法助教",
+                urgent: false,
+                salary: "3-4K",
+                salaryRange: "3-4千",
+                location: "苏州市",
+                locationDetail: "苏州市-常熟市",
+                education: "大专",
+                experience: "经验不限",
+                company: "敏行书法培训",
+                companyDesc: "培训/辅导机构 | 0-20人",
+                disability: ["肢体残疾"],
+                jobType: "全职/兼职",
+                tags: ["教师", "线下授课", "教师资格证", "弹性工作"],
+                headcount: "招2人",
+                payDay: "月结",
+                commission: "3-4K/月",
+                requirements: "具备硬笔书法专业知识，有教学经验者优先，具备教师资格证者优先",
+                vehicleType: "无",
+                address: "苏州市-常熟市-虞城电脑(金门路)金门路208号",
+                detailTags: ["教师", "线下授课", "全职兼职均可", "硬笔书法", "学生管理"],
+                responsibilities: `硬笔书法助教岗位职责和任职要求
+
+岗位职责：
+1. 协助教师进行硬笔书法教学，包括备课、授课、批改作业等
+2. 组织并参与硬笔书法课程的教学活动，如书法比赛、展览等
+3. 协助教师进行学生管理，包括学生考勤、作业管理等
+4. 参与学校组织的其他相关工作`,
+                jobRequirements: `任职要求：
+1. 具备硬笔书法相关专业知识，有硬笔书法教学经验者优先
+2. 热爱教育事业，有耐心、责任心，能够与学生建立良好的师生关系
+3. 具备良好的沟通能力和团队合作精神
+4. 具备全职或兼职工作能力，能够适应弹性工作时间
+5. 具备教师资格证书者优先考虑`,
+                benefits: `薪资待遇：3-4K/月
+全职兼职均可
+弹性工作时间
+良好的工作氛围`
+            },
+            {
+                id: 29,
+                title: "土建BIM工程师",
+                urgent: false,
+                salary: "10-15K·13薪",
+                salaryRange: "1-1.5万",
+                location: "苏州市",
+                locationDetail: "苏州市-虎丘区",
+                education: "大专",
+                experience: "1-3年",
+                company: "新一造价",
+                companyDesc: "咨询 | 未融资 | 100-499人",
+                disability: ["接受残障人群"],
+                jobType: "全职",
+                tags: ["BIM", "Revit", "CAD", "13薪"],
+                headcount: "招5人",
+                payDay: "每月15号",
+                commission: "10-15K/月，13薪",
+                requirements: "专科以上学历，土木工程/建筑学等相关专业，熟练使用CAD者优先",
+                vehicleType: "无",
+                address: "苏州市-虎丘区-苏州和枫科创园F栋1001",
+                detailTags: ["核心建模", "可视化", "BIM实操经验", "模型碰撞", "Revit", "3dsMAX"],
+                responsibilities: `土建BIM工程师
+
+岗位要求：
+1. 专科以上学历的在校生或应届毕业生土木工程、建筑学、工程造价、工程管理、以及工程相关专业
+2. 了解专业基础知识，具备基础的建筑、结构、路桥等专业知识及施工图识图能力
+3. 专业知识扎实，自我管控能力强，有较强的学习能力和沟通能力
+4. 能够熟练使用CAD软件者优先录取
+5. 获得过奖学金者优先录取
+6. 要求至少能够连续实习3个月以上`,
+                jobRequirements: `任职要求：
+1. 土木工程、建筑学、工程造价等相关专业
+2. 1-3年相关工作经验
+3. 熟练使用Revit、CAD等BIM软件
+4. 具备基础的建筑、结构专业知识
+5. 有较强的学习能力和沟通能力`,
+                benefits: `岗位福利：
+五险一金
+定期体检
+13薪
+良好的晋升空间`
+            },
+            {
+                id: 30,
+                title: "大润发小象超市配送员",
+                urgent: true,
+                salary: "8-9K",
+                salaryRange: "8千-1万",
+                location: "苏州市",
+                locationDetail: "苏州市-常熟市",
+                education: "学历不限",
+                experience: "经验不限",
+                company: "达送易餐饮",
+                companyDesc: "即时配送 | 不需要融资 | 500-999人",
+                disability: ["言语残疾"],
+                jobType: "全职/兼职",
+                tags: ["驻店配送", "日入500-800", "提供电动车", "周结工资"],
+                headcount: "招50人",
+                payDay: "周结",
+                commission: "日入500-800元，月入1万以上",
+                requirements: "18-50岁，会骑电动车，会看导航，接受小白",
+                vehicleType: "公司提供",
+                address: "苏州市-常熟市-鼎盛·尚品站点",
+                detailTags: ["全职兼职均可", "会用导航", "生鲜蔬果", "骑车配送", "商圈配送", "有健康证", "提供电动车", "周结工资"],
+                responsibilities: `只送一家店，不用到处去寻找商家，不用二次打包，有专门的分拣都包装好了直接去送就好，单量多最好送的平台没有之一！！！
+
+岗位职责：
+1. 骑电动车配送水果蔬菜，准时送达物品
+2. 负责门店三公里区域内的订单
+3. 在固定门店取货，店员负责打包，岗位只负责送
+4. 没事或者等单的时候就休息，高可以携带8-12单同时配送，每单都有提成`,
+                jobRequirements: `任职要求：
+1. 18-50岁，接受小白
+2. 会骑电动车，看导航
+3. 熟悉当地地形，有同行业工作经验者优先
+4. 身体健康，有健康证
+5. 无犯罪记录`,
+                benefits: `薪资待遇：
+日入：500-800元日入！500-800元日入！
+提供电瓶车，短期长期都可以，月入1万以上，简单易上手，不会有人带
+
+公司福利：
+五险一金
+补充医疗保险
+意外险
+年终奖
+绩效奖金`
+            },
+            {
+                id: 31,
+                title: "广告优化助理",
+                urgent: false,
+                salary: "3-6K",
+                salaryRange: "3-6千",
+                location: "苏州市",
+                locationDetail: "苏州市-常熟市",
+                education: "大专",
+                experience: "经验不限",
+                company: "苏州阅灵",
+                companyDesc: "广告营销 | 0-20人",
+                disability: ["肢体残疾"],
+                jobType: "全职",
+                tags: ["广告投放", "信息流", "双休", "新手带教"],
+                headcount: "招2人",
+                payDay: "每月15号",
+                commission: "底薪3000-5000+饭补+全勤+消耗提成",
+                requirements: "了解互联网，头脑灵活，会基本电脑操作，喜欢看小说",
+                vehicleType: "无",
+                address: "苏州市-常熟市-江苏省常熟人力资源服务产业园7栋406A",
+                detailTags: ["互联网广告投放", "信息流投放", "广告传播", "数据分析", "媒介代理"],
+                responsibilities: `公司情况：
+互联网广告投放业务
+
+工作内容：
+1. 负责微信端（广点通）的广告投放，投放产品为小说类APP`,
+                jobRequirements: `任职要求：
+1. 有无经验均可（也欢迎实习生），年龄不限，但需要了解互联网，头脑灵活，会基本的电脑操作和办公软件
+2. 喜欢看小说（因为要针对小说内容去做文案，不了解产品不爱看小说的勿扰）
+3. 会简单的PS技能。工作不复杂，新手有人教，但必须要有责任心，细心
+4. 双休，其余国家法定节假日，因工作特殊性，周末和晚上需要有时间去优化账户，需要信心和责任心`,
+                benefits: `薪资待遇：
+底薪3000-5000（具体根据是否有行业经验，历史经验来确定）+饭补+全勤+消耗提成
+（非销售岗位，属互联网广告投放）`
+            },
+            {
+                id: 32,
+                title: "平面/空间创意设计师",
+                urgent: false,
+                salary: "3-8K",
+                salaryRange: "3-8千",
+                location: "苏州市",
+                locationDetail: "苏州市-吴江区",
+                education: "学历不限",
+                experience: "经验不限",
+                company: "瑜设计工作室",
+                companyDesc: "文化艺术/娱乐 | 0-20人",
+                disability: ["听力残疾"],
+                jobType: "全职/兼职",
+                tags: ["品牌设计", "空间设计", "远程办公", "周末单休"],
+                headcount: "招20人",
+                payDay: "月结",
+                commission: "见习3K-8K，独立8K-10K，总监10K-30K",
+                requirements: "设计相关专业，有创意，有瑜伽馆设计经验优先",
+                vehicleType: "无",
+                address: "苏州市-吴江区-震泽镇",
+                detailTags: ["现场办公", "PR", "PS", "周末单休", "远程办公", "AE", "平面设计", "AI", "品牌设计", "文创设计", "3DMAX"],
+                responsibilities: `「瑜設計工作室全国招募」
+
+一、全职
+见习设计:5名（综合3K～8K）
+创意品牌设计师3名(综合8K～10k)
+创意空间设计师2名（(综合5K~10k)
+设计总监1名（综合10k～30k)
+新媒体运营/摄影/文案编辑各2名(5K～20k)
+直播运营/中控/主播各2名(5K～20k)
+
+二、兼职
+兼职签约设计师10名
+（苏州/嘉兴/上海/杭州区域内的品牌设计师，线下签约，长期合作，周或月度结算）
+
+三、工作内容
+为全国瑜伽馆提供视觉设计：
+Logo/IP形象/海报/动效/KV/VI/创意手绘/24节气/线上店铺装修/字体设计/包装/门头/展位/营销策划/宣传记录片/摄影等视觉延展内容！`,
+                jobRequirements: `任职要求：
+1. 设计相关专业，1年以内平面设计经验
+2. 熟练掌握PS、AI、PR、AE等设计软件
+3. 具备3DMAX技能者优先
+4. 有瑜伽馆生活美学类创意设计经验者优先
+5. 有创意，对品牌设计、文创设计有热情`,
+                benefits: `薪资福利：（可申请宿舍）
+见习设计：3000+500（全勤）+1%～10%提成+团奖（月休6天）
+独立设计师：4000+500（全勤)+1000（社补）+1%～10%提成+团奖（月休6天）
+品牌设计师：5000+500（全勤)+1000（社补）+1%～10%提成+团奖+年中1%分红（月休6天）
+资深设计师：6000+500（全勤)+1000（社补）+1%～10%提成+团奖+年中2%分红～（月休6天）
+设计总监:7000+500（全勤)+1000（社补）+1%～3%提成+团奖+年中3%分红～（双休）
+
+工作时间：
+早班：9:00～18:00（12:00～13:00午餐）
+晚班：12:00～21:00（17:00～18:00晚餐）`
+            },
+            {
+                id: 33,
+                title: "便利店店员/配送员",
+                urgent: true,
+                salary: "8-9K",
+                salaryRange: "6-9千",
+                location: "苏州市",
+                locationDetail: "苏州市-姑苏区",
+                education: "学历不限",
+                experience: "经验不限",
+                company: "河南岚天鹅",
+                companyDesc: "生活服务(O2O) | 天使轮 | 100-499人",
+                disability: ["接受残障人群"],
+                jobType: "全职/兼职",
+                tags: ["包吃住", "日结", "提供电动车", "非中介"],
+                headcount: "招2人",
+                payDay: "日结",
+                commission: "日结260-380，月薪6000-8000",
+                requirements: "会骑电动车，会用导航，工作范围两公里以内",
+                vehicleType: "公司提供",
+                address: "苏州市-姑苏区-观前街祥符寺巷1号小区",
+                detailTags: ["包吃住", "全职兼职均可", "会用导航", "骑车配送", "商圈配送", "月结工资", "提供电动车", "当天安排宿舍", "非中介"],
+                responsibilities: `日结260-380
+短期过渡 长期即可
+当天安排 入职可预支
+月薪6000-8000
+免费提供食宿
+（工作范围两公里以内）
+有承诺必兑现，有虚假必追责`,
+                jobRequirements: `任职要求：
+1. 会骑电动车，会用导航
+2. 工作范围两公里以内
+3. 能接受日结或月结工资
+4. 当天安排宿舍，入职可预支
+5. 短期过渡、长期工作均可`,
+                benefits: `岗位福利：
+全勤奖
+绩效奖金
+包吃住
+提供电动车/摩托车
+当天安排宿舍
+非中介`
+            },
+            {
+                id: 34,
+                title: "小学晚托班老师",
+                urgent: false,
+                salary: "60-80元/天",
+                salaryRange: "1-2千",
+                location: "苏州市",
+                locationDetail: "苏州市-太仓市",
+                education: "学历不限",
+                experience: "经验不限",
+                company: "星颐安文化",
+                companyDesc: "培训/辅导机构 | 0-20人",
+                disability: ["肢体残疾"],
+                jobType: "兼职",
+                tags: ["晚托", "作业辅导", "长期兼职", "月结"],
+                headcount: "招3人",
+                payDay: "月结",
+                commission: "60-80元/天，月结",
+                requirements: "有耐心，能辅导小学生作业，工作时间周一至周五下午",
+                vehicleType: "无",
+                address: "苏州市-太仓市-国信金融大厦(太平新路)6楼",
+                detailTags: ["兼职", "长期兼职", "小学生", "作业辅导", "月结"],
+                responsibilities: `小学生上学时间
+周一到周五
+带四个小学生做回家作业
+下午4:00—8:30
+带小学生完成回家作业
+预习 纠错 讲解 订正`,
+                jobRequirements: `任职要求：
+1. 有耐心，有责任心
+2. 能辅导小学生作业（1-6年级）
+3. 工作时间：周一至周五 16:00-17:45、20:30-20:45
+4. 工作周期：长期兼职，每周5天及以上
+5. 招聘截止时间：2026-12-31`,
+                benefits: `工作待遇：
+60-80元/天
+月结
+工作时间段：工作日
+适合有兼职需求的人士`
+            },
+            {
+                id: 35,
+                title: "书法教师",
+                urgent: false,
+                salary: "5-6K",
+                salaryRange: "5-6千",
+                location: "淮安市",
+                locationDetail: "淮安市-清江浦区",
+                education: "大专",
+                experience: "1-3年",
+                company: "星华教育",
+                companyDesc: "培训/辅导机构 | 不需要融资 | 1000-9999人",
+                disability: ["接受残障人群"],
+                jobType: "全职/兼职",
+                tags: ["小学教育", "线下授课", "五险一金", "带薪年假"],
+                headcount: "招5人",
+                payDay: "每月15号",
+                commission: "5-6K/月",
+                requirements: "有书法教学经验，爱岗敬业，入职后可继续深造",
+                vehicleType: "无",
+                address: "淮安市-清江浦区-星华艺术教育(北京路校区)169号",
+                detailTags: ["教师", "线下授课", "小学教育", "全职兼职均可"],
+                responsibilities: `爱岗敬业，入职后本部可继续深造书法专业`,
+                jobRequirements: `任职要求：
+1. 有1-3年书法教学经验
+2. 大专及以上学历
+3. 爱岗敬业，有耐心
+4. 入职后本部可继续深造书法专业`,
+                benefits: `岗位福利：
+有无线网
+员工旅游
+全勤奖
+工龄奖
+企业年金`
+            },
+            {
+                id: 36,
+                title: "钢琴教师",
+                urgent: false,
+                salary: "5-10K·13薪",
+                salaryRange: "5千-1万",
+                location: "淮安市",
+                locationDetail: "淮安市-清江浦区",
+                education: "本科",
+                experience: "经验不限",
+                company: "大学城琴店",
+                companyDesc: "培训/辅导机构 | 不需要融资 | 20-99人",
+                disability: ["视力残疾"],
+                jobType: "全职/兼职",
+                tags: ["钢琴", "器乐", "13薪", "一对一教学"],
+                headcount: "招3人",
+                payDay: "每月15号",
+                commission: "5-10K/月，13薪",
+                requirements: "音乐学院毕业优先，有音乐教学经验，吃苦耐劳",
+                vehicleType: "无",
+                address: "淮安市-清江浦区-九龙湖-金泽苑(北门)27幢27-05",
+                detailTags: ["钢琴", "大学/大专生", "器乐", "教师", "艺术", "成人", "培训机构", "线下教育", "线上教育", "考级课程", "一对一教学"],
+                responsibilities: `钢琴教学，乐器销售，日常培训
+
+工作指导提升，旅游，福利多多。开开心心工作，薪资满满获得，希望我们一起共建一个更大更强的博艺。学生很多，所以要吃苦耐劳；工资很高，所以要尽心尽责；不怕你不擅长，就怕你不努力，机会都是给有准备的人，犹豫才是你一直不满足的理由。`,
+                jobRequirements: `任职要求：
+1. 本科以上学历，音乐学院毕业优先
+2. 音乐类专业背景
+3. 有音乐教学经验者优先
+4. 全职兼职均可
+5. 吃苦耐劳，有责任心`,
+                benefits: `岗位福利：
+五险一金
+补充医疗保险
+全勤奖
+年终奖
+股票期权
+13薪`
+            },
+            {
+                id: 37,
+                title: "房产销售",
+                urgent: false,
+                salary: "4-9K",
+                salaryRange: "4千-9千",
+                location: "淮安市",
+                locationDetail: "淮安市-清江浦区",
+                education: "学历不限",
+                experience: "经验不限",
+                company: "信家地产",
+                companyDesc: "房地产中介/租赁 | 未融资 | 20-99人",
+                disability: ["接受残障人群"],
+                jobType: "全职/兼职",
+                tags: ["贝壳找房", "带薪年假", "师傅带教", "高提成"],
+                headcount: "招10人",
+                payDay: "每月15号",
+                commission: "底薪2500+提成，年薪保底4万",
+                requirements: "沟通能力强，有房产销售经验优先，新手有师傅带教",
+                vehicleType: "无",
+                address: "淮安市-清江浦区-中南世纪城1期一期南门德佑",
+                detailTags: ["房产销售", "贝壳找房", "新房", "二手房", "租赁"],
+                responsibilities: `德佑是房产中介（贝壳找房平台），含新房、二手房、租赁。
+
+日常工作主要是：维护房子，沟通房东和客户，开发房源（每天15个左右业主电话），前期入门需要学习房产相关的专业知识，熟悉周边的几个楼盘。`,
+                jobRequirements: `任职要求：
+1. 全职：底薪2500（1800无责+200全勤+500工作量考核首月不考核），9:00-11:30, 14:00-17:30，周二公休，月休4天。三个月达到8000元业绩转正，8000元业绩内无提成，超过8000元的部分是25%提成。如果做满一年，年薪保底4万元
+2. 兼职：50%高提成，工作时间自由，无考核
+3. 全职兼职都有师傅免费带教`,
+                benefits: `岗位福利：
+全勤奖
+带薪年假
+员工旅游
+节日福利
+高提成
+师傅带教`
+            },
+            {
+                id: 38,
+                title: "国企客服（上四休一）",
+                urgent: true,
+                salary: "4-8K",
+                salaryRange: "4-8千",
+                location: "淮安市",
+                locationDetail: "淮安市-",
+                education: "中专/中技",
+                experience: "经验不限",
+                company: "伽睿",
+                companyDesc: "计算机软件 | A轮 | 1000-9999人",
+                disability: ["肢体残疾"],
+                jobType: "全职",
+                tags: ["五险一金", "上四休一", "无销售", "可实习"],
+                headcount: "招20人",
+                payDay: "每月15号",
+                commission: "前两个月3500-4500，第三个月开始6000-8000",
+                requirements: "18-37岁，普通话标准，逻辑思维清晰，有服务意识",
+                vehicleType: "无",
+                address: "淮安市-",
+                detailTags: ["电话客服", "办公室坐班", "不含销售", "咨询热线", "倒班制", "企业内部客服"],
+                responsibilities: `五险一金！ 无销售性质！ 办公室坐班！ 普通话标准！ 带薪培训纯接听客服！ 不涉及销售！ 8小时不加班到点走！ 可实习！
+
+一、岗位职责:
+1、负责接热线，解答解决用户的查询、咨询和业务办理及疑难问题`,
+                jobRequirements: `任职要求：
+1. 男女不限，18至37
+2. 普通话标准，逻辑思维清晰
+3. 对待工作踏实努力，认真负责，有良好的服务意识`,
+                benefits: `薪资福利：
+1. 前两个月综合薪资3500-4500元，第三个月开始6000-8000元
+2. 缴纳五险一金
+3. 带薪休假、定期不定期团建活、员工食堂、生日会等活动
+
+工作时间：
+排班制 月休8日（上四休一）`
+            },
+            {
+                id: 39,
+                title: "初中数理化老师",
+                urgent: false,
+                salary: "20-30元/时",
+                salaryRange: "3-5千",
+                location: "淮安市",
+                locationDetail: "淮安市-淮安区",
+                education: "学历不限",
+                experience: "经验不限",
+                company: "智优托管中心",
+                companyDesc: "学前教育 | 0-20人",
+                disability: ["接受残障人群"],
+                jobType: "兼职",
+                tags: ["数理化", "小班教学", "周结", "交通补贴"],
+                headcount: "招3人",
+                payDay: "周结",
+                commission: "20-30元/时，周结",
+                requirements: "热爱理科教学，有托管或辅导经验者优先，能适应周末工作",
+                vehicleType: "无",
+                address: "淮安市-淮安区-",
+                detailTags: ["教师", "初高中教育", "教务", "生物", "小班教学", "培训机构", "交通补贴", "一对一教学"],
+                responsibilities: `工作周期：长期兼职
+每周工期：3-4天
+工作时间：不限
+工作时段：按单安排时间
+结算方式：周结
+招聘截止时间：2026-12-10
+
+岗位职责：
+1. 负责初中阶段数理化课程的授课，确保教学质量和学生理解
+2. 根据教学计划和学生实际情况，制定个性化辅导方案，帮助学生提升学业成绩
+3. 参与学科教研活动，不断优化教学方法和内容，提升教学效果
+4. 与家长保持良好沟通，定期反馈学生学习进度和表现，共同促进学生成长`,
+                jobRequirements: `任职要求：
+1. 喜欢热爱初中理科教学，认真备课
+2. 有托管或辅导经验者优先
+3. 热爱教育事业，具备良好的沟通能力和亲和力，能够激发学生学习兴趣
+4. 责任心强，有耐心，能够承受一定的工作压力，适应周末及节假日工作`,
+                benefits: `工作待遇：
+20-30元/时
+周结
+交通补贴
+小班教学（3-25人）
+长期兼职机会`
+            },
+            {
+                id: 40,
+                title: "小米官方在线打字客服",
+                urgent: true,
+                salary: "3-5K",
+                salaryRange: "3-5千",
+                location: "淮安市",
+                locationDetail: "淮安市-清江浦区",
+                education: "学历不限",
+                experience: "经验不限",
+                company: "博岳通信",
+                companyDesc: "互联网 | 已上市 | 10000人以上",
+                disability: ["肢体残疾"],
+                jobType: "全职",
+                tags: ["纯打字", "提供住宿", "五险", "内部晋升"],
+                headcount: "招30人",
+                payDay: "每月15号",
+                commission: "试用期2800-3200，转正3000-4500",
+                requirements: "16-30周岁，会基本电脑操作，字速不低于45个/分钟",
+                vehicleType: "无",
+                address: "淮安市-清江浦区-中移在线服务有限公司(淮安数字服务园区分公司)1楼",
+                detailTags: ["远程办公", "不含销售", "倒班工作制", "线上客服", "人力资源外包"],
+                responsibilities: `【纯打字客服！！每天8小时工作制，早8-晚12排班、无任何销售性质、0基础带薪培训、提供住宿、冬暖夏凉】
+
+小米官方旗舰店店铺在线打字客服
+工作内容：在线回复用户在平台（重点京东平台）购买产品售前的业务咨询工作`,
+                jobRequirements: `岗位要求：
+1、年龄16-30周岁，会基本电脑操作
+2、字速要求不低于45个/分钟
+
+上班时间：
+1、早班8:00-17:00 晚班15:00-24.00（晚班有补贴）
+2、月休4-6天排休`,
+                benefits: `薪资福利：
+1、试用期薪资2800-3200，转正期薪资3000-4500
+2、交纳五险，法定节假日3倍薪资，内部晋升
+
+岗位福利：
+五险
+岗位晋升
+生日福利
+工龄工资
+股票期权`
+            },
+            {
+                id: 41,
+                title: "小菜园外卖配送员",
+                urgent: true,
+                salary: "300-350元/天",
+                salaryRange: "6千-1.2万",
+                location: "淮安市",
+                locationDetail: "淮安市-",
+                education: "学历不限",
+                experience: "经验不限",
+                company: "江苏久佳电子商务",
+                companyDesc: "餐饮 | 天使轮 | 1000-9999人",
+                disability: ["接受残障人群"],
+                jobType: "全职/兼职",
+                tags: ["提供车", "提供住宿", "高温补贴", "新人奖1500"],
+                headcount: "招50人",
+                payDay: "月结",
+                commission: "日入300-400，月度5000-12000",
+                requirements: "18-50周岁，会骑电车，熟练操作智能手机",
+                vehicleType: "公司提供",
+                address: "淮安市-清江浦区-大学城移动呼叫基地中楼一楼",
+                detailTags: ["餐饮外卖", "全职兼职均可", "月结工资", "提供电动车", "无犯罪记录", "0元入职"],
+                responsibilities: `入职新人奖1500
+可当天上岗、当天安排住宿！
+可暑假/寒假工，长期、过渡、兼职
+提供电车、提供住宿
+可就近安排
+
+【工作时间】8小时工作制，工作自由，收入高
+工作时间：上午10点-下午2点下午5点-晚上9点
+
+【薪资待遇】
+高温补贴、暖冬补贴、周冲单、月冲单奖励
+配送单量:40-80单/天
+单日收入:300-400元/天
+月度正常干:5000-6000元/月
+月度多跑单:6000-8000元/月
+月度拼命干：8000-12000元/月
+多劳多得!上不封顶!`,
+                jobRequirements: `【工作内容】
+1、负责系统分配的外卖订单
+2、准确将餐品订单送到客户手中
+
+【应聘条件】
+1、身份证年龄18-50周岁，身体健康
+2、会骑电车，熟练操作智能手机
+3、无需行业经验，踏实肯干
+4、面试请携带好本人身份证`,
+                benefits: `【福利待遇】
+1、提供住宿电车！
+2、入职即办理商业保险！
+3、全程免费培训，有人教有人带！
+4、高温补贴、暖冬补贴、周冲单月冲单奖励、聚餐生日会，过年红包等`
+            },
+            {
+                id: 42,
+                title: "银行渠道经理",
+                urgent: false,
+                salary: "10-15K",
+                salaryRange: "1-1.5万",
+                location: "淮安市",
+                locationDetail: "淮安市-经济技术开发区",
+                education: "学历不限",
+                experience: "经验不限",
+                company: "淮安经济技术开发区金融服务",
+                companyDesc: "其他金融业 | 0-20人",
+                disability: ["肢体残疾"],
+                jobType: "全职/兼职",
+                tags: ["贷款销售", "周末双休", "有无线网", "人性化管理"],
+                headcount: "招5人",
+                payDay: "每月15号",
+                commission: "底薪+提成，轻松万元起",
+                requirements: "有房产中介、寿险、汽车、信用卡等销售经验者优先",
+                vehicleType: "无",
+                address: "淮安市-经济技术开发区-",
+                detailTags: ["贷款销售", "电销经验", "银行信贷", "贷款顾问", "银行贷款"],
+                responsibilities: `电话销售，银行贷款推广邀约服务
+1.向客户介绍，宣传，销售公司产品
+2.维护客户关系
+3.有房产中介，寿险，汽车，信用卡等销售经验者优先考虑`,
+                jobRequirements: `任职要求：
+1. 有销售经验，电销经验优先
+2. 有房产中介、寿险、汽车、信用卡等销售经验者优先考虑
+3. 良好的沟通能力和客户服务意识
+4. 全职兼职均可`,
+                benefits: `薪资待遇：轻松万元起不是梦
+
+工作时间：
+上午 8:30-12:00
+下午 2:00-6:00
+周末大小轮休，节假日休息 方便接送孩子 公司环境好，人性化管理
+
+岗位福利：
+有无线网
+团建聚餐
+底薪加提成
+周末双休`
+            },
+            {
+                id: 43,
+                title: "spss数据分析员",
+                urgent: false,
+                salary: "200-300元/天",
+                salaryRange: "3-6千",
+                location: "杭州市",
+                locationDetail: "杭州市-西湖区",
+                education: "本科",
+                experience: "经验不限",
+                company: "义乌市睿笔网络技术",
+                companyDesc: "互联网 | 0-20人",
+                disability: ["听力残疾", "肢体残疾", "言语残疾"],
+                jobType: "兼职",
+                tags: ["spss", "stata", "Python", "日结", "线上兼职"],
+                headcount: "招10人",
+                payDay: "日结",
+                commission: "200-300元/天，按单结算",
+                requirements: "擅长spss，stata，Python，matlab，amos，smartPLS等其中任意一种技能",
+                vehicleType: "无",
+                address: "杭州市-西湖区-西投银泰城502",
+                detailTags: ["R", "stata", "spss", "SPSS", "MATLAB", "数学统计"],
+                responsibilities: `支持线上兼职
+只要你擅长spss，stata，Python，matlab，amos，smartPLS等其中任意一种技能即可
+支持按单结算，按日结款`,
+                jobRequirements: `任职要求：
+1. 本科以上学历
+2. 擅长spss，stata，Python，matlab，amos，smartPLS等其中任意一种数据分析软件
+3. 可在家兼职
+4. 接受灵活接单`,
+                benefits: `岗位福利：
+交通补助
+有无线网
+员工旅游
+全勤奖
+底薪加提成
+日结工资`
+            },
+            {
+                id: 44,
+                title: "3d角色设计师",
+                urgent: false,
+                salary: "12-20K·13薪",
+                salaryRange: "1-2万",
+                location: "杭州市",
+                locationDetail: "杭州市-",
+                education: "学历不限",
+                experience: "经验不限",
+                company: "扶摇映画",
+                companyDesc: "游戏 | 未融资 | 0-20人",
+                disability: ["肢体残疾"],
+                jobType: "全职/兼职",
+                tags: ["五险一金", "带薪假期", "周末双休", "13薪"],
+                headcount: "招3人",
+                payDay: "每月15号",
+                commission: "12-20K/月，13薪",
+                requirements: "参与过大型游戏项目或CG项目，精通角色模型制作",
+                vehicleType: "无",
+                address: "杭州市-",
+                detailTags: ["五险一金", "带薪假期", "周末双休"],
+                responsibilities: `岗位职责：
+1.根据项目要求，制作高品质的角色模型；负责包含角色，服装，全流程等制作；
+2.结合项目风格和技术，使角色的表现具有真实性的同时符合角色的故事背景和造型美感。`,
+                jobRequirements: `任职要求：
+1、需要实际参与过至少一项大型游戏项目或CG项目的模型制作
+2、需至少精通以下一项制作技能:①布料雕刻，②头部雕刻，③装备卡线配件，④布料解算，⑤头发插片，⑥怪物建模，⑦阿诺德渲染。
+
+线上可兼职（外包形式）`,
+                benefits: `岗位福利：
+五险一金
+带薪假期
+周末双休
+13薪
+节日福利
+团建聚餐
+零食下午茶
+员工旅游`
+            },
+            {
+                id: 45,
+                title: "golang开发工程师",
+                urgent: false,
+                salary: "5-7K",
+                salaryRange: "5-7千",
+                location: "杭州市",
+                locationDetail: "杭州市-上城区",
+                education: "大专",
+                experience: "在校/应届",
+                company: "下单数科",
+                companyDesc: "互联网 | 不需要融资 | 0-20人",
+                disability: ["听力残疾", "肢体残疾"],
+                jobType: "全职",
+                tags: ["Golang", "Java", "MySQL", "实习可转正"],
+                headcount: "招2人",
+                payDay: "每月15号",
+                commission: "5-7K/月",
+                requirements: "熟练掌握golang开发，了解服务器运维，会运用ai辅助开发",
+                vehicleType: "无",
+                address: "杭州市-上城区-泰豪数字大厦招商运营中心102",
+                detailTags: ["Golang", "Java", "MySQL", "Golang服务端开发", "计算机相关专业"],
+                responsibilities: `学历无要求
+英雄不问出处
+核心要求吃苦耐劳负责任
+熟练掌握golang开发
+负责系统迭代和api对接等
+了解服务器运维，前端开发技术
+会运用ai辅助开发工作`,
+                jobRequirements: `任职要求：
+1. 熟练掌握golang开发
+2. 了解服务器运维，前端开发技术
+3. 会运用ai辅助开发工作
+4. 实习或者应届优先，可长期`,
+                benefits: `岗位福利：
+五险一金
+年终奖
+绩效奖金
+保底工资
+底薪加提成
+实习可转正`
+            },
+            {
+                id: 46,
+                title: "python高级开发工程师",
+                urgent: false,
+                salary: "20-25元/时",
+                salaryRange: "3-5千",
+                location: "杭州市",
+                locationDetail: "杭州市-萧山区",
+                education: "学历不限",
+                experience: "经验不限",
+                company: "驷马有科技",
+                companyDesc: "互联网 | 0-20人",
+                disability: ["接受残障人群"],
+                jobType: "兼职",
+                tags: ["Python", "Django", "MySQL", "周结"],
+                headcount: "招5人",
+                payDay: "周结",
+                commission: "20-25元/时，周结",
+                requirements: "扎实的Python语言基础，熟悉fastapi，了解rpa优先",
+                vehicleType: "无",
+                address: "杭州市-萧山区-杭州萧山国际商务中心8楼",
+                detailTags: ["Nginx", "Django", "MySQL", "Redis", "Python", "Flask"],
+                responsibilities: `1、接口文档的编写
+2、产品功能模块的实现
+3、与前端同时配合进行接口联调
+4、bug的修复及产品问题解决`,
+                jobRequirements: `岗位要求：
+1、扎实的Python语言基础
+2、热爱学习
+3、渴望做出有价值的产品
+4、熟悉fastapi，并对rpa有所了解者优先
+5、了解多种Python框架者优先`,
+                benefits: `工作周期：长期兼职
+每周工期：无要求
+工作时间：不限
+工作时段：不限
+结算方式：周结`
+            },
+            {
+                id: 47,
+                title: "客服专员",
+                urgent: false,
+                salary: "80-100元/天",
+                salaryRange: "2-3千",
+                location: "杭州市",
+                locationDetail: "杭州市-",
+                education: "大专",
+                experience: "1-3年",
+                company: "电商客服外包",
+                companyDesc: "电子商务 | 民营 | 100-499人",
+                disability: ["听力残疾"],
+                jobType: "兼职",
+                tags: ["居家办公", "淘宝客服", "打字客服", "月结"],
+                headcount: "招20人",
+                payDay: "月结",
+                commission: "80-100元/天，月结",
+                requirements: "打字速度不低于60字/分钟，能接受早晚班轮班制",
+                vehicleType: "无",
+                address: "杭州市-居家办公",
+                detailTags: ["售前客服", "远程办公", "售后客服", "不含销售", "咨询热线", "倒班工作制", "接受居家办公", "电商客服"],
+                responsibilities: `【岗位职责】
+1. 售前咨询：负责淘宝、天猫、京东、拼多多等电商平台的店铺接待工作，通过千牛、京麦等聊天工具，快速响应客户咨询，解答产品疑问，引导顾客下单促成交易。
+2. 订单处理：协助客户处理订单修改、地址变更、物流跟踪、发货进度查询等事宜。
+3. 售后服务：妥善处理客户投诉、退换货、中差评及纠纷问题，维护店铺好评率和服务指标（如DSR、三分钟回复率）。
+4. 客户维护：具备良好的服务意识，能耐心安抚客户情绪，提升客户购物体验，维护品牌形象。`,
+                jobRequirements: `【任职要求】
+1. 硬性条件：
+- 设备要求（居家必备）：需自备电脑，网络宽带稳定（不掉线），且周边环境安静无嘈杂背景音。
+- 打字速度：打字速度不低于60字/分钟，能同时接待8-15个客户不混乱。
+2. 经验与能力：
+- 有淘宝、京东、拼多多等平台客服经验者优先，无经验但学习能力强、熟悉网购流程者亦可（接受小白，但需通过培训考核）。
+- 熟悉平台规则（如发货时限、退款流程），能有效规避店铺罚款风险。
+- 具备良好的沟通技巧和抗压能力，面对刁蛮客户能保持耐心和专业度。
+3. 职业素养：
+- 自律性强：居家办公无实体监督，要求必须有高度的责任心和出勤率，严禁'挂机'或服务态度恶劣。
+- 时间观念：能接受早晚班轮班制（晚班通常需值班至24:00或凌晨），节假日及大促（如双11、618）期间需配合加班。`,
+                benefits: `【薪资福利】
+- 薪资结构：基础底薪+绩效奖金+奖奖+特殊补贴
+- 参考范围：综合薪资10-20元/小时（具体根据数据考核情况）
+- 培训机制：入职前提供线上免费培训（产品知识、平台规则、话术演练），考核通过后方可上岗。
+- 结算方式：月结（每月15日发放上月薪资）。
+- 福利：对于全职居家客服，可提供节日福利、优秀员工奖金等。`
+            },
+            {
+                id: 48,
+                title: "高级安全渗透工程师",
+                urgent: false,
+                salary: "30-60K",
+                salaryRange: "3-6万",
+                location: "杭州市",
+                locationDetail: "杭州市-萧山区",
+                education: "学历不限",
+                experience: "3-5年",
+                company: "杭州礼御信息技术",
+                companyDesc: "互联网 | 0-20人",
+                disability: ["肢体残疾"],
+                jobType: "全职",
+                tags: ["渗透测试", "攻防对抗", "SDL", "高薪"],
+                headcount: "招2人",
+                payDay: "每月15号",
+                commission: "30-60K/月",
+                requirements: "3-5年渗透测试经验，具备攻防对抗经验",
+                vehicleType: "无",
+                address: "杭州市-萧山区-博亚时代中心8楼",
+                detailTags: ["渗透测试经验", "攻防对抗经验", "SDL经验"],
+                responsibilities: `工作内容
+1、负责网络安全渗透测试，确保网络系统的安全性。
+2、参与安全风险评估，提出改进方案。
+3、与团队合作，共同解决安全领域的技术难题。`,
+                jobRequirements: `任职要求
+1、具备扎实的网络安全知识和渗透测试能力。
+2、能够独立完成安全项目，具有良好的问题分析和解决能力。
+3、具有团队合作精神，能够有效沟通和协作。`,
+                benefits: `薪资待遇：30-60K/月
+高薪技术岗位
+良好的工作环境`
+            },
+            {
+                id: 49,
+                title: "spss数据分析师",
+                urgent: false,
+                salary: "200-300元/天",
+                salaryRange: "3-6千",
+                location: "杭州市",
+                locationDetail: "杭州市-西湖区",
+                education: "大专",
+                experience: "经验不限",
+                company: "义乌市睿笔网络技术",
+                companyDesc: "互联网 | 0-20人",
+                disability: ["听力残疾", "肢体残疾", "言语残疾"],
+                jobType: "兼职",
+                tags: ["SPSS", "MATLAB", "Python", "日结"],
+                headcount: "招10人",
+                payDay: "日结",
+                commission: "200-300元/天，日结",
+                requirements: "擅长spss，stata，matlab，amos，Python其中一种数据分析软件",
+                vehicleType: "无",
+                address: "杭州市-西湖区-西投银泰城502",
+                detailTags: ["R", "SPSS", "MATLAB", "擅长spss", "数学统计相关专业"],
+                responsibilities: `可在家兼职，要求擅长spss，stata，matlab，amos，Python其中一种数据分析软件
+这边可以接受灵活接单，按单结算，当日结款`,
+                jobRequirements: `任职要求：
+1. 大专及以上学历
+2. 擅长spss，stata，matlab，amos，Python其中一种数据分析软件
+3. 数学/统计相关专业优先
+4. 可接受灵活接单`,
+                benefits: `岗位福利：
+交通补助
+有无线网
+员工旅游
+全勤奖
+底薪加提成
+日结工资`
+            },
+            {
+                id: 50,
+                title: "兼职晚托老师",
+                urgent: false,
+                salary: "100-200元/天",
+                salaryRange: "2-4千",
+                location: "杭州市",
+                locationDetail: "杭州市-上城区",
+                education: "本科",
+                experience: "1-3年",
+                company: "企小生创意",
+                companyDesc: "其他专业服务 | 未融资 | 1000-9999人",
+                disability: ["接受残障人群"],
+                jobType: "兼职",
+                tags: ["晚托", "作业检查", "数学语文", "月结"],
+                headcount: "招5人",
+                payDay: "月结",
+                commission: "100-200元/天，月结",
+                requirements: "需要数学和语文方向的晚托老师，检查作业",
+                vehicleType: "无",
+                address: "杭州市-上城区-金牛坊1-1",
+                detailTags: ["晚托", "作业检查", "数学语文"],
+                responsibilities: `晚托一般工作 检查作业，需要数学和语文方向的晚托老师。`,
+                jobRequirements: `任职要求：
+1. 本科及以上学历
+2. 1-3年相关经验
+3. 能辅导数学和语文作业
+4. 有耐心，责任心强`,
+                benefits: `岗位福利：
+带薪年假
+免费班车
+餐补
+住房补贴
+零食下午茶
+月结工资`
+            },
+            {
+                id: 51,
+                title: "小红书运营专员",
+                urgent: false,
+                salary: "10-30元/时",
+                salaryRange: "1-2千",
+                location: "杭州市",
+                locationDetail: "杭州市-",
+                education: "大专",
+                experience: "1年以内",
+                company: "莱点文化传媒",
+                companyDesc: "广告/公关/会展 | 不需要融资 | 20-99人",
+                disability: ["听力残疾"],
+                jobType: "兼职",
+                tags: ["小红书运营", "社交媒体", "日结", "长期兼职"],
+                headcount: "招10人",
+                payDay: "日结",
+                commission: "10-30元/时，日结",
+                requirements: "拥有社交媒体运营经验，乐于分享生活相关内容",
+                vehicleType: "无",
+                address: "杭州市-",
+                detailTags: ["小红书运营"],
+                responsibilities: `岗位职责：
+1. 在社交媒体平台进行日常运营，包括分享生活日常与相关内容。
+2. 及时回应粉丝或关注者的留言与互动，保持良好的沟通氛围。
+3. 保持较高活跃度，积极参与社区交流。
+4. 每日固定工作时间：下午 18:00-19:00。`,
+                jobRequirements: `任职要求：
+1. 拥有社交媒体运营经验，乐于并持续分享生活相关的内容。
+2. 个人曾发表不少于 3 条原创内容，展现日常活跃度。
+3. 具备责任心、较强的时间规划能力与自我驱动力。
+4. 熟悉常见社交媒体平台的基本操作。`,
+                benefits: `薪资福利：底薪+提成
+
+岗位福利：
+五险
+通讯补贴
+带薪年假
+全勤奖
+底薪加提成
+日结工资`
+            },
+            {
+                id: 52,
+                title: "游戏界面设计师",
+                urgent: false,
+                salary: "80-130元/天",
+                salaryRange: "2-3千",
+                location: "上海市",
+                locationDetail: "上海市-",
+                education: "学历不限",
+                experience: "5天/周 6个月",
+                company: "海目文化",
+                companyDesc: "游戏 | 未融资 | 100-499人",
+                disability: ["肢体残疾"],
+                jobType: "实习",
+                tags: ["游戏UI", "PS", "手机游戏", "五险一金"],
+                headcount: "招3人",
+                payDay: "月结",
+                commission: "80-130元/天",
+                requirements: "美术、设计艺术类相关专业，熟练掌握设计绘画软件",
+                vehicleType: "无",
+                address: "上海市-",
+                detailTags: ["RTS游戏", "MOBA游戏", "PS", "RPG游戏", "手机游戏", "第三人称", "图标设计"],
+                responsibilities: `1、负责游戏界面设计的整体视觉元素设计与制作；
+2、负责游戏主界面和功能界面UI、游戏ICON、LOGO、等游戏元素设计制作；
+3、掌握人机交互、用户体验和游戏设计理论，把控整体视觉效果和交互体验
+4、对界面相关的动效、动画设计有一定意识概念`,
+                jobRequirements: `1、大专及以上学历，美术、设计艺术类相关专业，
+2、美术功底深厚，色感好，出色的画面掌控能力；
+3、熟练掌握各种设计绘画软件，具有较强的设计技巧；
+4、做事认真细致，工作效率高，思维敏捷，善于沟通，具有较强责任心和团队合作精神；`,
+                benefits: `岗位福利：
+五险一金
+补充医疗保险
+加班补助
+全勤奖
+带薪年假`
+            },
+            {
+                id: 53,
+                title: "软件测试助理实习生",
+                urgent: false,
+                salary: "100-120元/天",
+                salaryRange: "2-3千",
+                location: "上海市",
+                locationDetail: "上海市-浦东康桥",
+                education: "大专",
+                experience: "3天/周 3个月",
+                company: "日企软件公司",
+                companyDesc: "计算机软件 | 外资 | 1000-9999人",
+                disability: ["肢体残疾"],
+                jobType: "实习",
+                tags: ["功能测试", "日语N3", "财务知识", "每周三天"],
+                headcount: "招2人",
+                payDay: "月结",
+                commission: "100-120元/天",
+                requirements: "在校大学生，财务、会计、计算机或相关专业，日语能力N3以上优先",
+                vehicleType: "无",
+                address: "上海市-浦东康桥",
+                detailTags: ["功能测试", "计算机相关专业", "掌握软件测试理论和流程", "财务知识"],
+                responsibilities: `财务管理支持：
+协助处理日常财务事务，如发票整理、数据录入等。
+参与编制财务报表和预算的初步工作。
+
+日语文档阅读：
+阅读和理解日语文档，如技术规格书、用户手册等，为团队提供必要的信息解
+
+软件测试协助：
+在指导下进行软件产品的基本功能测试。
+协助编写和更新测试用例，记录测试结果。`,
+                jobRequirements: `教育背景：
+在校大学生，财务、会计、计算机或相关专业。
+日语能力N3以上优先。
+
+技能与经验：
+对财务和软件测试领域有浓厚兴趣。
+具备一定的财务或软件测试基础知识。
+熟练使用办公软件，如Excel、Word等。
+
+其他要求：
+工作细心、认真负责，具备良好的学习能力和团队合作精神。
+能够在实习期间保证每周至少工作三天，并确保工作日的出勤。`,
+                benefits: `实习工资：每天100元
+良好的日企工作环境
+财务和软件测试双领域学习机会`
+            },
+            {
+                id: 54,
+                title: "芳香理疗师",
+                urgent: true,
+                salary: "20-30K",
+                salaryRange: "2-3万",
+                location: "上海市",
+                locationDetail: "上海市-全市",
+                education: "学历不限",
+                experience: "经验不限",
+                company: "上海轩檀信息咨询",
+                companyDesc: "其他生活服务 | 10000人以上",
+                disability: ["听力残疾", "肢体残疾", "言语残疾", "精神残疾", "视力残疾", "智力残疾"],
+                jobType: "全职/兼职",
+                tags: ["日结", "无经验可", "美容院", "车补"],
+                headcount: "招100人",
+                payDay: "日结",
+                commission: "月收入2w+，提成65%-80%",
+                requirements: "年龄16-55岁，男女不限，接受小白",
+                vehicleType: "无",
+                address: "上海市-全市上门服务",
+                detailTags: ["日结", "无需足疗足浴", "接受无理疗相关经验", "美容院", "无销售性质"],
+                responsibilities: `10多年国内头部平台，提供专业，健康，安全，正规，便捷的上门服务平台`,
+                jobRequirements: `1，年龄16-55岁，男女不限；
+2，身体健康，五官端正，良好的服务意识，沟通良好
+3，接受小白，无经验者可参加岗前培训；
+4，大平台已发展多年，拥有7000万+客户群体，无需自己拓客，不想接单就不接，有主业工作也可以做，平台不约束按摩师时间。
+5，上岗需要技能证书(从业资格证，健康证，学历证，身份证)，可协助办理`,
+                benefits: `薪资待遇：2w+收入，挣钱没有想象那么难。1，按单提成，提成高达65%-80%阶梯式提成，多劳多得，无需拓客，10几年大平台，稳定的客户群体，单多，稳定；
+2，工资日结，一单一结算，当天收入第二天可结算到账
+3，月收入2w+(上不封顶)，来回往返车费100%；
+
+岗位福利：
+车补
+免费工装
+夜班补助
+底薪加提成
+保底工资`
+            },
+            {
+                id: 55,
+                title: "兼职播音主持老师",
+                urgent: false,
+                salary: "4-8K",
+                salaryRange: "4-8千",
+                location: "上海市",
+                locationDetail: "上海市-静安区",
+                education: "中专/中技",
+                experience: "经验不限",
+                company: "景程",
+                companyDesc: "其他生活服务 | 不需要融资 | 20-99人",
+                disability: ["肢体残疾", "视力残疾"],
+                jobType: "兼职",
+                tags: ["手语优先", "服务残疾人", "包住", "包吃"],
+                headcount: "招3人",
+                payDay: "月结",
+                commission: "4-8K/月",
+                requirements: "会手语的优先，有残疾人招聘经验的优先",
+                vehicleType: "无",
+                address: "上海市-静安区-洛川商务楼3楼",
+                detailTags: ["全职兼职均可"],
+                responsibilities: `注意！刚岗位工作内容面向群体均为服务残疾人，需有接触残疾人的经验。
+
+1、自己创作内容，发布在线上平台，引导残疾人群体。发布内容主要目标群体为残疾人
+2、进行相关侯选人信息的收集、分类、整理，对有意向的残疾人群体做初步筛选，了解对方身体详细状况
+3、针对性搜集人才信息，安排残疾人与驻厂老师的对接工作
+4、创作手语或者其他类型题材的视频内容（能吸引到残疾人群体即可）发布到自媒体平台，做好播放量、评论、私信等数据
+5、通过直播的形式进行内容传播，熟悉各个平台的推流规则`,
+                jobRequirements: `该岗位接受残疾人，会手语的优先
+有残疾人招聘经验的优先，#聋人#肢体残疾`,
+                benefits: `岗位福利：
+包住
+包吃
+员工旅游
+带薪年假
+夜班补助`
+            },
+            {
+                id: 56,
+                title: "实习生",
+                urgent: false,
+                salary: "4-6K",
+                salaryRange: "4-6千",
+                location: "上海市",
+                locationDetail: "上海市-黄浦区",
+                education: "本科",
+                experience: "1年以内",
+                company: "于新实业",
+                companyDesc: "投资/融资 | 未融资 | 20-99人",
+                disability: ["听力残疾", "言语残疾", "视力残疾"],
+                jobType: "全职",
+                tags: ["前台接待", "数据录入", "档案管理", "五险一金"],
+                headcount: "招2人",
+                payDay: "每月15号",
+                commission: "4-6K/月",
+                requirements: "本科以上学历，1年以内经验，负责前台客户接待",
+                vehicleType: "无",
+                address: "上海市-黄浦区-雅居乐国际广场1层",
+                detailTags: ["学习能力", "综合素质"],
+                responsibilities: `1.负责前台客户接待；
+2.协助店长做好数据录入；
+3.协助公司做档案管理；
+4.做好仓库及后期管理`,
+                jobRequirements: `1. 本科以上学历
+2. 1年以内工作经验
+3. 良好的学习能力和综合素质
+4. 负责前台客户接待，协助数据录入和档案管理`,
+                benefits: `岗位福利：
+五险一金
+全勤奖
+年终奖
+带薪年假
+员工旅游`
+            }
+        ];
+
+        // 获取URL参数
+        function getUrlParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // 渲染职位详情
+        function renderJobDetail() {
+            const jobId = getUrlParam('id');
+            const contentEl = document.getElementById('jobContent');
+            
+            if (!jobId) {
+                contentEl.innerHTML = `
+                    <div class="not-found">
+                        <i class="fas fa-search"></i>
+                        <p>未找到职位信息</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            const job = jobData.find(j => j.id === parseInt(jobId));
+            
+            if (!job) {
+                contentEl.innerHTML = `
+                    <div class="not-found">
+                        <i class="fas fa-search"></i>
+                        <p>职位不存在或已下架</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // 构建标签HTML
+            const tagsHtml = job.tags.map(tag => `<span class="job-tag">${tag}</span>`).join('');
+            const detailTagsHtml = job.detailTags.map((tag, index) => 
+                `<span class="detail-tag ${index < 3 ? 'orange' : ''}">${tag}</span>`
+            ).join('');
+            
+            contentEl.innerHTML = `
+                <!-- 职位标题区 -->
+                <div class="job-header-card">
+                    <div class="job-title-section">
+                        <h1 class="job-title">${job.title}</h1>
+                        <span class="live-badge">直播中</span>
+                    </div>
+                    <div class="job-salary">${job.salary}</div>
+                    <div class="job-tags-row">
+                        <span class="job-tag highlight">${job.headcount}</span>
+                        <span class="job-tag">${job.experience}</span>
+                        <span class="job-tag">${job.education}</span>
+                        <span class="job-tag highlight">今日更新</span>
+                    </div>
+                </div>
+
+                <!-- 公司信息 -->
+                <div class="company-section">
+                    <div class="info-row">
+                        <span class="info-label">发薪日</span>
+                        <span class="info-value">${job.payDay}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">提成方式</span>
+                        <span class="info-value gray">${job.commission}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">应聘要求</span>
+                        <span class="info-value gray">${job.requirements}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">配车方式</span>
+                        <span class="info-value">${job.vehicleType}</span>
+                    </div>
+                </div>
+
+                <!-- 提示信息 -->
+                <div class="tips-section">
+                    <i class="fas fa-info-circle tips-icon"></i>
+                    <span class="tips-text">温馨提示：综合月薪=日均单量*每单均价*月出勤天数+其他补贴</span>
+                </div>
+
+                <!-- 地图区域 -->
+                <div class="map-section">
+                    <div class="map-container">
+                        <div class="map-placeholder">
+                            <i class="fas fa-map-marked-alt"></i>
+                        </div>
+                    </div>
+                    <div class="map-info">
+                        <div class="map-address">${job.address}</div>
+                        <button class="nav-btn">去导航</button>
+                    </div>
+                </div>
+
+                <!-- 设置常用住址 -->
+                <div class="company-section" style="margin-top: -4px; border-radius: 0 0 12px 12px;">
+                    <div class="info-row" style="border-bottom: none;">
+                        <i class="fas fa-home" style="color: #999; margin-right: 8px;"></i>
+                        <span class="info-value gray">设置常用住址，查看工作距离</span>
+                        <i class="fas fa-chevron-right" style="color: #ccc; margin-left: auto;"></i>
+                    </div>
+                </div>
+
+                <!-- 职位详情 -->
+                <div class="detail-section">
+                    <h2 class="section-title">职位详情</h2>
+                    <div class="detail-tags">
+                        ${detailTagsHtml}
+                    </div>
+                    <div class="detail-content">
+                        <h4>【岗位职责】</h4>
+                        <p>${job.responsibilities.replace(/\n/g, '<br>')}</p>
+                        
+                        <h4>【职位要求】</h4>
+                        <p>${job.jobRequirements.replace(/\n/g, '<br>')}</p>
+                        
+                        <h4>【薪资福利】</h4>
+                        <p>${job.benefits.replace(/\n/g, '<br>')}</p>
+                    </div>
+                </div>
+
+                <!-- 公司信息卡片 -->
+                <div class="detail-section">
+                    <h2 class="section-title">公司信息</h2>
+                    <div class="detail-content">
+                        <p><strong>${job.company}</strong></p>
+                        <p style="color: #666; margin-top: 8px;">${job.companyDesc}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 打开聊天
+        function openChat() {
+            document.getElementById('chatOverlay').classList.add('active');
+            document.getElementById('chatPanel').classList.add('active');
+        }
+
+        // 关闭聊天
+        function closeChat() {
+            document.getElementById('chatOverlay').classList.remove('active');
+            document.getElementById('chatPanel').classList.remove('active');
+        }
+
+        // 发送消息
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            if (!message) return;
+            
+            const chatMessages = document.getElementById('chatMessages');
+            
+            // 添加用户消息
+            const userBubble = document.createElement('div');
+            userBubble.className = 'message-bubble user-bubble';
+            userBubble.textContent = message;
+            chatMessages.appendChild(userBubble);
+            
+            // 清空输入框
+            input.value = '';
+            
+            // 滚动到底部
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            // 模拟客服回复
+            setTimeout(() => {
+                const serviceBubble = document.createElement('div');
+                serviceBubble.className = 'message-bubble service-bubble';
+                serviceBubble.textContent = "收到您的消息啦！客服正在处理中，请稍等片刻~";
+                chatMessages.appendChild(serviceBubble);
+                
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 1000);
+        }
+
+        // 申请职位
+        function applyJob() {
+            const jobId = getUrlParam('id');
+            alert('申请成功！HR会尽快联系您。');
+        }
+
+        // 立即沟通 - 保存职位信息并跳转到聊天页面
+        function startCommunication() {
+            const jobId = getUrlParam('id');
+            if (!jobId) {
+                alert('职位信息不存在');
+                return;
+            }
+            
+            const job = jobData.find(j => j.id === parseInt(jobId));
+            if (!job) {
+                alert('职位信息不存在或已下架');
+                return;
+            }
+            
+            // 获取已有的沟通列表
+            let communicatedJobs = JSON.parse(localStorage.getItem('communicatedJobs') || '[]');
+            
+            // 检查是否已存在
+            const existingIndex = communicatedJobs.findIndex(j => j.id === job.id);
+            
+            // 构建要保存的职位信息
+            const jobInfo = {
+                id: job.id,
+                title: job.title,
+                salary: job.salary,
+                company: job.company,
+                companyDesc: job.companyDesc,
+                tags: job.tags.join('、'),
+                location: job.location,
+                communicateTime: new Date().toISOString(),
+                // 招聘官信息
+                recruiterName: job.recruiterName || job.company.substring(0, 2) + 'HR',
+                recruiterTitle: job.recruiterTitle || '招聘经理',
+                recruiterAvatar: job.recruiterAvatar || 'https://img.bosszhipin.com/beijin/upload/avatar/20210609/d8922c74373c386934f3231f94096cc42569bf6476d1f21550636549e45f988b_s.png'
+            };
+            
+            if (existingIndex >= 0) {
+                // 更新已有记录
+                communicatedJobs[existingIndex] = jobInfo;
+            } else {
+                // 添加新记录到开头
+                communicatedJobs.unshift(jobInfo);
+            }
+            
+            // 保存到 localStorage
+            try {
+                localStorage.setItem('communicatedJobs', JSON.stringify(communicatedJobs));
+                console.log('职位已保存到沟通列表:', jobInfo);
+            } catch (e) {
+                console.error('localStorage 保存失败:', e);
+                alert('保存失败，请检查浏览器设置');
+                return;
+            }
+            
+            // 跳转到聊天页面，并传递职位ID
+            const chatUrl = encodeURI(`../聊天窗口(新增)/聊天窗口/index.html?jobId=${job.id}`);
+            console.log('跳转到:', chatUrl);
+            window.location.href = chatUrl;
+        }
+
+        // 默认头像
+        const DEFAULT_AVATAR = 'https://img.bosszhipin.com/beijin/mcs/user/20240313/16c9b92fe9f76e6f748a36501b9948e8cfcd208495d565ef66e7dff9f98764DE.jpg?x-oss-process=image/resize,w_120,h_120,limit_0';
+        
+        // 加载用户头像
+        function loadHeaderAvatar() {
+            const avatarImg = document.querySelector('.header-avatar img');
+            if (!avatarImg) {
+                console.error('头像图片元素未找到');
+                return;
+            }
+            
+            const savedAvatar = localStorage.getItem('userAvatar');
+            
+            if (savedAvatar && savedAvatar.trim() !== '') {
+                const isValidImage = savedAvatar.startsWith('data:image/') || savedAvatar.startsWith('http');
+                if (isValidImage) {
+                    avatarImg.src = savedAvatar;
+                    console.log('头像已从localStorage加载');
+                } else {
+                    console.warn('localStorage中的头像数据无效，使用默认头像');
+                    avatarImg.src = DEFAULT_AVATAR;
+                }
+            } else {
+                console.log('localStorage中没有保存头像，使用默认头像');
+                avatarImg.src = DEFAULT_AVATAR;
+            }
+            
+            avatarImg.onerror = function() {
+                console.error('头像加载失败，切换到默认头像');
+                avatarImg.src = DEFAULT_AVATAR;
+                avatarImg.onerror = null;
+            };
+        }
+        
+        // 页面加载时渲染
+        document.addEventListener('DOMContentLoaded', () => {
+            renderJobDetail();
+            loadHeaderAvatar();
+            
+            // 聊天输入框回车事件
+            const chatInput = document.getElementById('chatInput');
+            if (chatInput) {
+                chatInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        sendMessage();
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

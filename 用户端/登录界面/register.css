@@ -1,0 +1,545 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #0a0a0a;
+    color: #fff;
+    overflow: hidden;
+}
+
+/* 顶部导航 */
+.top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 15px 50px;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 15px;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.nav-links a:hover {
+    opacity: 1;
+}
+
+/* 背景轮播 */
+.hero-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.bg-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+}
+
+.bg-slide.active {
+    opacity: 1;
+}
+
+.bg-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.6) 100%);
+}
+
+/* 注册容器 */
+.register-container {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100vh;
+    padding: 70px 60px 30px;
+    box-sizing: border-box;
+}
+
+/* 注册框 - 加宽加长 */
+.register-box {
+    width: 520px;
+    height: calc(100vh - 100px);
+    max-height: 700px;
+    background-color: rgba(255, 255, 255, 0.98);
+    border-radius: 12px;
+    padding: 30px 45px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.register-box::-webkit-scrollbar {
+    width: 4px;
+}
+
+.register-box::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 2px;
+}
+
+.register-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 8px 0;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.register-subtitle {
+    font-size: 13px;
+    color: #888;
+    text-align: center;
+    margin-bottom: 25px;
+    flex-shrink: 0;
+}
+
+/* 表单区域 */
+#registerForm {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+#registerForm::-webkit-scrollbar {
+    width: 4px;
+}
+
+#registerForm::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 2px;
+}
+
+/* 输入框 */
+.input-group {
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #f8f8f8;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.input-group:focus-within {
+    border-color: #0052D9;
+    background-color: #fff;
+}
+
+.country-code {
+    padding: 12px 12px;
+    color: #333;
+    font-weight: 500;
+    font-size: 14px;
+    border-right: 1px solid #e0e0e0;
+}
+
+.input-group input {
+    flex: 1;
+    padding: 12px 14px;
+    border: none;
+    font-size: 14px;
+    background: transparent;
+    color: #333;
+    outline: none;
+}
+
+.input-group input::placeholder {
+    color: #aaa;
+}
+
+/* 验证码输入组 */
+.verification-group {
+    display: flex;
+    padding: 0;
+}
+
+.verification-group input {
+    flex: 1;
+    border: none;
+}
+
+.get-code-btn {
+    padding: 0 16px;
+    background: transparent;
+    border: none;
+    border-left: 1px solid #e0e0e0;
+    color: #0052D9;
+    font-size: 13px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.get-code-btn:hover {
+    background-color: #f0f0f0;
+}
+
+.get-code-btn:disabled {
+    color: #999;
+    cursor: not-allowed;
+}
+
+/* 表单分区 */
+.form-section {
+    margin: 16px 0;
+    flex-shrink: 0;
+}
+
+.section-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+/* 单选按钮组 - 性别 */
+.radio-group {
+    display: flex;
+    gap: 30px;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    color: #666;
+}
+
+.radio-label input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    cursor: pointer;
+    accent-color: #0052D9;
+}
+
+/* 复选框组 - 残疾类型 */
+.checkbox-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 13px;
+    color: #555;
+    padding: 10px 12px;
+    background-color: #f8f8f8;
+    border-radius: 6px;
+    border: 1px solid #e8e8e8;
+    transition: all 0.2s ease;
+}
+
+.checkbox-label:hover {
+    background-color: #f0f0f0;
+    border-color: #0052D9;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    cursor: pointer;
+    accent-color: #0052D9;
+    flex-shrink: 0;
+}
+
+.checkbox-label input[type="checkbox"]:checked + span {
+    color: #0052D9;
+    font-weight: 500;
+}
+
+/* 用户协议 */
+.terms {
+    margin: 18px 0 20px;
+    flex-shrink: 0;
+}
+
+.terms-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.4;
+}
+
+.terms-label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    cursor: pointer;
+    accent-color: #0052D9;
+    flex-shrink: 0;
+}
+
+.terms-label a {
+    color: #0052D9;
+    text-decoration: none;
+}
+
+.terms-label a:hover {
+    text-decoration: underline;
+}
+
+/* 注册按钮 */
+.register-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    background-color: #0052D9;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    flex-shrink: 0;
+    margin-top: auto;
+}
+
+.register-btn:hover {
+    background-color: #003bb3;
+}
+
+/* 底部链接 */
+.footer-links {
+    text-align: center;
+    margin-top: 18px;
+    padding-top: 18px;
+    padding-bottom: 25px;
+    border-top: 1px solid #e0e0e0;
+    font-size: 13px;
+    color: #999;
+    flex-shrink: 0;
+}
+
+.footer-links a {
+    color: #0052D9;
+    text-decoration: none;
+    margin-left: 5px;
+    font-weight: 500;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+/* 底部信息 */
+.register-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px;
+    text-align: center;
+    color: rgba(255,255,255,0.6);
+    font-size: 12px;
+    z-index: 10;
+}
+
+/* 角色选择视图 */
+.role-select-view {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-align: center;
+}
+
+.role-select-view .register-title {
+    margin-top: 30px;
+}
+
+.role-select-view .register-subtitle {
+    margin-bottom: 30px;
+}
+
+.role-options {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 20px 25px 30px;
+    flex: 1;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.role-option {
+    width: 90%;
+    height: 30%;
+    min-height: 100px;
+    max-height: 130px;
+    padding: 0;
+    background-color: #f8f8f8;
+    border: 1px solid #e0e0e0;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.role-option:hover {
+    background-color: #fff;
+    border-color: #0052D9;
+    box-shadow: 0 4px 12px rgba(0, 82, 217, 0.15);
+    transform: translateX(5px);
+}
+
+.role-option:active {
+    background-color: #f0f5ff;
+    transform: translateX(5px) scale(0.98);
+}
+
+.role-option .role-name,
+.role-option .role-desc {
+    width: 100%;
+    padding: 0 32px;
+    pointer-events: none;
+}
+
+.role-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 6px;
+}
+
+.role-desc {
+    font-size: 14px;
+    color: #888;
+}
+
+/* 角色表单容器 */
+.role-form {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.role-form form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.role-form form::-webkit-scrollbar {
+    width: 4px;
+}
+
+.role-form form::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 2px;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .top-nav {
+        padding: 12px 20px;
+    }
+    
+    .register-container {
+        justify-content: center;
+        padding: 60px 15px 20px;
+    }
+    
+    .register-box {
+        width: 100%;
+        max-width: 400px;
+        height: calc(100vh - 80px);
+        padding: 25px 25px;
+    }
+    
+    .register-title {
+        font-size: 22px;
+    }
+    
+    .checkbox-group {
+        grid-template-columns: 1fr;
+    }
+    
+    .role-select-view .register-title {
+        margin-top: 20px;
+    }
+    
+    .role-select-view .register-subtitle {
+        margin-bottom: 25px;
+    }
+    
+    .role-options {
+        padding: 15px 15px 25px;
+    }
+    
+    .role-option {
+        width: 92%;
+        height: 28%;
+        min-height: 85px;
+        padding: 0;
+    }
+    
+    .role-option .role-name,
+    .role-option .role-desc {
+        padding: 0 24px;
+    }
+    
+    .role-name {
+        font-size: 16px;
+    }
+    
+    .role-desc {
+        font-size: 13px;
+    }
+}

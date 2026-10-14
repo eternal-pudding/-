@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>查看简历/约面试按钮示例</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft Yahei", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            background: #f5f7fa;
+            padding: 60px;
+        }
+
+        .demo-title {
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        /* 示例1：简历列表中的按钮 */
+        .demo-section {
+            background: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .demo-section h3 {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        /* 简历项 */
+        .resume-item {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background: #fafafa;
+            border-radius: 8px;
+            border: 1px solid #f0f0f0;
+        }
+
+        .resume-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            margin-right: 16px;
+            overflow: hidden;
+            background: #e8e8e8;
+        }
+
+        .resume-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .resume-info {
+            flex: 1;
+        }
+
+        .resume-name {
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 6px;
+            color: #333;
+        }
+
+        .resume-tags {
+            display: flex;
+            gap: 8px;
+            font-size: 13px;
+            color: #999;
+        }
+
+        /* 按钮组 */
+        .resume-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            border: none;
+            outline: none;
+        }
+
+        /* 查看简历按钮 - 白底灰字带边框 */
+        .btn-view {
+            background: #fff;
+            color: #333;
+            border: 1px solid #d9d9d9;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .btn-view:hover {
+            background: #f5f5f5;
+            border-color: #bfbfbf;
+            color: #262626;
+        }
+
+        .btn-view i {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* 约面试按钮 - 蓝底白字 */
+        .btn-interview {
+            background: #0052D9;
+            color: #fff;
+            border: 1px solid #0052D9;
+            box-shadow: 0 2px 4px rgba(0, 82, 217, 0.2);
+        }
+
+        .btn-interview:hover {
+            background: #003BB3;
+            border-color: #003BB3;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 82, 217, 0.3);
+        }
+
+        .btn-interview i {
+            font-size: 14px;
+        }
+
+        /* 示例2：独立按钮展示 */
+        .button-showcase {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .showcase-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .showcase-label {
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            body {
+                padding: 20px;
+            }
+
+            .resume-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .resume-actions {
+                width: 100%;
+            }
+
+            .btn {
+                flex: 1;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 class="demo-title">查看简历 / 约面试 按钮样式</h1>
+
+    <!-- 示例1：简历列表场景 -->
+    <div class="demo-section">
+        <h3>📋 简历列表中的应用场景</h3>
+        <div class="resume-item">
+            <div class="resume-avatar">
+                <img src="https://img.bosszhipin.com/beijin/upload/avatar/20210609/d8922c74373c386934f3231f94096cc42569bf6476d1f21550636549e45f988b_s.png" alt="头像">
+            </div>
+            <div class="resume-info">
+                <div class="resume-name">李小红</div>
+                <div class="resume-tags">
+                    <span>23岁</span>
+                    <span>|</span>
+                    <span>大专</span>
+                    <span>|</span>
+                    <span>应届生</span>
+                    <span>|</span>
+                    <span>投递：行政助理</span>
+                </div>
+            </div>
+            <div class="resume-actions">
+                <a href="简历详情.html" class="btn btn-view" target="_blank">
+                    <i class="fas fa-file-alt"></i> 查看简历
+                </a>
+                <a href="约面试.html" class="btn btn-interview" target="_blank">
+                    <i class="fas fa-calendar-check"></i> 约面试
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 示例2：按钮独立展示 -->
+    <div class="demo-section">
+        <h3>🎨 按钮样式独立展示</h3>
+        <div class="button-showcase">
+            <div class="showcase-item">
+                <a href="#" class="btn btn-view">
+                    <i class="fas fa-file-alt"></i> 查看简历
+                </a>
+                <span class="showcase-label">查看简历按钮</span>
+            </div>
+            <div class="showcase-item">
+                <a href="#" class="btn btn-interview">
+                    <i class="fas fa-calendar-check"></i> 约面试
+                </a>
+                <span class="showcase-label">约面试按钮</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 示例3：不同尺寸 -->
+    <div class="demo-section">
+        <h3>📐 按钮组合效果</h3>
+        <div class="button-showcase">
+            <div class="resume-actions">
+                <button class="btn btn-view">
+                    <i class="fas fa-file-alt"></i> 查看简历
+                </button>
+                <button class="btn btn-interview">
+                    <i class="fas fa-calendar-check"></i> 约面试
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 添加点击效果演示
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                // 如果设置了在新标签页打开的真实链接，则放行不拦截
+                if (this.tagName === 'A' && this.getAttribute('target') === '_blank' && this.getAttribute('href') !== '#') {
+                    return;
+                }
+                e.preventDefault();
+                const isView = this.classList.contains('btn-view');
+                if (isView) {
+                    alert('点击了【查看简历】按钮，将跳转到简历详情页');
+                } else {
+                    alert('点击了【约面试】按钮，将跳转到约面试页面');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

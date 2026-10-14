@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>南京顺众人力资源开发服务有限公司 - 公司主页</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0052D9;
+            --primary-dark: #003BB3;
+            --salary-orange: #ff7a45;
+            --salary-light: #fff2e8;
+            --tag-blue-bg: #e6f4ff;
+            --tag-blue-text: #1890ff;
+            --tag-orange-bg: #fff2e8;
+            --tag-orange-text: #ff7a45;
+            --tag-green-bg: #f6ffed;
+            --tag-green-text: #52c41a;
+            --card-bg: #fff;
+            --section-bg: #f5f7fa;
+            --text-dark: #333;
+            --text-gray: #666;
+            --text-light: #999;
+            --border-color: #e8e8e8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        
+        body {
+            background-color: var(--section-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        
+        /* 公司Header */
+        .company-header {
+            background: #fff;
+            padding: 30px 24px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .company-header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        
+        .company-info {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        
+        .company-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .company-details {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .company-name-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .company-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+        
+        .verified-icon {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #52c41a 0%, #389e0d 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #fff;
+        }
+        
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            background: var(--tag-orange-bg);
+            color: var(--salary-orange);
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        .live-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--salary-orange);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .company-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .company-tag {
+            padding: 6px 14px;
+            background: var(--tag-blue-bg);
+            color: var(--tag-blue-text);
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        
+        .header-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 20px;
+        }
+        
+        .stats-row {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .stat-box {
+            text-align: center;
+            padding: 10px 20px;
+            background: var(--section-bg);
+            border-radius: 8px;
+        }
+        
+        .stat-box .number {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1;
+        }
+        
+        .stat-box .label {
+            font-size: 13px;
+            color: var(--text-gray);
+            margin-top: 4px;
+        }
+        
+        .action-btns {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .btn-primary {
+            padding: 10px 24px;
+            background: var(--primary);
+            border: none;
+            color: #fff;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+        
+        .btn-outline {
+            padding: 10px 24px;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            color: var(--text-gray);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s;
+        }
+        
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        /* 导航标签 */
+        .nav-tabs-wrapper {
+            background-color: #fff;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 64px;
+            z-index: 99;
+        }
+        
+        .nav-tabs {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            gap: 40px;
+        }
+        
+        .tab {
+            padding: 16px 0;
+            cursor: pointer;
+            font-size: 15px;
+            color: var(--text-gray);
+            position: relative;
+            transition: color 0.3s;
+            border: none;
+            background: none;
+        }
+        
+        .tab:hover {
+            color: var(--primary);
+        }
+        
+        .tab.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 3px 3px 0 0;
+        }
+        
+        /* 主内容区域 */
+        .company-main {
+            padding: 24px;
+        }
+        
+        .company-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 20px;
+        }
+        
+        .content-left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .content-right {
+            width: 320px;
+        }
+        
+        /* 通用卡片样式 */
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        
+        .card:last-child {
+            margin-bottom: 0;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        
+        /* 职位卡片 */
+        .job-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: all 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .job-card:hover {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+        
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+        
+        .job-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+        
+        .job-salary {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--salary-orange);
+        }
+        
+        .job-tags {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .job-tag {
+            padding: 6px 14px;
+            background: var(--tag-blue-bg);
+            color: var(--tag-blue-text);
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        
+        .job-tag.orange {
+            background: var(--tag-orange-bg);
+            color: var(--tag-orange-text);
+        }
+        
+        /* 信息列表 */
+        .info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .info-row {
+            display: flex;
+            gap: 8px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .info-label {
+            color: var(--text-gray);
+            white-space: nowrap;
+        }
+        
+        .info-value {
+            color: var(--text-dark);
+            flex: 1;
+        }
+        
+        /* 工商信息网格 */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        
+        .info-item.full-width {
+            grid-column: span 3;
+        }
+        
+        .info-item.half-width {
+            grid-column: span 2;
+        }
+        
+        .info-item .label {
+            font-size: 13px;
+            color: var(--text-light);
+        }
+        
+        .info-item .value {
+            font-size: 14px;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+        
+        .collapse-btn {
+            text-align: center;
+            color: var(--primary);
+            font-size: 14px;
+            cursor: pointer;
+            padding: 16px;
+            margin-top: 10px;
+            transition: color 0.3s;
+        }
+        
+        .collapse-btn:hover {
+            color: var(--primary-dark);
+        }
+        
+        /* Boss卡片 */
+        .boss-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        
+        .boss-card h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .boss-info {
+            display: flex;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .boss-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: #f0f0f0;
+            border: 2px solid var(--border-color);
+        }
+        
+        .boss-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .boss-details {
+            flex: 1;
+        }
+        
+        .boss-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+        
+        .boss-position {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+        
+        .boss-status {
+            font-size: 13px;
+            color: var(--text-gray);
+            line-height: 1.5;
+            padding: 8px 12px;
+            background: var(--section-bg);
+            border-radius: 6px;
+        }
+        
+        .view-all-btn {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .view-all-btn:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+        
+        /* Tab内容区域 */
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* 公司简介 */
+        .company-intro {
+            font-size: 14px;
+            color: var(--text-gray);
+            line-height: 1.8;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 1200px) {
+            .company-container {
+                flex-direction: column;
+            }
+            
+            .content-right {
+                width: 100%;
+            }
+            
+            .info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .info-item.full-width {
+                grid-column: span 2;
+            }
+            
+            .info-item.half-width {
+                grid-column: span 2;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .company-header {
+                padding: 20px;
+            }
+            
+            .company-header-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .header-right {
+                align-items: flex-start;
+                width: 100%;
+            }
+            
+            .nav-tabs {
+                padding: 0 20px;
+                gap: 24px;
+            }
+            
+            .company-main {
+                padding: 16px;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .info-item.full-width,
+            .info-item.half-width {
+                grid-column: span 1;
+            }
+            
+            .job-header {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <header class="main-header" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 0 60px; height: 80px; display: flex; align-items: center; justify-content: space-between; background: #fff; box-shadow: 0 2px 20px rgba(0,0,0,0.08);">
+        <a href="#" class="header-logo-link" style="font-size: 24px; font-weight: 700; color: #0052D9; text-decoration: none; display: flex; align-items: center; gap: 8px;">
+            <span style="font-style: italic;">Platform</span>
+            <span>就业平台</span>
+        </a>
+        <div class="header-nav" style="display: flex; align-items: center; gap: 40px;">
+            <div class="header-links" style="display: flex; align-items: center; gap: 40px;">
+                <a href="../首页/index.html" style="color: #333; text-decoration: none; font-size: 16px; font-weight: 500; padding: 10px 0; display: block; transition: all 0.3s; position: relative;">首页</a>
+                <a href="求职招聘.html" style="color: #333; text-decoration: none; font-size: 16px; font-weight: 500; padding: 10px 0; display: block; transition: all 0.3s; position: relative;">求职招聘</a>
+                <a href="../新闻/news.html" style="color: #333; text-decoration: none; font-size: 16px; font-weight: 500; padding: 10px 0; display: block; transition: all 0.3s; position: relative;">相关新闻</a>
+            </div>
+            <a href="../个人主页/个人主页.html" class="header-avatar" id="header-avatar-link" title="个人主页" style="width: 36px; height: 36px; border-radius: 50%; overflow: hidden; margin-left: 20px; border: 2px solid rgba(0,0,0,0.1); transition: all 0.3s; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <img src="https://img.bosszhipin.com/beijin/mcs/user/20240313/16c9b92fe9f76e6f748a36501b9948e8cfcd208495d565ef66e7dff9f98764DE.jpg?x-oss-process=image/resize,w_120,h_120,limit_0" alt="头像" style="width: 100%; height: 100%; object-fit: cover; object-position: center; border-radius: 50%; display: block; flex-shrink: 0;">
+            </a>
+        </div>
+    </header>
+    <!-- 占位空间，避免内容被导航栏遮挡 -->
+    <div style="height: 80px;"></div>
+
+    <!-- 公司Header -->
+    <div class="company-header">
+        <div class="company-header-container">
+            <div class="company-info">
+                <div class="company-logo">
+                    <i class="fas fa-building"></i>
+                </div>
+                <div class="company-details">
+                    <div class="company-name-row">
+                        <span class="company-name">南京顺众人力资源开发服务有限公司</span>
+                        <span class="verified-icon"><i class="fas fa-check"></i></span>
+                        <span class="live-badge">招聘中</span>
+                    </div>
+                    <div class="company-tags">
+                        <span class="company-tag">人力资源</span>
+                        <span class="company-tag">民营</span>
+                        <span class="company-tag">100-200人</span>
+                        <span class="company-tag">成立10年+</span>
+                    </div>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="stats-row">
+                    <div class="stat-box">
+                        <div class="number">12</div>
+                        <div class="label">在招职位</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="number">3</div>
+                        <div class="label">位Boss</div>
+                    </div>
+                </div>
+                <div class="action-btns">
+                    <button class="btn-outline" onclick="toggleFollow()">
+                        <i class="fas fa-plus"></i>
+                        <span id="followText">关注</span>
+                    </button>
+                    <button class="btn-primary" onclick="startChat()">
+                        <i class="fas fa-comment-dots"></i>
+                        <span>立即沟通</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 导航标签 -->
+    <div class="nav-tabs-wrapper">
+        <div class="nav-tabs">
+            <button class="tab active" onclick="switchTab('company')">公司简介</button>
+            <button class="tab" onclick="switchTab('jobs')">招聘职位(12)</button>
+            <button class="tab" onclick="switchTab('info')">工商信息</button>
+        </div>
+    </div>
+    
+    <!-- 主内容 -->
+    <main class="company-main">
+        <div class="company-container">
+            <div class="content-left">
+                <!-- 公司简介 Tab -->
+                <div id="tab-company" class="tab-content active">
+                    <div class="card">
+                        <div class="section-title">公司介绍</div>
+                        <div class="company-intro">
+                            <p>南京顺众人力资源开发服务有限公司成立于2015年，是一家专业的人力资源服务机构。公司致力于为各类企业提供全方位的人力资源解决方案，包括人才招聘、劳务派遣、人事代理、薪酬管理等服务。</p>
+                            <br>
+                            <p>公司秉承"专业、诚信、高效、创新"的服务理念，已为超过500家企业提供优质的人力资源服务，累计服务求职者超过10万人次。公司拥有专业的人力资源服务团队，致力于搭建企业与人才之间的高效桥梁。</p>
+                            <br>
+                            <p>主要业务领域：制造业、物流业、电商行业、服务业等，为客户提供灵活用工、批量招聘、高端猎头等多元化服务。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="section-title">公司福利</div>
+                        <div class="job-tags">
+                            <span class="job-tag">五险一金</span>
+                            <span class="job-tag">带薪年假</span>
+                            <span class="job-tag">节日福利</span>
+                            <span class="job-tag">绩效奖金</span>
+                            <span class="job-tag">员工旅游</span>
+                            <span class="job-tag">定期体检</span>
+                            <span class="job-tag">专业培训</span>
+                            <span class="job-tag">晋升机会</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="section-title">工作环境</div>
+                        <div class="company-intro">
+                            <p>公司位于南京市江宁区核心商圈，交通便利，办公环境舒适。配备现代化办公设施，拥有独立培训室、会议室、休息区等功能区域。</p>
+                            <br>
+                            <p>工作时间：周一至周五 9:00-18:00，周末双休，法定节假日按国家规定执行。</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 招聘职位 Tab -->
+                <div id="tab-jobs" class="tab-content">
+                    <a href="job-detail.html?id=1" class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <div class="job-title">人事专员，朝九晚四，周末双休</div>
+                                <div class="job-salary">8000-20000元/月</div>
+                            </div>
+                        </div>
+                        <div class="job-tags">
+                            <span class="job-tag">招10人</span>
+                            <span class="job-tag">经验不限</span>
+                            <span class="job-tag">学历不限</span>
+                            <span class="job-tag orange">今日更新</span>
+                        </div>
+                        <div class="info-list">
+                            <div class="info-row">
+                                <span class="info-label">发薪日</span>
+                                <span class="info-value">每月25号</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">工作地址</span>
+                                <span class="info-value">南京江宁亦朋家居广场5楼516</span>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="job-detail.html?id=2" class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <div class="job-title">周末双休！南京招小车送货员</div>
+                                <div class="job-salary">7500-12000元/月</div>
+                            </div>
+                        </div>
+                        <div class="job-tags">
+                            <span class="job-tag">招30人</span>
+                            <span class="job-tag">经验不限</span>
+                            <span class="job-tag">学历不限</span>
+                            <span class="job-tag">C1驾照</span>
+                        </div>
+                        <div class="info-list">
+                            <div class="info-row">
+                                <span class="info-label">发薪日</span>
+                                <span class="info-value">每月25号</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">工作地址</span>
+                                <span class="info-value">南京市-雨花台区</span>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="job-detail.html?id=6" class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <div class="job-title">急聘送餐员全职兼职均可</div>
+                                <div class="job-salary">7000-9500元/月</div>
+                            </div>
+                        </div>
+                        <div class="job-tags">
+                            <span class="job-tag">招20人</span>
+                            <span class="job-tag">经验不限</span>
+                            <span class="job-tag">学历不限</span>
+                            <span class="job-tag">提供住宿</span>
+                        </div>
+                        <div class="info-list">
+                            <div class="info-row">
+                                <span class="info-label">发薪日</span>
+                                <span class="info-value">每月25号</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">工作地址</span>
+                                <span class="info-value">南京市-鼓楼区</span>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <a href="job-detail.html?id=12" class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <div class="job-title">招聘语音主播不露脸可兼职</div>
+                                <div class="job-salary">5000-6000元/月</div>
+                            </div>
+                        </div>
+                        <div class="job-tags">
+                            <span class="job-tag">招10人</span>
+                            <span class="job-tag">经验不限</span>
+                            <span class="job-tag">学历不限</span>
+                            <span class="job-tag">日结</span>
+                        </div>
+                        <div class="info-list">
+                            <div class="info-row">
+                                <span class="info-label">发薪日</span>
+                                <span class="info-value">日结</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">工作地址</span>
+                                <span class="info-value">成都市-武侯区（可在家办公）</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                
+                <!-- 工商信息 Tab -->
+                <div id="tab-info" class="tab-content">
+                    <div class="card">
+                        <div class="section-title">工商信息</div>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <div class="label">企业名称</div>
+                                <div class="value">南京顺众人力资源开发服务有限公司</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="label">法定代表人</div>
+                                <div class="value">王经理</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="label">成立时间</div>
+                                <div class="value">2015-06-18</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="label">企业类型</div>
+                                <div class="value">有限责任公司</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="label">经营状态</div>
+                                <div class="value">存续</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="label">注册资本</div>
+                                <div class="value">500万元</div>
+                            </div>
+                            <div class="info-item half-width">
+                                <div class="label">注册地址</div>
+                                <div class="value">江苏省南京市江宁区天元中路126号新城发展中心2幢506室</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="label">所属行业</div>
+                                <div class="value">商务服务业</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="label">统一社会信用代码</div>
+                                <div class="value">913201153393456789</div>
+                            </div>
+                            <div class="info-item full-width">
+                                <div class="label">经营范围</div>
+                                <div class="value">
+                                    人力资源服务（不含职业中介活动、劳务派遣服务）；劳务服务（不含劳务派遣）；企业管理咨询；信息咨询服务（不含许可类信息咨询服务）；社会经济咨询服务；市场调查（不含涉外调查）；会议及展览服务；办公服务；商务代理代办服务；档案整理服务；技术服务、技术开发、技术咨询、技术交流、技术转让、技术推广
+                                </div>
+                            </div>
+                        </div>
+                        <div class="collapse-btn" onclick="toggleCollapse(this)">
+                            收起 ↑
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-right">
+                <div class="boss-card">
+                    <h3>招聘负责人</h3>
+                    <div class="boss-info">
+                        <div class="boss-avatar">
+                            <img src="https://img.bosszhipin.com/beijin/upload/avatar/20210609/d8922c74373c386934f3231f94096cc42569bf6476d1f21550636549e45f988b_s.png" alt="avatar">
+                        </div>
+                        <div class="boss-details">
+                            <div class="boss-name">王经理 · 招聘总监</div>
+                            <div class="boss-position">南京顺众人力资源</div>
+                            <div class="boss-status">正在招聘"人事专员"等12个职位，欢迎投递简历</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Tab切换
+        function switchTab(tabName) {
+            // 切换标签样式
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // 切换内容
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById('tab-' + tabName).classList.add('active');
+        }
+        
+        // 关注切换
+        function toggleFollow() {
+            const btn = document.querySelector('.btn-outline');
+            const text = document.getElementById('followText');
+            if (text.textContent === '关注') {
+                text.textContent = '已关注';
+                btn.innerHTML = '<i class="fas fa-check"></i><span id="followText">已关注</span>';
+                btn.style.background = '#e6f7ff';
+                btn.style.borderColor = '#1890ff';
+                btn.style.color = '#1890ff';
+            } else {
+                text.textContent = '关注';
+                btn.innerHTML = '<i class="fas fa-plus"></i><span id="followText">关注</span>';
+                btn.style.background = '#fff';
+                btn.style.borderColor = '#e8e8e8';
+                btn.style.color = '#666';
+            }
+        }
+        
+        // 开始沟通
+        function startChat() {
+            window.location.href = '../聊天窗口(新增)/聊天窗口/index.html';
+        }
+        
+        // 收起/展开
+        function toggleCollapse(btn) {
+            const grid = btn.previousElementSibling;
+            if (btn.textContent.includes('收起')) {
+                grid.style.maxHeight = '200px';
+                grid.style.overflow = 'hidden';
+                btn.textContent = '展开更多 ↓';
+            } else {
+                grid.style.maxHeight = 'none';
+                grid.style.overflow = 'visible';
+                btn.textContent = '收起 ↑';
+            }
+        }
+        
+        // 公司数据
+        const companyData = {
+            1: {
+                name: '南京顺众人力资源开发服务有限公司',
+                desc: '人力资源 | 民营 | 100-200人',
+                tags: ['人力资源', '民营', '100-200人', '成立10年+'],
+                jobCount: 12,
+                bossCount: 3,
+                intro: '南京顺众人力资源开发服务有限公司成立于2015年，是一家专业的人力资源服务机构。公司致力于为各类企业提供全方位的人力资源解决方案，包括人才招聘、劳务派遣、人事代理、薪酬管理等服务。',
+                jobs: [
+                    { title: '人事专员，朝九晚四，周末双休', salary: '8000-20000元/月', tags: ['招10人', '经验不限', '学历不限'] },
+                    { title: '周末双休！南京招小车送货员', salary: '7500-12000元/月', tags: ['招30人', '经验不限', 'C1驾照'] },
+                    { title: '急聘送餐员全职兼职均可', salary: '7000-9500元/月', tags: ['招20人', '经验不限', '提供住宿'] }
+                ]
+            },
+            2: {
+                name: '滴滴出行合作供应商',
+                desc: '网约车 | 民营 | 500-1000人',
+                tags: ['网约车', '民营', '500-1000人', '滴滴合作'],
+                jobCount: 30,
+                bossCount: 5,
+                intro: '滴滴出行合作供应商是滴滴出行的战略合作伙伴，专注于网约车司机招募、培训和管理服务。公司依托滴滴平台，为司机提供优质的就业机会和完善的职业培训体系。',
+                jobs: [
+                    { title: '周末双休！南京招小车送货员', salary: '7500-12000元/月', tags: ['招30人', 'C1驾照', '周末双休'] },
+                    { title: '网约车司机（全职/兼职）', salary: '8000-15000元/月', tags: ['招50人', 'C2驾照', '时间自由'] }
+                ]
+            },
+            3: {
+                name: '南京星际配送服务',
+                desc: '即时物流 | 民营 | 200-500人',
+                tags: ['即时物流', '民营', '200-500人', '送餐配送'],
+                jobCount: 15,
+                bossCount: 2,
+                intro: '南京星际配送服务是一家专业的即时物流配送企业，为各大外卖平台提供高效的配送服务。公司拥有完善的配送网络和专业的配送团队。',
+                jobs: [
+                    { title: '招送餐员兼配送，可全职可兼职', salary: '5000-8000元/月', tags: ['招15人', '经验不限', '配车'] }
+                ]
+            },
+            4: {
+                name: '南京大白送餐服务',
+                desc: '即时物流 | 民营 | 200-500人',
+                tags: ['即时物流', '民营', '200-500人', '送餐配送'],
+                jobCount: 25,
+                bossCount: 4,
+                intro: '南京大白送餐服务专注于外卖配送服务，与多家知名外卖平台建立长期合作关系，为骑手提供稳定的工作机会和良好的收入保障。',
+                jobs: [
+                    { title: '学校周边招送餐员9500，提供车住', salary: '7000-9500元/月', tags: ['招25人', '经验不限', '包住'] }
+                ]
+            },
+            6: {
+                name: '顺丰同城配送',
+                desc: '即时物流 | 上市 | 1000-5000人',
+                tags: ['即时物流', '上市', '1000-5000人', '顺丰品牌'],
+                jobCount: 20,
+                bossCount: 3,
+                intro: '顺丰同城配送是顺丰速运旗下的即时配送品牌，依托顺丰强大的物流网络和品牌优势，为商家和个人提供高品质即时配送服务。',
+                jobs: [
+                    { title: '急聘送餐员全职兼职均可', salary: '7000-9500元/月', tags: ['招20人', '经验不限', '包住'] }
+                ]
+            }
+        };
+
+        // 获取URL参数
+        function getUrlParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // 渲染公司信息
+        function renderCompanyInfo() {
+            const id = getUrlParam('id') || 1;
+            const company = companyData[id] || companyData[1];
+            
+            // 更新页面标题
+            document.title = company.name + ' - 公司主页';
+            
+            // 更新公司头部信息
+            document.querySelector('.company-name').textContent = company.name;
+            
+            // 更新公司标签
+            const tagsContainer = document.querySelector('.company-tags');
+            tagsContainer.innerHTML = company.tags.map(tag => `<span class="company-tag">${tag}</span>`).join('');
+            
+            // 更新统计数字
+            document.querySelector('.stat-box .number').textContent = company.jobCount;
+            document.querySelector('.stat-box:nth-child(2) .number').textContent = company.bossCount;
+            
+            // 更新导航标签
+            document.querySelector('.tab:nth-child(2)').textContent = `招聘职位(${company.jobCount})`;
+            
+            // 更新公司介绍
+            document.querySelector('.company-intro p').textContent = company.intro;
+            
+            // 更新招聘职位（简化版）
+            const jobsContainer = document.getElementById('tab-jobs');
+            if (company.jobs && company.jobs.length > 0) {
+                const jobsHtml = company.jobs.map((job, index) => `
+                    <a href="job-detail.html?id=${id}" class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <div class="job-title">${job.title}</div>
+                                <div class="job-salary">${job.salary}</div>
+                            </div>
+                        </div>
+                        <div class="job-tags">
+                            ${job.tags.map(tag => `<span class="job-tag">${tag}</span>`).join('')}
+                        </div>
+                    </a>
+                `).join('');
+                jobsContainer.innerHTML = jobsHtml;
+            }
+            
+            // 更新招聘负责人信息
+            document.querySelector('.boss-status').textContent = `正在招聘"${company.jobs[0].title}"等${company.jobCount}个职位，欢迎投递简历`;
+        }
+
+        // 页面加载时
+        window.addEventListener('load', function() {
+            // 渲染公司信息
+            renderCompanyInfo();
+            
+            // 处理hash切换tab
+            const hash = window.location.hash;
+            if (hash === '#jobs') {
+                document.querySelector('.tab:nth-child(2)').click();
+            } else if (hash === '#info') {
+                document.querySelector('.tab:nth-child(3)').click();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人主页 - 志愿者端</title>
+    <link rel="stylesheet" href="../common-nav-volunteer.css">
+    <link rel="stylesheet" href="个人主页.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body class="with-fixed-header">
+    <header>
+        <a href="../翻译工作台/index.html" class="logo">
+            <span>Job</span>
+            <span>志愿者端</span>
+        </a>
+        <div class="nav-container">
+            <ul class="nav-menu">
+                <li><a href="../翻译工作台/index.html">翻译工作台</a></li>
+                <li><a href="../视频翻译室/index.html">视频翻译室</a></li>
+                <li><a href="../消息中心/index.html">消息中心</a></li>
+                <li><a href="../新闻/news.html">相关新闻</a></li>
+            </ul>
+            <a href="个人主页.html" class="nav-avatar" title="个人中心">
+                <img src="" alt="头像" id="navAvatar">
+            </a>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="profile-card" role="region" aria-label="个人信息">
+            <div class="profile-info">
+                <div class="avatar-wrapper" id="avatar-wrapper">
+                    <img src="" alt="用户头像" class="profile-avatar" id="profile-avatar" style="display: none;">
+                    <div class="generated-avatar-large" id="generated-avatar-large" style="display: none;"></div>
+                    <div class="avatar-placeholder" id="avatar-placeholder">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="avatar-overlay">
+                        <span class="avatar-hint">上传头像</span>
+                    </div>
+                    <input type="file" id="avatar-input" accept="image/*" hidden>
+                </div>
+                <div class="profile-details">
+                    <h2 id="user-nickname">请设置昵称</h2>
+                    <p id="user-basic-info">请填写年龄、服务地区、从业年限</p>
+                    <p id="user-education-info">请填写联系方式、擅长领域</p>
+                    <div class="skill-tags" id="user-skill-types">
+                        <!-- 技能标签将由JS动态生成 -->
+                    </div>
+                </div>
+            </div>
+            <button class="edit-profile-btn" id="edit-profile-btn" onclick="openEditProfileModal()">
+                <i class="fas fa-edit"></i> 编辑资料
+            </button>
+        </div>
+
+        <div class="job-status-nav" role="tablist" aria-label="服务状态">
+            <a href="#" id="tab-serving" class="status-item active" data-tab="serving" role="tab" aria-selected="true">服务中 <span>0</span></a>
+            <a href="#" id="tab-pending" class="status-item" data-tab="pending" role="tab" aria-selected="false">待接单 <span>0</span></a>
+            <a href="#" id="tab-completed" class="status-item" data-tab="completed" role="tab" aria-selected="false">已完成 <span>0</span></a>
+            <a href="#" id="tab-reviews" class="status-item" data-tab="reviews" role="tab" aria-selected="false">我的评价 <span>0</span></a>
+        </div>
+
+        <div id="serving" class="task-list active" role="tabpanel" aria-labelledby="tab-serving">
+            <!-- 动态内容由JavaScript加载 -->
+        </div>
+
+        <div id="pending" class="task-list" role="tabpanel" aria-labelledby="tab-pending">
+            <!-- 动态内容由JavaScript加载 -->
+        </div>
+
+        <div id="completed" class="task-list" role="tabpanel" aria-labelledby="tab-completed">
+            <!-- 动态内容由JavaScript加载 -->
+        </div>
+
+        <div id="reviews" class="task-list" role="tabpanel" aria-labelledby="tab-reviews">
+            <!-- 动态内容由JavaScript加载 -->
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#">关于我们</a>
+                <a href="#">服务协议</a>
+                <a href="#">隐私政策</a>
+                <a href="#">无障碍声明</a>
+                <a href="#">法律声明</a>
+                <a href="#">联系我们</a>
+            </div>
+            <p class="copyright">Copyright &copy; 2026 无声职场. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <div id="toast-notification" class="toast-notification" aria-live="assertive" aria-atomic="true"></div>
+
+    <!-- 编辑资料模态框 -->
+    <div id="edit-profile-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>编辑个人资料</h3>
+                <button class="modal-close" onclick="closeEditProfileModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-profile-form">
+                    <div class="form-group">
+                        <label for="edit-nickname">昵称</label>
+                        <input type="text" id="edit-nickname" name="nickname" placeholder="请输入昵称" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-age">年龄</label>
+                        <input type="number" id="edit-age" name="age" placeholder="请输入年龄" min="16" max="100" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-region">服务地区</label>
+                        <input type="text" id="edit-region" name="region" placeholder="如：南京市" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-experience">从业年限</label>
+                        <select id="edit-experience" name="experience" required>
+                            <option value="1年以下">1年以下</option>
+                            <option value="1-3年">1-3年</option>
+                            <option value="3-5年">3-5年</option>
+                            <option value="5-10年">5-10年</option>
+                            <option value="10年以上">10年以上</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-phone">联系电话</label>
+                        <input type="tel" id="edit-phone" name="phone" placeholder="请输入手机号" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-email">电子邮箱</label>
+                        <input type="email" id="edit-email" name="email" placeholder="请输入邮箱" required>
+                    </div>
+                    <div class="form-group">
+                        <label>擅长领域（可多选）</label>
+                        <div class="skill-checkbox-group">
+                            <label class="skill-checkbox-item">
+                                <input type="checkbox" name="skill" value="求职面试翻译">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-label">求职面试翻译</span>
+                            </label>
+                            <label class="skill-checkbox-item">
+                                <input type="checkbox" name="skill" value="日常沟通翻译">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-label">日常沟通翻译</span>
+                            </label>
+                            <label class="skill-checkbox-item">
+                                <input type="checkbox" name="skill" value="医疗场景翻译">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-label">医疗场景翻译</span>
+                            </label>
+                            <label class="skill-checkbox-item">
+                                <input type="checkbox" name="skill" value="教育培训翻译">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-label">教育培训翻译</span>
+                            </label>
+                            <label class="skill-checkbox-item">
+                                <input type="checkbox" name="skill" value="法律事务翻译">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-label">法律事务翻译</span>
+                            </label>
+                            <label class="skill-checkbox-item">
+                                <input type="checkbox" name="skill" value="商务会议翻译">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-label">商务会议翻译</span>
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel" onclick="closeEditProfileModal()">取消</button>
+                <button type="button" class="btn-save" onclick="saveProfile()">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="个人主页.js"></script>
+</body>
+</html>

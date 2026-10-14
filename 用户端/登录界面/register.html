@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册 - 手语翻译与求职平台</title>
+    <link rel="stylesheet" href="register.css">
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <nav class="top-nav">
+        <div class="logo"></div>
+        <div class="nav-links">
+            <a href="login.html">返回登录</a>
+        </div>
+    </nav>
+
+    <!-- 背景轮播 -->
+    <div class="hero-bg">
+        <div class="bg-slide active" style="background-image: url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=2144');"></div>
+        <div class="bg-slide" style="background-image: url('https://images.unsplash.com/photo-1519501025264-65ba15a82390?q=80&w=2144');"></div>
+        <div class="bg-slide" style="background-image: url('https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?q=80&w=2144');"></div>
+        <div class="bg-overlay"></div>
+    </div>
+
+    <!-- 注册区域 -->
+    <div class="register-container">
+        <div class="register-box">
+            <!-- 角色选择视图 -->
+            <div id="roleSelectView" class="role-select-view">
+                <h2 class="register-title">选择您的身份</h2>
+                <p class="register-subtitle">请选择您要注册的身份类型</p>
+                <div class="role-options">
+                    <div class="role-option" data-role="jobseeker">
+                        <div class="role-name">求职者</div>
+                        <div class="role-desc">寻找工作机会</div>
+                    </div>
+                    <div class="role-option" data-role="hr">
+                        <div class="role-name">HR</div>
+                        <div class="role-desc">企业招聘人员</div>
+                    </div>
+                    <div class="role-option" data-role="volunteer">
+                        <div class="role-name">志愿者</div>
+                        <div class="role-desc">提供志愿服务</div>
+                    </div>
+                </div>
+                <div class="footer-links" style="margin-top: auto;">
+                    <span>已有账号？</span>
+                    <a href="login.html">立即登录</a>
+                </div>
+            </div>
+
+            <!-- 求职者注册表单 -->
+            <div id="jobseekerForm" class="role-form" style="display: none;">
+                <h2 class="register-title">求职者注册</h2>
+                <p class="register-subtitle">加入我们，开启无障碍求职之旅</p>
+                
+                <form id="registerFormJobseeker">
+                    <!-- 基本信息 -->
+                    <div class="input-group">
+                        <input type="text" name="name" placeholder="请输入您的姓名" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <span class="country-code">+86</span>
+                        <input type="tel" name="phone" placeholder="请输入您的手机号码" required>
+                    </div>
+                    
+                    <div class="input-group verification-group">
+                        <input type="text" inputmode="numeric" pattern="[0-9]*" name="code" placeholder="请输入短信验证码" required>
+                        <button type="button" class="get-code-btn">获取验证码</button>
+                    </div>
+                    
+                    <div class="input-group">
+                        <input type="password" name="password" placeholder="设置密码（至少6位）" required>
+                    </div>
+                    
+                    <!-- 性别选择 -->
+                    <div class="form-section">
+                        <label class="section-label">性别</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="gender" value="男" required>
+                                <span>男</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="gender" value="女" required>
+                                <span>女</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- 残疾类型 -->
+                    <div class="form-section">
+                        <label class="section-label">残疾类型（可多选）</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="disability" value="视力残疾">
+                                <span>视力残疾</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="disability" value="听力残疾">
+                                <span>听力残疾</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="disability" value="言语残疾">
+                                <span>言语残疾</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="disability" value="肢体残疾">
+                                <span>肢体残疾</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="disability" value="智力残疾">
+                                <span>智力残疾</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="disability" value="精神残疾">
+                                <span>精神残疾</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="terms">
+                        <label class="terms-label">
+                            <input type="checkbox" required>
+                            <span>我已阅读并同意<a href="#">用户协议</a>和<a href="#">隐私政策</a></span>
+                        </label>
+                    </div>
+                    <button type="submit" class="register-btn">完成注册</button>
+                </form>
+
+                <div class="footer-links" style="margin-top: auto;">
+                    <a href="#" class="switch-role">切换身份</a>
+                    <span>|</span>
+                    <span>已有账号？</span>
+                    <a href="login.html">立即登录</a>
+                </div>
+            </div>
+
+            <!-- HR注册表单 -->
+            <div id="hrForm" class="role-form" style="display: none;">
+                <h2 class="register-title">HR注册</h2>
+                <p class="register-subtitle">加入平台，为企业寻找优秀人才</p>
+                
+                <form id="registerFormHR">
+                    <!-- 基本信息 -->
+                    <div class="input-group">
+                        <input type="text" name="name" placeholder="请输入您的姓名" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <span class="country-code">+86</span>
+                        <input type="tel" name="phone" placeholder="请输入您的手机号码" required>
+                    </div>
+                    
+                    <div class="input-group verification-group">
+                        <input type="text" inputmode="numeric" pattern="[0-9]*" name="code" placeholder="请输入短信验证码" required>
+                        <button type="button" class="get-code-btn">获取验证码</button>
+                    </div>
+                    
+                    <div class="input-group">
+                        <input type="password" name="password" placeholder="设置密码（至少6位）" required>
+                    </div>
+                    
+                    <!-- 性别选择 -->
+                    <div class="form-section">
+                        <label class="section-label">性别</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="gender" value="男" required>
+                                <span>男</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="gender" value="女" required>
+                                <span>女</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- 企业信息 -->
+                    <div class="input-group">
+                        <input type="text" name="company" placeholder="请输入公司名称" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <input type="text" name="position" placeholder="请输入您的职位/部门" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <input type="email" name="email" placeholder="请输入企业邮箱（选填）">
+                    </div>
+                    
+                    <!-- 企业规模 -->
+                    <div class="form-section">
+                        <label class="section-label">企业规模</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="companySize" value="小微" required>
+                                <span>小微</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="companySize" value="中型" required>
+                                <span>中型</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="companySize" value="大型" required>
+                                <span>大型</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="terms">
+                        <label class="terms-label">
+                            <input type="checkbox" required>
+                            <span>我已阅读并同意<a href="#">用户协议</a>和<a href="#">隐私政策</a></span>
+                        </label>
+                    </div>
+                    <button type="submit" class="register-btn">完成注册</button>
+                </form>
+
+                <div class="footer-links">
+                    <a href="#" class="switch-role">切换身份</a>
+                    <span>|</span>
+                    <span>已有账号？</span>
+                    <a href="login.html">立即登录</a>
+                </div>
+            </div>
+
+            <!-- 志愿者注册表单 -->
+            <div id="volunteerForm" class="role-form" style="display: none;">
+                <h2 class="register-title">志愿者注册</h2>
+                <p class="register-subtitle">加入志愿者团队，传递温暖与关爱</p>
+                
+                <form id="registerFormVolunteer">
+                    <!-- 基本信息 -->
+                    <div class="input-group">
+                        <input type="text" name="name" placeholder="请输入您的姓名" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <span class="country-code">+86</span>
+                        <input type="tel" name="phone" placeholder="请输入您的手机号码" required>
+                    </div>
+                    
+                    <div class="input-group verification-group">
+                        <input type="text" inputmode="numeric" pattern="[0-9]*" name="code" placeholder="请输入短信验证码" required>
+                        <button type="button" class="get-code-btn">获取验证码</button>
+                    </div>
+                    
+                    <div class="input-group">
+                        <input type="password" name="password" placeholder="设置密码（至少6位）" required>
+                    </div>
+                    
+                    <!-- 性别选择 -->
+                    <div class="form-section">
+                        <label class="section-label">性别</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="gender" value="男" required>
+                                <span>男</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="gender" value="女" required>
+                                <span>女</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- 服务类型 -->
+                    <div class="form-section">
+                        <label class="section-label">服务类型（可多选）</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="serviceType" value="手语翻译">
+                                <span>手语翻译</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="serviceType" value="求职指导">
+                                <span>求职指导</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="serviceType" value="心理支持">
+                                <span>心理支持</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="serviceType" value="技能培训">
+                                <span>技能培训</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="serviceType" value="陪同面试">
+                                <span>陪同面试</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="serviceType" value="生活协助">
+                                <span>生活协助</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- 可服务时间 -->
+                    <div class="form-section">
+                        <label class="section-label">可服务时间（可多选）</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="availableTime" value="工作日">
+                                <span>工作日</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="availableTime" value="周末">
+                                <span>周末</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="availableTime" value="节假日">
+                                <span>节假日</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="availableTime" value="线上">
+                                <span>线上</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="terms">
+                        <label class="terms-label">
+                            <input type="checkbox" required>
+                            <span>我已阅读并同意<a href="#">志愿者服务协议</a>和<a href="#">隐私政策</a></span>
+                        </label>
+                    </div>
+                    <button type="submit" class="register-btn">完成注册</button>
+                </form>
+
+                <div class="footer-links">
+                    <a href="#" class="switch-role">切换身份</a>
+                    <span>|</span>
+                    <span>已有账号？</span>
+                    <a href="login.html">立即登录</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部信息 -->
+    <footer class="register-footer">
+        <p>我们致力于为残障人士提供便捷的求职和交流服务</p>
+    </footer>
+
+    <script>
+        // 背景轮播
+        const bgSlides = document.querySelectorAll('.bg-slide');
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            bgSlides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                if (i === index) {
+                    slide.classList.add('active');
+                }
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % bgSlides.length;
+            showSlide(currentSlide);
+        }
+
+        setInterval(nextSlide, 5000);
+
+        // 角色选择
+        const roleSelectView = document.getElementById('roleSelectView');
+        const roleOptions = document.querySelectorAll('.role-option');
+        const roleForms = document.querySelectorAll('.role-form');
+        const switchRoleLinks = document.querySelectorAll('.switch-role');
+
+        // 显示角色选择
+        function showRoleSelect() {
+            roleSelectView.style.display = 'flex';
+            roleForms.forEach(form => form.style.display = 'none');
+        }
+
+        // 选择角色并显示对应表单
+        function selectRole(role) {
+            roleSelectView.style.display = 'none';
+            roleForms.forEach(form => form.style.display = 'none');
+            
+            if (role === 'jobseeker') {
+                document.getElementById('jobseekerForm').style.display = 'block';
+            } else if (role === 'hr') {
+                document.getElementById('hrForm').style.display = 'block';
+            } else if (role === 'volunteer') {
+                document.getElementById('volunteerForm').style.display = 'block';
+            }
+        }
+
+        // 角色选项点击事件
+        roleOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                const role = option.getAttribute('data-role');
+                selectRole(role);
+            });
+        });
+
+        // 切换身份链接点击事件
+        switchRoleLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                showRoleSelect();
+            });
+        });
+
+        // 验证码倒计时
+        document.querySelectorAll('.get-code-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                let countdown = 60;
+                btn.disabled = true;
+                btn.textContent = `${countdown}s后重试`;
+
+                const timer = setInterval(() => {
+                    countdown--;
+                    if (countdown <= 0) {
+                        clearInterval(timer);
+                        btn.disabled = false;
+                        btn.textContent = '获取验证码';
+                    } else {
+                        btn.textContent = `${countdown}s后重试`;
+                    }
+                }, 1000);
+            });
+        });
+
+        // 求职者注册表单提交
+        const registerFormJobseeker = document.getElementById('registerFormJobseeker');
+        registerFormJobseeker.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(registerFormJobseeker);
+            const userData = {
+                role: 'jobseeker',
+                name: formData.get('name'),
+                phone: formData.get('phone'),
+                gender: formData.get('gender'),
+                disability: Array.from(formData.getAll('disability')),
+                registerTime: new Date().toISOString()
+            };
+            
+            let users = JSON.parse(localStorage.getItem('users') || '[]');
+            users.push(userData);
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            alert('注册成功！请登录');
+            window.location.href = 'login.html';
+        });
+
+        // HR注册表单提交
+        const registerFormHR = document.getElementById('registerFormHR');
+        registerFormHR.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(registerFormHR);
+            const userData = {
+                role: 'hr',
+                name: formData.get('name'),
+                phone: formData.get('phone'),
+                gender: formData.get('gender'),
+                company: formData.get('company'),
+                position: formData.get('position'),
+                email: formData.get('email'),
+                companySize: formData.get('companySize'),
+                registerTime: new Date().toISOString()
+            };
+            
+            let users = JSON.parse(localStorage.getItem('users') || '[]');
+            users.push(userData);
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            alert('注册成功！请登录');
+            window.location.href = 'login.html';
+        });
+
+        // 志愿者注册表单提交
+        const registerFormVolunteer = document.getElementById('registerFormVolunteer');
+        registerFormVolunteer.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(registerFormVolunteer);
+            const userData = {
+                role: 'volunteer',
+                name: formData.get('name'),
+                phone: formData.get('phone'),
+                gender: formData.get('gender'),
+                serviceType: Array.from(formData.getAll('serviceType')),
+                availableTime: Array.from(formData.getAll('availableTime')),
+                registerTime: new Date().toISOString()
+            };
+            
+            let users = JSON.parse(localStorage.getItem('users') || '[]');
+            users.push(userData);
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            alert('注册成功！请登录');
+            window.location.href = 'login.html';
+        });
+    </script>
+</body>
+</html>

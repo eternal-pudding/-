@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企业主页 - HR招聘平台</title>
+    <link rel="stylesheet" href="../首页/style.css">
+    <style>
+        /* 企业主页特有样式 - 参考职位详情页风格 */
+        :root {
+            --salary-orange: #ff7a45;
+            --salary-light: #fff2e8;
+            --tag-blue-bg: #e6f4ff;
+            --tag-blue-text: #1890ff;
+            --tag-orange-bg: #fff2e8;
+            --tag-orange-text: #ff7a45;
+            --tag-green-bg: #f0f9ff;
+            --tag-green-text: #52c41a;
+            --card-bg: #fff;
+            --section-bg: #f5f7fa;
+        }
+        
+        body {
+            background-color: var(--section-bg);
+        }
+        
+        /* 顶部Header */
+        .company-header {
+            background: #fff;
+            padding: 30px 60px;
+            margin-top: 80px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .company-header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        
+        .company-info {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        
+        .company-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .company-details {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .company-name-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .company-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+        
+        .verified-icon {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #52c41a 0%, #389e0d 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #fff;
+        }
+        
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            background: var(--tag-orange-bg);
+            color: var(--salary-orange);
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        .live-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--salary-orange);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .collect-btn {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            color: var(--text-gray);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s;
+        }
+        
+        .collect-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        .collect-btn.active {
+            background: var(--tag-orange-bg);
+            border-color: var(--salary-orange);
+            color: var(--salary-orange);
+        }
+        
+        .company-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .company-tag {
+            padding: 6px 14px;
+            background: var(--tag-blue-bg);
+            color: var(--tag-blue-text);
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        
+        .header-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 20px;
+        }
+        
+        .stats-row {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .stat-box {
+            text-align: center;
+            padding: 10px 20px;
+            background: var(--section-bg);
+            border-radius: 8px;
+        }
+        
+        .stat-box .number {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1;
+        }
+        
+        .stat-box .label {
+            font-size: 13px;
+            color: var(--text-gray);
+            margin-top: 4px;
+        }
+        
+        .action-btns {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .btn-primary {
+            padding: 10px 24px;
+            background: var(--primary);
+            border: none;
+            color: #fff;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+        
+        .btn-outline {
+            padding: 10px 24px;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            color: var(--text-gray);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s;
+        }
+        
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        /* 导航标签 */
+        .nav-tabs-wrapper {
+            background-color: #fff;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 70px;
+            z-index: 100;
+        }
+        
+        .nav-tabs {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 60px;
+            display: flex;
+            gap: 40px;
+        }
+        
+        .tab {
+            padding: 16px 0;
+            cursor: pointer;
+            font-size: 15px;
+            color: var(--text-gray);
+            position: relative;
+            transition: color 0.3s;
+            border: none;
+            background: none;
+        }
+        
+        .tab:hover {
+            color: var(--primary);
+        }
+        
+        .tab.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 3px 3px 0 0;
+        }
+        
+        /* 主内容区域 */
+        .company-main {
+            padding: 24px 60px;
+        }
+        
+        .company-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 20px;
+        }
+        
+        .content-left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .content-right {
+            width: 320px;
+        }
+        
+        /* 通用卡片样式 */
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        
+        /* 职位卡片 - 类似图片中的样式 */
+        .job-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: all 0.3s;
+        }
+        
+        .job-card:hover {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+        
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+        
+        .job-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+        
+        .job-salary {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--salary-orange);
+        }
+        
+        .job-tags {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .job-tag {
+            padding: 6px 14px;
+            background: var(--tag-blue-bg);
+            color: var(--tag-blue-text);
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        
+        .job-tag.orange {
+            background: var(--tag-orange-bg);
+            color: var(--tag-orange-text);
+        }
+        
+        .job-tag.green {
+            background: var(--tag-green-bg);
+            color: var(--tag-green-text);
+        }
+        
+        /* 信息列表 */
+        .info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .info-row {
+            display: flex;
+            gap: 8px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .info-label {
+            color: var(--text-gray);
+            white-space: nowrap;
+        }
+        
+        .info-value {
+            color: var(--text-dark);
+            flex: 1;
+        }
+        
+        /* 温馨提示 */
+        .tips-box {
+            background: #f6ffed;
+            border: 1px solid #b7eb8f;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .tips-icon {
+            width: 20px;
+            height: 20px;
+            background: #52c41a;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+        
+        .tips-text {
+            font-size: 13px;
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+        
+        /* 职位详情标签 */
+        .skill-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+        
+        .skill-tag {
+            padding: 8px 16px;
+            background: #fff2f0;
+            color: #cf1322;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        
+        /* 工商信息网格 */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        
+        .info-item.full-width {
+            grid-column: span 3;
+        }
+        
+        .info-item.half-width {
+            grid-column: span 2;
+        }
+        
+        .info-item .label {
+            font-size: 13px;
+            color: var(--text-light);
+        }
+        
+        .info-item .value {
+            font-size: 14px;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+        
+        .collapse-btn {
+            text-align: center;
+            color: var(--primary);
+            font-size: 14px;
+            cursor: pointer;
+            padding: 16px;
+            margin-top: 10px;
+            transition: color 0.3s;
+        }
+        
+        .collapse-btn:hover {
+            color: var(--primary-hover);
+        }
+        
+        /* Boss卡片 */
+        .boss-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        
+        .boss-card h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .boss-info {
+            display: flex;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .boss-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: #f0f0f0;
+            border: 2px solid var(--border-color);
+        }
+        
+        .boss-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .boss-details {
+            flex: 1;
+        }
+        
+        .boss-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+        
+        .boss-position {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+        
+        .boss-status {
+            font-size: 13px;
+            color: var(--text-gray);
+            line-height: 1.5;
+            padding: 8px 12px;
+            background: var(--section-bg);
+            border-radius: 6px;
+        }
+        
+        /* Tab内容区域 */
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* 悬浮按钮 */
+        .float-btns {
+            position: fixed;
+            right: 40px;
+            bottom: 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 100;
+        }
+        
+        .float-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: #fff;
+            border: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-gray);
+            font-size: 20px;
+            transition: all 0.3s;
+        }
+        
+        .float-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            color: var(--primary);
+        }
+        
+        /* 响应式 */
+        @media (max-width: 1200px) {
+            .company-container {
+                flex-direction: column;
+            }
+            
+            .content-right {
+                width: 100%;
+            }
+            
+            .info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .info-item.full-width {
+                grid-column: span 2;
+            }
+            
+            .info-item.half-width {
+                grid-column: span 2;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .company-header {
+                padding: 20px;
+            }
+            
+            .company-header-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .header-right {
+                align-items: flex-start;
+                width: 100%;
+            }
+            
+            .nav-tabs {
+                padding: 0 20px;
+                gap: 24px;
+            }
+            
+            .company-main {
+                padding: 16px;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .info-item.full-width,
+            .info-item.half-width {
+                grid-column: span 1;
+            }
+            
+            .job-header {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <nav class="top-nav">
+        <div class="logo">HR招聘平台</div>
+        <div class="nav-container">
+            <div class="nav-menu">
+                <a href="../首页/index.html">首页</a>
+                <a href="HR端导航栏企业主页.html" class="active">企业主页</a>
+                <a href="../求职招聘/求职招聘.html">职位管理</a>
+                <a href="../聊天窗口/index.html" class="message-link">
+                    消息中心
+                    <span class="badge">5</span>
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="javascript:void(0)" class="logout-btn" onclick="logout()">退出</a>
+                <a href="../个人主页/个人主页.html" class="nav-avatar" title="个人主页">
+                    <img src="https://img.bosszhipin.com/beijin/mcs/chatphoto/20200810/202a73eda0742d2b63ab76274c45543835a935b38495b428634570621439c635_s.png" alt="企业Logo" id="header-avatar">
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 企业Header -->
+    <div class="company-header">
+        <div class="company-header-container">
+            <div class="company-info">
+                <div class="company-logo">🏢</div>
+                <div class="company-details">
+                    <div class="company-name-row">
+                        <span class="company-name">马鞍山市花山区星峰企业管理中心</span>
+                        <span class="verified-icon">✓</span>
+                        <button class="collect-btn" id="collectBtn" onclick="toggleCollect()">
+                            <span>★</span>
+                            <span>收藏</span>
+                        </button>
+                    </div>
+                    <div class="company-tags">
+                        <span class="company-tag">0-20人</span>
+                        <span class="company-tag">电子商务</span>
+                        <span class="company-tag">个体工商户</span>
+                        <span class="company-tag">存续</span>
+                    </div>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="stats-row">
+                    <div class="stat-box">
+                        <div class="number">1</div>
+                        <div class="label">在招职位</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="number">1</div>
+                        <div class="label">位Boss</div>
+                    </div>
+                </div>
+                <div class="action-btns">
+                    <button class="btn-primary">
+                        <span>📝</span>
+                        <span>完善企业信息</span>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 导航标签 -->
+    <div class="nav-tabs-wrapper">
+        <div class="nav-tabs">
+            <button class="tab active" onclick="switchTab('company')">公司简介</button>
+            <button class="tab" onclick="switchTab('jobs')">招聘职位(1)</button>
+        </div>
+    </div>
+    
+    <!-- 主内容 -->
+    <main class="company-main">
+        <div class="company-container">
+            <div class="content-left">
+                <!-- 公司简介 Tab -->
+                <div id="tab-company" class="tab-content active">
+                    <!-- 工商信息 -->
+                    <div class="card">
+                        <div class="section-title">工商信息</div>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <div class="label">企业名称</div>
+                                <div class="value">马鞍山市花山区星峰企业管理中心</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="label">法定代表人</div>
+                                <div class="value">陶宗星</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="label">成立时间</div>
+                                <div class="value">2023-10-16</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="label">企业类型</div>
+                                <div class="value">个体工商户</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="label">经营状态</div>
+                                <div class="value">存续</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="label">注册资本</div>
+                                <div class="value">40万元</div>
+                            </div>
+                            <div class="info-item half-width">
+                                <div class="label">注册地址</div>
+                                <div class="value">安徽省马鞍山市花山区霍里镇格基软件信息科技园1号楼301</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="label">营业期限</div>
+                                <div class="value">2023-10-16至-</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="label">所属地区</div>
+                                <div class="value">安徽省</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="label">统一社会信用代码</div>
+                                <div class="value">92340503MACYPFFD92</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="label">核准日期</div>
+                                <div class="value">2023-10-16</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="label">曾用名</div>
+                                <div class="value">-</div>
+                            </div>
+                            <div class="info-item full-width">
+                                <div class="label">登记机关</div>
+                                <div class="value">马鞍山市花山区市场监督管理局</div>
+                            </div>
+                            <div class="info-item full-width">
+                                <div class="label">所属行业</div>
+                                <div class="value">-</div>
+                            </div>
+                            <div class="info-item full-width">
+                                <div class="label">经营范围</div>
+                                <div class="value">
+                                    一般项目：企业管理；市场主体登记注册代理；社会经济咨询服务；信息咨询服务（不含许可类信息咨询服务）；劳务服务（不含劳务派遣）；装卸搬运；食品销售（仅销售预包装食品）；保健食品（预包装）销售（除许可业务外，可自主依法经营法律法规非禁止或限制的项目）许可项目：餐饮服务（不产生油烟、异味、废气）；食品销售（依法须经批准的项目，经相关部门批准后方可开展经营活动，具体经营项目以相关部门批准文件或许可证件为准）
+                                </div>
+                            </div>
+                        </div>
+                        <div class="collapse-btn" onclick="toggleCollapse(this)">
+                            收起 ↑
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 招聘职位 Tab -->
+                <div id="tab-jobs" class="tab-content">
+                    <!-- 职位卡片1 -->
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div>
+                                <div class="job-title">兼职-电商打包专员</div>
+                                <div class="job-salary">3000-5000元/月</div>
+                            </div>
+                            <span class="live-badge">招聘中</span>
+                        </div>
+                        <div class="job-tags">
+                            <span class="job-tag">招5人</span>
+                            <span class="job-tag">经验不限</span>
+                            <span class="job-tag">学历不限</span>
+                            <span class="job-tag orange">今日更新</span>
+                        </div>
+                        <div class="info-list">
+                            <div class="info-row">
+                                <span class="info-label">发薪日</span>
+                                <span class="info-value">每月15号</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">工作时段</span>
+                                <span class="info-value">早9:00-晚18:00，周末双休</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">提成方式</span>
+                                <span class="info-value">计件工资，多劳多得</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">应聘要求</span>
+                                <span class="info-value">年龄18-45周岁，手脚麻利，有责任心，能吃苦耐劳</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">工作地址</span>
+                                <span class="info-value">安徽省马鞍山市花山区霍里镇格基软件信息科技园1号楼301</span>
+                            </div>
+                        </div>
+                        <div class="tips-box">
+                            <div class="tips-icon">!</div>
+                            <div class="tips-text">温馨提示：兼职岗位需签订劳务协议，保障双方权益</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 职位详情 -->
+                    <div class="card">
+                        <div class="section-title">职位详情</div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">打包发货</span>
+                            <span class="skill-tag">电商仓储</span>
+                            <span class="skill-tag">周末双休</span>
+                            <span class="skill-tag">计件工资</span>
+                            <span class="skill-tag">多劳多得</span>
+                        </div>
+                        <div style="margin-top: 20px;">
+                            <h4 style="font-size: 15px; font-weight: 600; margin-bottom: 12px; color: var(--text-dark);">【岗位职责】</h4>
+                            <p style="font-size: 14px; color: var(--text-gray); line-height: 1.8;">
+                                1. 负责电商订单的打包、贴单、发货工作<br>
+                                2. 核对商品信息，确保发货准确无误<br>
+                                3. 维护工作区域整洁，配合库存盘点<br>
+                                4. 完成上级交办的其他工作任务
+                            </p>
+                        </div>
+                        <div style="margin-top: 20px;">
+                            <h4 style="font-size: 15px; font-weight: 600; margin-bottom: 12px; color: var(--text-dark);">【工作时间】</h4>
+                            <p style="font-size: 14px; color: var(--text-gray); line-height: 1.8;">
+                                早9:00-晚18:00，中午休息1小时，周末双休，节假日正常休息
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-right">
+                <div class="boss-card">
+                    <h3>招聘负责人</h3>
+                    <div class="boss-info">
+                        <div class="boss-avatar">
+                            <img src="https://ui-avatars.com/api/?name=陶宗星&background=0052D9&color=fff&size=56" alt="avatar" id="boss-avatar">
+                        </div>
+                        <div class="boss-details">
+                            <div class="boss-name">陶宗星 · 人事主管</div>
+                            <div class="boss-position">星峰企业管理中心</div>
+                            <div class="boss-status">正在招聘"兼职-电商打包专员"，欢迎投递简历</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- 悬浮按钮 -->
+    <div class="float-btns">
+        <div class="float-btn" title="帮助">?</div>
+        <div class="float-btn" title="反馈">💬</div>
+    </div>
+    
+    <!-- 返回顶部 -->
+    <div class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18,15 12,9 6,15"></polyline></svg>
+    </div>
+
+    <script>
+        // Tab切换
+        function switchTab(tabName) {
+            // 切换标签样式
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // 切换内容
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById('tab-' + tabName).classList.add('active');
+        }
+        
+        // 收藏切换
+        function toggleCollect() {
+            const btn = document.getElementById('collectBtn');
+            btn.classList.toggle('active');
+            if (btn.classList.contains('active')) {
+                btn.innerHTML = '<span>★</span><span>已收藏</span>';
+            } else {
+                btn.innerHTML = '<span>★</span><span>收藏</span>';
+            }
+        }
+        
+        // 收起/展开
+        function toggleCollapse(btn) {
+            const grid = btn.previousElementSibling;
+            if (btn.textContent.includes('收起')) {
+                grid.style.maxHeight = '200px';
+                grid.style.overflow = 'hidden';
+                btn.textContent = '展开更多 ↓';
+            } else {
+                grid.style.maxHeight = 'none';
+                grid.style.overflow = 'visible';
+                btn.textContent = '收起 ↑';
+            }
+        }
+        
+        // 返回顶部按钮显示/隐藏
+        const backToTopBtn = document.getElementById('backToTop');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+        
+        // 更新消息中心红点
+        function updateMessageBadge() {
+            const badge = document.querySelector('.message-link .badge');
+            if (!badge) return;
+            const unreadCount = parseInt(localStorage.getItem('hrUnreadCount') || '0', 10);
+            if (unreadCount > 0) {
+                badge.textContent = unreadCount > 99 ? '99+' : unreadCount;
+                badge.style.display = 'inline-block';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        // 加载导航栏头像
+        function loadNavAvatar() {
+            const savedAvatar = localStorage.getItem('userAvatar');
+            const headerAvatar = document.getElementById('header-avatar');
+            
+            if (savedAvatar && headerAvatar) {
+                headerAvatar.src = savedAvatar;
+            }
+            updateMessageBadge();
+        }
+
+        // 加载招聘负责人头像（与导航栏头像独立）
+        function loadBossAvatar() {
+            const savedBossAvatar = localStorage.getItem('bossAvatar');
+            const bossAvatar = document.getElementById('boss-avatar');
+            if (savedBossAvatar && bossAvatar) {
+                bossAvatar.src = savedBossAvatar;
+            }
+        }
+        
+        // 页面加载时执行
+        loadNavAvatar();
+        loadBossAvatar();
+
+        // 退出登录
+        function logout() {
+            localStorage.removeItem('loginInfo');
+            sessionStorage.removeItem('loginInfo');
+            alert('已退出登录');
+            window.location.href = '../../用户端/首页/index.html';
+        }
+    </script>
+</body>
+</html>

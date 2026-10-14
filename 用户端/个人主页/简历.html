@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人简历</title>
+    <link rel="stylesheet" href="../首页/style.css">
+    <link rel="stylesheet" href="简历.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header class="main-header">
+        <a href="../首页/index.html" class="logo">
+            <span style="font-style: italic;">Platform</span>
+            <span>就业平台</span>
+        </a>
+        <div class="nav-container">
+            <ul class="nav-menu">
+                <li><a href="../首页/index.html">首页</a></li>
+                <li><a href="../求职招聘/求职招聘.html">求职招聘</a></li>
+                <li><a href="../新闻/news.html">相关新闻</a></li>
+                <li><a href="../聊天窗口(新增)/聊天窗口/index.html">消息中心</a></li>
+            </ul>
+            <div class="nav-right">
+                <a href="../登录界面/login.html" class="login-btn" id="loginBtn">登录</a>
+                <div class="user-info" id="userInfo" style="display: none;">
+                    <span class="user-name" id="userName"></span>
+                    <a href="#" class="logout-btn" id="logoutBtn">退出</a>
+                </div>
+                <a href="个人主页.html" class="nav-avatar" id="navAvatarLink" title="个人主页" style="display: none;">
+                    <img src="" alt="头像" id="navAvatar" style="display: none;">
+                    <div class="generated-avatar" id="generatedAvatar" style="display: none;"></div>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="resume-page">
+        <div class="resume-header">
+            <h1 class="resume-title">个人简历</h1>
+        </div>
+
+        <div class="resume-bar-wrapper">
+            <div class="resume-bar"></div>
+        </div>
+
+        <div class="resume-body">
+            <!-- 基本信息 -->
+            <section class="resume-section">
+                <div class="section-header">
+                    <div class="section-tag">
+                        <span class="tag-text">基本信息</span>
+                    </div>
+                </div>
+                <div class="section-content basic-info">
+                    <div class="info-main">
+                        <div class="info-row">
+                            <div class="info-item"><span class="label">姓　　名：</span><span data-editable>姜姜好</span></div>
+                            <div class="info-item"><span class="label">求职意向：</span><span data-editable>工作岗位</span></div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-item"><span class="label">民　　族：</span><span data-editable>汉</span></div>
+                            <div class="info-item"><span class="label">出生年月：</span><span data-editable>C56</span></div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-item"><span class="label">籍　　贯：</span><span data-editable>北京</span></div>
+                            <div class="info-item"><span class="label">毕业院校：</span><span data-editable>北京 XX 大学</span></div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-item"><span class="label">电　　话：</span><span data-editable>138-0000-0000</span></div>
+                            <div class="info-item"><span class="label">学　　历：</span><span data-editable>本科</span></div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-item"><span class="label">邮　　箱：</span><span data-editable>jiang@example.com</span></div>
+                            <div class="info-item"><span class="label">政治面貌：</span><span data-editable></span></div>
+                        </div>
+                    </div>
+                    <div class="info-photo" onclick="document.getElementById('photo-input').click()">
+                        <img id="resume-photo" src="https://api.dicebear.com/7.x/avataaars/svg?seed=jiang" alt="个人照片">
+                        <div class="photo-overlay">
+                            <i class="fas fa-camera"></i>
+                            <span>上传照片</span>
+                        </div>
+                        <input type="file" id="photo-input" accept="image/*" hidden onchange="handlePhotoUpload(event)">
+                    </div>
+                </div>
+            </section>
+
+            <!-- 教育背景 -->
+            <section class="resume-section">
+                <div class="section-header">
+                    <div class="section-tag">
+                        <span class="tag-text">教育背景</span>
+                    </div>
+                </div>
+                <div class="section-content" data-editable data-editable-area>
+                    <div class="item-header">
+                        <span>2017.09-2021.06</span>
+                        <span>北京 XX 大学</span>
+                        <span>会计（本科）</span>
+                    </div>
+                    <p class="content-text"><strong>主修课程：</strong>经济学基础、会计基础、经济法、税法、财务会计、成本会计、财务管理、管理会计、企业审计、会计电算化、会计制度设计、电算会计综合实训、企业实践等。</p>
+                </div>
+            </section>
+
+            <!-- 实习经历 -->
+            <section class="resume-section">
+                <div class="section-header">
+                    <div class="section-tag">
+                        <span class="tag-text">实习经历</span>
+                    </div>
+                </div>
+                <div class="section-content" data-editable data-editable-area>
+                    <div class="item-header">
+                        <span>2022.00-2022.01</span>
+                        <span>XXXX 医院</span>
+                        <span>实习护士</span>
+                    </div>
+                    <p class="content-text">实习期间，完成护理规范培训 1</p>
+                </div>
+            </section>
+
+            <!-- 在校经历 2 -->
+            <section class="resume-section">
+                <div class="section-header">
+                    <div class="section-tag">
+                        <span class="tag-text">在校经历</span>
+                    </div>
+                </div>
+                <div class="section-content" data-editable data-editable-area>
+                    <ul class="bullet-list">
+                        <li>担任校学生会宣传部干事，负责相关活动的宣传工作，配合部门成员制作宣传海报、横幅等宣传材料；部门活动的赞助拉取，制作活动赞助方案，并上门拜访企业拉取赞助，建立良好的合作关系；</li>
+                        <li>参加本学院迎新晚会，担任毕业生晚会幕后场控；</li>
+                        <li>参加学校话剧社，组织和策划话剧社专场晚会演出，并担任后台场控，且参与演出；</li>
+                        <li>利用寒暑假从事家教、勤工助学工作，利用课外周末时间进行社会兼职，积极参加学校组织的公益活动等。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 技能证书 -->
+            <section class="resume-section">
+                <div class="section-header">
+                    <div class="section-tag">
+                        <span class="tag-text">技能证书</span>
+                    </div>
+                </div>
+                <div class="section-content skills-content" data-editable data-editable-area>
+                    <p><strong>专业证书：</strong>初级会计证、英语六级证书、计算机二级；</p>
+                    <p><strong>办公技能：</strong>熟练使用 MS Office / WPS 办公软件，尤其擅长 Excel；</p>
+                    <p><strong>职业技能：</strong>具有全面的财务专业知识，熟悉会计报表的处理，会计法规和税法，熟练使用财务软件，有一定的实操经验。</p>
+                </div>
+            </section>
+
+            <!-- 自我评价 -->
+            <section class="resume-section">
+                <div class="section-header">
+                    <div class="section-tag">
+                        <span class="tag-text">自我评价</span>
+                    </div>
+                </div>
+                <div class="section-content" data-editable data-editable-area>
+                    <ul class="bullet-list">
+                        <li>在校期间系统学习并掌握了专业相关的理论和实践知识，并且以企业对人才的需求为方向发展；</li>
+                        <li>熟悉会计、审计、税务、财务管理、会计电算化、相关法律法规；熟练掌握财务管理软件；</li>
+                        <li>为人诚实、勤奋、踏实肯干，具有出色的团队协作能力和工作执行力；</li>
+                        <li>思维敏捷，具有严谨的工作作风、良好的沟通能力，能承受一定的工作压力，能够很快适应新的环境。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <div class="resume-actions" id="resume-actions">
+                <button class="btn-edit-resume" id="edit-resume-btn" onclick="toggleEditResume()">
+                    <i class="fas fa-edit"></i> 修改简历
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#">关于我们</a>
+                <a href="#">服务协议</a>
+                <a href="#">隐私政策</a>
+                <a href="#">无障碍声明</a>
+                <a href="#">法律声明</a>
+                <a href="#">廉洁反馈</a>
+                <a href="#">联系我们</a>
+            </div>
+            <p class="copyright">Copyright &copy; 2026 无声职场. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const editableElements = document.querySelectorAll('[data-editable]');
+            const saved = localStorage.getItem('resumeData');
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    if (data.length === editableElements.length) {
+                        editableElements.forEach((el, index) => {
+                            if (data[index] !== undefined) {
+                                el.innerHTML = data[index];
+                            }
+                        });
+                    }
+                } catch (e) {
+                    console.error('Failed to load resume data', e);
+                }
+            }
+
+            const savedPhoto = localStorage.getItem('resumePhoto');
+            if (savedPhoto) {
+                document.getElementById('resume-photo').src = savedPhoto;
+            }
+        });
+
+        function handlePhotoUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const dataUrl = e.target.result;
+                document.getElementById('resume-photo').src = dataUrl;
+                localStorage.setItem('resumePhoto', dataUrl);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function goBackToProfile() {
+            if (history.length > 1) {
+                history.back();
+            } else {
+                location.href = '个人主页.html';
+            }
+        }
+
+        function toggleEditResume() {
+            const btn = document.getElementById('edit-resume-btn');
+            const editableElements = document.querySelectorAll('[data-editable]');
+
+            // 进入编辑模式：将所有可编辑区域替换为输入框
+            editableElements.forEach(el => {
+                const isArea = el.hasAttribute('data-editable-area');
+                const tagName = el.tagName.toLowerCase();
+                const isMultiLine = isArea || tagName === 'p' || tagName === 'li';
+                const input = document.createElement(isMultiLine ? 'textarea' : 'input');
+                if (input.tagName.toLowerCase() === 'input') {
+                    input.type = 'text';
+                    input.style.width = '100%';
+                    // 让父级 span 占据剩余宽度，保持和原文字同一行
+                    el.style.display = 'inline-block';
+                    el.style.width = 'calc(100% - 88px)';
+                }
+                input.className = 'resume-edit-input';
+                if (isArea) {
+                    input.value = el.innerText.trim();
+                } else {
+                    input.value = el.innerText;
+                }
+                el.dataset.originalHtml = el.innerHTML;
+                el.innerHTML = '';
+                el.appendChild(input);
+            });
+
+            // 隐藏"修改简历"按钮，显示"保存"按钮
+            btn.style.display = 'none';
+
+            let saveBtn = document.getElementById('resume-save-btn');
+            if (!saveBtn) {
+                saveBtn = document.createElement('button');
+                saveBtn.id = 'resume-save-btn';
+                saveBtn.className = 'btn-save-resume';
+                saveBtn.innerHTML = '<i class="fas fa-save"></i> 保存';
+                saveBtn.onclick = saveResume;
+                document.getElementById('resume-actions').appendChild(saveBtn);
+            }
+            saveBtn.style.display = 'inline-flex';
+        }
+
+        function saveResume() {
+            const editableElements = document.querySelectorAll('[data-editable]');
+            const data = [];
+
+            editableElements.forEach(el => {
+                const input = el.querySelector('.resume-edit-input');
+                if (input) {
+                    let value = input.value;
+                    // 多行内容将换行符转为 <br>
+                    if (input.tagName.toLowerCase() === 'textarea') {
+                        value = value.replace(/\n/g, '<br>');
+                    }
+                    el.innerHTML = value;
+                    data.push(el.innerHTML);
+                }
+                // 恢复因编辑添加的行内样式
+                el.style.display = '';
+                el.style.width = '';
+            });
+
+            localStorage.setItem('resumeData', JSON.stringify(data));
+
+            // 恢复"修改简历"按钮，隐藏"保存"按钮
+            document.getElementById('edit-resume-btn').style.display = 'inline-flex';
+            document.getElementById('resume-save-btn').style.display = 'none';
+        }
+    </script>
+
+    <script>
+        // 根据名字生成头像颜色
+        function generateAvatarColor(name) {
+            const colors = [
+                '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7',
+                '#DDA0DD', '#98D8C8', '#F7DC6F', '#BB8FCE', '#85C1E2',
+                '#F8B500', '#6C5CE7', '#A29BFE', '#74B9FF', '#00B894'
+            ];
+            let hash = 0;
+            for (let i = 0; i < name.length; i++) {
+                hash = name.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            return colors[Math.abs(hash) % colors.length];
+        }
+
+        function getInitials(name) {
+            if (!name) return '?';
+            return name.slice(-2);
+        }
+
+        function loadUserState() {
+            const loginBtn = document.getElementById('loginBtn');
+            const userInfo = document.getElementById('userInfo');
+            const userName = document.getElementById('userName');
+            const navAvatarLink = document.getElementById('navAvatarLink');
+            const navAvatar = document.getElementById('navAvatar');
+            const generatedAvatar = document.getElementById('generatedAvatar');
+
+            const loginInfo = localStorage.getItem('loginInfo') || sessionStorage.getItem('loginInfo');
+
+            if (!loginInfo) {
+                if (loginBtn) loginBtn.style.display = 'block';
+                if (userInfo) userInfo.style.display = 'none';
+                if (navAvatarLink) navAvatarLink.style.display = 'none';
+                return;
+            }
+
+            const info = JSON.parse(loginInfo);
+            if (info.isLoggedIn === false) {
+                if (loginBtn) loginBtn.style.display = 'block';
+                if (userInfo) userInfo.style.display = 'none';
+                if (navAvatarLink) navAvatarLink.style.display = 'none';
+                return;
+            }
+
+            if (loginBtn) loginBtn.style.display = 'none';
+            if (userInfo) userInfo.style.display = 'flex';
+            if (navAvatarLink) navAvatarLink.style.display = 'flex';
+
+            let displayName = '';
+            const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
+            if (profile.nickname) {
+                displayName = profile.nickname;
+            } else if (profile.name) {
+                displayName = profile.name;
+            } else if (info.userName) {
+                displayName = info.userName;
+            } else {
+                displayName = info.account || '用户';
+            }
+
+            if (userName) userName.textContent = '欢迎，' + displayName;
+
+            const savedAvatar = localStorage.getItem('userAvatar');
+            if (savedAvatar && navAvatar) {
+                navAvatar.src = savedAvatar;
+                navAvatar.style.display = 'block';
+                if (generatedAvatar) generatedAvatar.style.display = 'none';
+            } else if (generatedAvatar) {
+                if (navAvatar) navAvatar.style.display = 'none';
+                generatedAvatar.style.display = 'flex';
+                generatedAvatar.textContent = getInitials(displayName);
+                generatedAvatar.style.backgroundColor = generateAvatarColor(displayName);
+            }
+        }
+
+        loadUserState();
+
+        document.getElementById('logoutBtn')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.removeItem('loginInfo');
+            sessionStorage.removeItem('loginInfo');
+            localStorage.removeItem('userProfile');
+            localStorage.removeItem('userAvatar');
+            window.location.reload();
+        });
+
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'loginInfo' || e.key === 'userProfile' || e.key === 'userAvatar') {
+                loadUserState();
+            }
+        });
+    </script>
+</body>
+</html>

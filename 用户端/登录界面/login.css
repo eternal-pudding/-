@@ -1,0 +1,362 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #0a0a0a;
+    color: #fff;
+    overflow: hidden;
+}
+
+/* 顶部导航 */
+.top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 20px 50px;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 15px;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.nav-links a:hover {
+    opacity: 1;
+}
+
+/* 背景轮播 */
+.hero-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.bg-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+}
+
+.bg-slide.active {
+    opacity: 1;
+}
+
+.bg-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.6) 100%);
+}
+
+/* 登录容器 */
+.login-container {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100vh;
+    padding: 0 80px;
+}
+
+/* 登录框 */
+.login-box {
+    width: 400px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.login-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 20px 0;
+    text-align: center;
+}
+
+/* 身份选择器 */
+.role-selector {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.role-option {
+    flex: 1;
+    cursor: pointer;
+}
+
+.role-option input[type="radio"] {
+    display: none;
+}
+
+.role-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #f8f8f8;
+    transition: all 0.3s ease;
+}
+
+.role-option input[type="radio"]:checked + .role-label {
+    border-color: #0052D9;
+    background-color: #f0f7ff;
+}
+
+.role-icon {
+    font-size: 18px;
+}
+
+.role-text {
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
+}
+
+.role-option input[type="radio"]:checked + .role-label .role-text {
+    color: #0052D9;
+    font-weight: 600;
+}
+
+.role-label:hover {
+    border-color: #0052D9;
+    background-color: #f5faff;
+}
+
+/* 标签页 */
+.tabs {
+    display: flex;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.tab-link {
+    background: none;
+    border: none;
+    font-size: 16px;
+    padding: 12px 0;
+    margin-right: 30px;
+    cursor: pointer;
+    color: #999;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.tab-link:hover {
+    color: #666;
+}
+
+.tab-link.active {
+    color: #0052D9;
+    font-weight: 600;
+    border-bottom-color: #0052D9;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* 输入框 */
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 15px;
+    background-color: #f8f8f8;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #0052D9;
+    background-color: #fff;
+}
+
+.input-group input::placeholder {
+    color: #aaa;
+}
+
+/* 验证码输入组 */
+.verification-group {
+    display: flex;
+    gap: 12px;
+}
+
+.verification-group input {
+    flex: 1;
+}
+
+.get-code-btn {
+    padding: 14px 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    color: #0052D9;
+    font-size: 14px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.get-code-btn:hover {
+    background-color: #e5e5e5;
+}
+
+/* 表单选项 */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    color: #666;
+}
+
+.remember-me input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+    cursor: pointer;
+    accent-color: #0052D9;
+}
+
+.forgot-password {
+    color: #0052D9;
+    text-decoration: none;
+    font-size: 14px;
+    transition: opacity 0.3s ease;
+}
+
+.forgot-password:hover {
+    opacity: 0.8;
+}
+
+/* 登录按钮 */
+.login-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: #0052D9;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+    background-color: #003bb3;
+}
+
+/* 底部链接 */
+.footer-links {
+    text-align: center;
+    margin-top: 25px;
+    padding-top: 25px;
+    border-top: 1px solid #e0e0e0;
+    font-size: 14px;
+    color: #999;
+}
+
+.footer-links a {
+    color: #0052D9;
+    text-decoration: none;
+    margin-left: 5px;
+    font-weight: 500;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+/* 底部信息 */
+.login-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    text-align: center;
+    color: rgba(255,255,255,0.6);
+    font-size: 13px;
+    z-index: 10;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .top-nav {
+        padding: 15px 20px;
+    }
+    
+    .login-container {
+        justify-content: center;
+        padding: 0 20px;
+    }
+    
+    .login-box {
+        width: 100%;
+        max-width: 360px;
+        padding: 30px 25px;
+    }
+    
+    .login-title {
+        font-size: 24px;
+    }
+}

@@ -1,0 +1,544 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手语翻译与求职平台</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="main-header">
+        <a href="index.html" class="logo">
+            <span style="font-style: italic;">Platform</span>
+            <span>就业平台</span>
+        </a>
+        <div class="nav-container">
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active">首页</a></li>
+                <li><a href="../求职招聘/求职招聘.html">求职招聘</a></li>
+                <li><a href="../新闻/news.html">相关新闻</a></li>
+                <li><a href="../聊天窗口(新增)/聊天窗口/index.html">消息中心</a></li>
+            </ul>
+            <div class="nav-right">
+                <a href="../登录界面/login.html" class="login-btn" id="loginBtn">登录</a>
+                <div class="user-info" id="userInfo" style="display: none;">
+                    <span class="user-name" id="userName"></span>
+                    <a href="#" class="logout-btn" id="logoutBtn">退出</a>
+                </div>
+                <a href="../个人主页/个人主页.html" class="nav-avatar" id="navAvatar" title="个人主页" style="display: none;">
+                    <img src="" alt="头像" id="header-avatar" style="display: none;">
+                    <div class="generated-avatar" id="generatedAvatar" style="display: none;"></div>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <header class="hero-section">
+        <div class="hero-carousel">
+            <div class="hero-slide active" style="background-image: url('../求职招聘/img/1.jpg');"></div>
+            <div class="hero-slide" style="background-image: url('../求职招聘/img/2.jpg');"></div>
+            <div class="hero-slide" style="background-image: url('../求职招聘/img/3.jpg');"></div>
+        </div>
+        <div class="hero-content">
+            <h1>构建无障碍的沟通桥梁</h1>
+            <p class="subtitle">为每一次机遇提供可能</p>
+        </div>
+        <div class="carousel-controls">
+            <div class="carousel-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="main-container">
+            <!-- 左侧：求职招聘 -->
+            <section class="jobs-section">
+                <div class="section-header">
+                    <h2 class="section-title">求职招聘</h2>
+                    <a href="../求职招聘/求职招聘.html" class="view-more-btn">查看更多 →</a>
+                </div>
+                <div class="job-list">
+                    <div class="job-card" onclick="location.href='../求职招聘/job-detail.html?id=1'">
+                        <div class="job-header">
+                            <div class="job-title-wrap">
+                                <h3>人事专员，朝九晚四，周末双休<span class="urgent-tag">急聘</span></h3>
+                                <div class="job-meta">
+                                    <span class="salary">8000-20000元/月</span>
+                                    <span>南京市-江宁区</span>
+                                    <span>学历不限</span>
+                                    <span>经验不限</span>
+                                </div>
+                            </div>
+                            <div class="company-info">
+                                <div class="company-name">南京顺众人力资源开发服务有限公司</div>
+                                <div class="company-desc">人力资源 | 民营 | 100-200人</div>
+                            </div>
+                        </div>
+                        <div class="job-tags">
+                            <span class="tag highlight">听力残疾</span>
+                            <span class="tag highlight">言语残疾</span>
+                            <span class="tag type-fulltime">全职</span>
+                            <span class="tag">五险一金</span>
+                            <span class="tag">周末双休</span>
+                        </div>
+                    </div>
+
+                    <div class="job-card" onclick="location.href='../求职招聘/job-detail.html?id=2'">
+                        <div class="job-header">
+                            <div class="job-title-wrap">
+                                <h3>周末双休：南京急招小车驾驶员<span class="urgent-tag">急聘</span></h3>
+                                <div class="job-meta">
+                                    <span class="salary">7500-12000元/月</span>
+                                    <span>南京市-雨花台区</span>
+                                    <span>学历不限</span>
+                                    <span>经验不限</span>
+                                </div>
+                            </div>
+                            <div class="company-info">
+                                <div class="company-name">滴滴出行合作供应商</div>
+                                <div class="company-desc">网约车 | 民营 | 500-1000人</div>
+                            </div>
+                        </div>
+                        <div class="job-tags">
+                            <span class="tag highlight">听力残疾</span>
+                            <span class="tag highlight">言语残疾</span>
+                            <span class="tag type-fulltime">全职</span>
+                            <span class="tag">C1驾照</span>
+                            <span class="tag">时间自由</span>
+                        </div>
+                    </div>
+
+                    <div class="job-card" onclick="location.href='../求职招聘/job-detail.html?id=3'">
+                        <div class="job-header">
+                            <div class="job-title-wrap">
+                                <h3>外卖骑手加班补助饭补五险<span class="urgent-tag">急聘</span></h3>
+                                <div class="job-meta">
+                                    <span class="salary">5-8元/单</span>
+                                    <span>南京市-秦淮区</span>
+                                    <span>学历不限</span>
+                                    <span>经验不限</span>
+                                </div>
+                            </div>
+                            <div class="company-info">
+                                <div class="company-name">美团配送合作商</div>
+                                <div class="company-desc">外卖配送 | 民营 | 200-500人</div>
+                            </div>
+                        </div>
+                        <div class="job-tags">
+                            <span class="tag highlight">听力残疾</span>
+                            <span class="tag highlight">言语残疾</span>
+                            <span class="tag type-fulltime">全职</span>
+                            <span class="tag">五险</span>
+                            <span class="tag">包吃</span>
+                            <span class="tag">加班补助</span>
+                        </div>
+                    </div>
+
+                    <div class="job-card" onclick="location.href='../求职招聘/job-detail.html?id=4'">
+                        <div class="job-header">
+                            <div class="job-title-wrap">
+                                <h3>学历不限包吃月9500外卖骑手<span class="urgent-tag">急聘</span></h3>
+                                <div class="job-meta">
+                                    <span class="salary">7-9元/单</span>
+                                    <span>南京市-江宁区</span>
+                                    <span>学历不限</span>
+                                    <span>经验不限</span>
+                                </div>
+                            </div>
+                            <div class="company-info">
+                                <div class="company-name">饿了么配送合作商</div>
+                                <div class="company-desc">外卖配送 | 民营 | 200-500人</div>
+                            </div>
+                        </div>
+                        <div class="job-tags">
+                            <span class="tag highlight">听力残疾</span>
+                            <span class="tag highlight">言语残疾</span>
+                            <span class="tag type-fulltime">全职</span>
+                            <span class="tag">包住</span>
+                            <span class="tag">包吃</span>
+                            <span class="tag">交通补助</span>
+                        </div>
+                    </div>
+
+                    <div class="job-card" onclick="location.href='../求职招聘/job-detail.html?id=5'">
+                        <div class="job-header">
+                            <div class="job-title-wrap">
+                                <h3>外卖骑手话补五险包吃<span class="urgent-tag">急聘</span></h3>
+                                <div class="job-meta">
+                                    <span class="salary">6-9元/单</span>
+                                    <span>南京市-江宁区</span>
+                                    <span>学历不限</span>
+                                    <span>经验不限</span>
+                                </div>
+                            </div>
+                            <div class="company-info">
+                                <div class="company-name">闪送配送合作商</div>
+                                <div class="company-desc">即时配送 | 民营 | 100-200人</div>
+                            </div>
+                        </div>
+                        <div class="job-tags">
+                            <span class="tag highlight">听力残疾</span>
+                            <span class="tag highlight">言语残疾</span>
+                            <span class="tag type-fulltime">全职</span>
+                            <span class="tag">五险</span>
+                            <span class="tag">包住</span>
+                            <span class="tag">话补</span>
+                        </div>
+                    </div>
+
+                    <div class="job-card" onclick="location.href='../求职招聘/job-detail.html?id=6'">
+                        <div class="job-header">
+                            <div class="job-title-wrap">
+                                <h3>高薪外卖骑手全职兼职均可</h3>
+                                <div class="job-meta">
+                                    <span class="salary">7000-9500元/月</span>
+                                    <span>南京市-鼓楼区</span>
+                                    <span>学历不限</span>
+                                    <span>经验不限</span>
+                                </div>
+                            </div>
+                            <div class="company-info">
+                                <div class="company-name">顺丰同城配送</div>
+                                <div class="company-desc">同城配送 | 上市 | 1000-5000人</div>
+                            </div>
+                        </div>
+                        <div class="job-tags">
+                            <span class="tag highlight">听力残疾</span>
+                            <span class="tag highlight">肢体残疾</span>
+                            <span class="tag type-fulltime">全职</span>
+                            <span class="tag">可预支工资</span>
+                            <span class="tag">包住</span>
+                        </div>
+                    </div>
+
+                    <div class="job-card" onclick="location.href='../求职招聘/job-detail.html?id=7'">
+                        <div class="job-header">
+                            <div class="job-title-wrap">
+                                <h3>研发实习生（AI数据智能）</h3>
+                                <div class="job-meta">
+                                    <span class="salary">150-200元/天</span>
+                                    <span>南京市-栖霞区</span>
+                                    <span>本科</span>
+                                    <span>应届生</span>
+                                </div>
+                            </div>
+                            <div class="company-info">
+                                <div class="company-name">南京AI数据科技有限公司</div>
+                                <div class="company-desc">AI/数据智能 | 民营 | 50-100人</div>
+                            </div>
+                        </div>
+                        <div class="job-tags">
+                            <span class="tag highlight">听力残疾</span>
+                            <span class="tag type-intern">实习</span>
+                            <span class="tag">AI数据</span>
+                            <span class="tag">前后端</span>
+                            <span class="tag">6个月实习</span>
+                        </div>
+                    </div>
+
+                    <div class="job-card" onclick="location.href='../求职招聘/job-detail.html?id=8'">
+                        <div class="job-header">
+                            <div class="job-title-wrap">
+                                <h3>应用戏剧/教育戏剧项目助理</h3>
+                                <div class="job-meta">
+                                    <span class="salary">80-160元/天</span>
+                                    <span>南京市-鼓楼区</span>
+                                    <span>本科</span>
+                                    <span>应届生</span>
+                                </div>
+                            </div>
+                            <div class="company-info">
+                                <div class="company-name">南京戏剧教育文化中心</div>
+                                <div class="company-desc">文化教育/戏剧 | 民营 | 20-50人</div>
+                            </div>
+                        </div>
+                        <div class="job-tags">
+                            <span class="tag highlight">听力残疾</span>
+                            <span class="tag highlight">肢体残疾</span>
+                            <span class="tag type-intern">实习</span>
+                            <span class="tag">戏剧教育</span>
+                            <span class="tag">新媒体运营</span>
+                        </div>
+                    </div>
+
+                    <div class="job-card" onclick="location.href='../求职招聘/job-detail.html?id=9'">
+                        <div class="job-header">
+                            <div class="job-title-wrap">
+                                <h3>工业设计实习生</h3>
+                                <div class="job-meta">
+                                    <span class="salary">110-120元/天</span>
+                                    <span>南京市-建邺区</span>
+                                    <span>大专</span>
+                                    <span>应届生</span>
+                                </div>
+                            </div>
+                            <div class="company-info">
+                                <div class="company-name">南京创新工业设计有限公司</div>
+                                <div class="company-desc">工业设计 | 民营 | 50-100人</div>
+                            </div>
+                        </div>
+                        <div class="job-tags">
+                            <span class="tag highlight">听力残疾</span>
+                            <span class="tag type-intern">实习</span>
+                            <span class="tag">产品设计</span>
+                            <span class="tag">Rhino</span>
+                            <span class="tag">3D建模</span>
+                        </div>
+                    </div>
+
+                    <div class="job-card" onclick="location.href='../求职招聘/job-detail.html?id=12'">
+                        <div class="job-header">
+                            <div class="job-title-wrap">
+                                <h3>招聘 抖音 小红书 办公</h3>
+                                <div class="job-meta">
+                                    <span class="salary">10-15K</span>
+                                    <span>北京市-大兴区</span>
+                                    <span>学历不限</span>
+                                    <span>经验不限</span>
+                                </div>
+                            </div>
+                            <div class="company-info">
+                                <div class="company-name">扬州离岸网络科技有限公司</div>
+                                <div class="company-desc">互联网/直播 | 民营 | 50-100人</div>
+                            </div>
+                        </div>
+                        <div class="job-tags">
+                            <span class="tag highlight">听力残疾</span>
+                            <span class="tag type-fulltime">全职</span>
+                            <span class="tag">日结</span>
+                            <span class="tag">远程办公</span>
+                            <span class="tag">居家工作</span>
+                        </div>
+                    </div>
+
+                    <div class="job-card" onclick="location.href='../求职招聘/job-detail.html?id=14'">
+                        <div class="job-header">
+                            <div class="job-title-wrap">
+                                <h3>盒马鲜生招聘配送员<span class="urgent-tag">急聘</span></h3>
+                                <div class="job-meta">
+                                    <span class="salary">9-14K</span>
+                                    <span>北京市-全市就近安排</span>
+                                    <span>学历不限</span>
+                                    <span>经验不限</span>
+                                </div>
+                            </div>
+                            <div class="company-info">
+                                <div class="company-name">盒马鲜生</div>
+                                <div class="company-desc">新零售/生鲜 | 上市 | 10000+人</div>
+                            </div>
+                        </div>
+                        <div class="job-tags">
+                            <span class="tag highlight">听力残疾</span>
+                            <span class="tag type-fulltime">全职</span>
+                            <span class="tag">提供电动车</span>
+                            <span class="tag">保底8000</span>
+                            <span class="tag">就近安排</span>
+                        </div>
+                    </div>
+
+                    <div class="job-card" onclick="location.href='../求职招聘/job-detail.html?id=15'">
+                        <div class="job-header">
+                            <div class="job-title-wrap">
+                                <h3>网络游戏陪练（玩）</h3>
+                                <div class="job-meta">
+                                    <span class="salary">10-50元/时</span>
+                                    <span>北京市-线上</span>
+                                    <span>学历不限</span>
+                                    <span>经验不限</span>
+                                </div>
+                            </div>
+                            <div class="company-info">
+                                <div class="company-name">TT语音游戏陪玩平台</div>
+                                <div class="company-desc">互联网/游戏 | 民营 | 500-1000人</div>
+                            </div>
+                        </div>
+                        <div class="job-tags">
+                            <span class="tag highlight">肢体残疾</span>
+                            <span class="tag type-parttime">兼职</span>
+                            <span class="tag">时间自由</span>
+                            <span class="tag">日结</span>
+                            <span class="tag">游戏陪玩</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 右侧：相关新闻 -->
+            <aside class="news-sidebar">
+                <div class="section-header">
+                    <h2 class="section-title">相关新闻</h2>
+                    <a href="../新闻/news.html" class="view-more-btn">查看更多 →</a>
+                </div>
+                <div class="news-list">
+                    <div class="news-item" onclick="location.href='../新闻/article-1.html'">
+                        <img src="../新闻/新闻图片/滨州市举办残疾人就业税费政策线上解读直播活动.png" alt="滨州市举办残疾人就业税费政策线上解读直播活动" class="news-thumb">
+                        <div class="news-item-content">
+                            <div class="news-item-title">滨州市举办残疾人就业税费政策线上解读直播活动</div>
+                            <div class="news-item-date">2026.03.27</div>
+                        </div>
+                    </div>
+                    <div class="news-item" onclick="location.href='../新闻/article-2.html'">
+                        <img src="../新闻/新闻图片/共植希望林·助残同富行.png" alt="共植希望林·助残同富行" class="news-thumb">
+                        <div class="news-item-content">
+                            <div class="news-item-title">共植希望林·助残同富行 合肥市残联赴蜀山区残疾人农疗基地开展助残融合活动</div>
+                            <div class="news-item-date">2026.03.20</div>
+                        </div>
+                    </div>
+                    <div class="news-item" onclick="location.href='../新闻/article-3.html'">
+                        <img src="../新闻/新闻图片/丁薛祥在全国高校毕业生等青年就业创业工作视频会议上强调.png" alt="丁薛祥在全国高校毕业生等青年就业创业工作视频会议上强调" class="news-thumb">
+                        <div class="news-item-content">
+                            <div class="news-item-title">丁薛祥在全国高校毕业生等青年就业创业工作视频会议上强调</div>
+                            <div class="news-item-date">2026.03.19</div>
+                        </div>
+                    </div>
+                    <div class="news-item" onclick="location.href='../新闻/article-4.html'">
+                        <img src="../新闻/新闻图片/广东：三地联动春风送岗 助残启航共促就业.png" alt="广东：三地联动春风送岗 助残启航共促就业" class="news-thumb">
+                        <div class="news-item-content">
+                            <div class="news-item-title">广东：三地联动春风送岗 助残启航共促就业</div>
+                            <div class="news-item-date">2026.03.18</div>
+                        </div>
+                    </div>
+                    <div class="news-item" onclick="location.href='../新闻/article-5.html'">
+                        <img src="新闻图片/为“春天的事业”添砖加瓦.png" alt="为春天的事业添砖加瓦" class="news-thumb">
+                        <div class="news-item-content">
+                            <div class="news-item-title">为"春天的事业"添砖加瓦：阜阳市临泉县探索多元化路径助力残疾人就业</div>
+                            <div class="news-item-date">2026.03.12</div>
+                        </div>
+                    </div>
+                    <div class="news-item" onclick="location.href='../新闻/article-6.html'">
+                        <img src="../新闻/新闻图片/中国残联就业服务指导中心组织开展学雷锋助残志愿服务联学共建活动.png" alt="中国残联就业服务指导中心组织开展学雷锋助残志愿服务联学共建活动" class="news-thumb">
+                        <div class="news-item-content">
+                            <div class="news-item-title">中国残联就业服务指导中心组织开展学雷锋助残志愿服务联学共建活动</div>
+                            <div class="news-item-date">2026.03.06</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="../新闻/news.html" class="view-more-link">查看更多 →</a>
+            </aside>
+        </div>
+    </main>
+
+    <footer>
+        <p>我们致力于为残障人士提供便捷的求职和交流服务。</p>
+    </footer>
+
+    <!-- 置顶按钮 -->
+    <div class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18,15 12,9 6,15"></polyline></svg>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // 置顶按钮功能
+        const backToTopBtn = document.getElementById('backToTop');
+        
+        // 滚动时显示/隐藏按钮
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+
+        // 根据名字生成头像颜色
+        function generateAvatarColor(name) {
+            const colors = [
+                '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7',
+                '#DDA0DD', '#98D8C8', '#F7DC6F', '#BB8FCE', '#85C1E2',
+                '#F8B500', '#6C5CE7', '#A29BFE', '#74B9FF', '#00B894'
+            ];
+            let hash = 0;
+            for (let i = 0; i < name.length; i++) {
+                hash = name.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            return colors[Math.abs(hash) % colors.length];
+        }
+
+        // 获取显示名称的首字母
+        function getInitials(name) {
+            if (!name) return '?';
+            // 取最后两个字符（适合中文名字）
+            return name.slice(-2);
+        }
+
+        // 加载用户状态和头像
+        function loadHeaderAvatar() {
+            const loginBtn = document.getElementById('loginBtn');
+            const userInfo = document.getElementById('userInfo');
+            const userName = document.getElementById('userName');
+            const navAvatar = document.getElementById('navAvatar');
+            const headerAvatar = document.getElementById('header-avatar');
+            const generatedAvatar = document.getElementById('generatedAvatar');
+            const loginInfo = localStorage.getItem('loginInfo') || sessionStorage.getItem('loginInfo');
+            
+            if (!loginInfo) {
+                if (loginBtn) loginBtn.style.display = 'block';
+                if (userInfo) userInfo.style.display = 'none';
+                if (navAvatar) navAvatar.style.display = 'none';
+                return;
+            }
+            
+            const info = JSON.parse(loginInfo);
+            if (info.isLoggedIn === false) {
+                if (loginBtn) loginBtn.style.display = 'block';
+                if (userInfo) userInfo.style.display = 'none';
+                if (navAvatar) navAvatar.style.display = 'none';
+                return;
+            }
+            
+            // 已登录状态
+            if (loginBtn) loginBtn.style.display = 'none';
+            if (userInfo) userInfo.style.display = 'flex';
+            if (navAvatar) navAvatar.style.display = 'flex';
+            
+            let displayName = '';
+            const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
+            if (profile.nickname) {
+                displayName = profile.nickname;
+            } else if (profile.name) {
+                displayName = profile.name;
+            } else if (info.userName) {
+                displayName = info.userName;
+            } else {
+                displayName = info.account || '用户';
+            }
+            
+            if (userName) userName.textContent = '欢迎，' + displayName;
+            
+            const savedAvatar = localStorage.getItem('userAvatar');
+            if (savedAvatar && headerAvatar) {
+                headerAvatar.src = savedAvatar;
+                headerAvatar.style.display = 'block';
+                if (generatedAvatar) generatedAvatar.style.display = 'none';
+            } else if (generatedAvatar) {
+                if (headerAvatar) headerAvatar.style.display = 'none';
+                generatedAvatar.style.display = 'flex';
+                generatedAvatar.textContent = getInitials(displayName);
+                generatedAvatar.style.backgroundColor = generateAvatarColor(displayName);
+            }
+        }
+        loadHeaderAvatar();
+
+        // 退出登录
+        document.getElementById('logoutBtn')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.removeItem('loginInfo');
+            sessionStorage.removeItem('loginInfo');
+            localStorage.removeItem('userProfile');
+            localStorage.removeItem('userAvatar');
+            window.location.reload();
+        });
+
+        // 监听 localStorage 变化，实时更新头像和登录状态
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'userAvatar' || e.key === 'loginInfo' || e.key === 'userProfile') {
+                loadHeaderAvatar();
+            }
+        });
+    </script>
+</body>
+</html>

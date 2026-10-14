@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人主页</title>
+    <link rel="stylesheet" href="个人主页.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header class="header" id="header">
+        <a href="../首页/index.html" class="logo">
+            <span style="font-style: italic;">Platform</span>
+            <span>就业平台</span>
+        </a>
+        <div class="nav-container">
+            <ul class="nav-menu">
+                <li><a href="../首页/index.html">首页</a></li>
+                <li><a href="../求职招聘/求职招聘.html">求职招聘</a></li>
+                <li><a href="../新闻/news.html">相关新闻</a></li>
+                <li><a href="../聊天窗口(新增)/聊天窗口/index.html">消息中心</a></li>
+            </ul>
+            <div class="nav-right">
+                <a href="../登录界面/login.html" class="login-btn" id="loginBtn">登录</a>
+                <div class="user-info" id="userInfo" style="display: none;">
+                    <span class="user-name" id="userName"></span>
+                    <a href="#" class="logout-btn" id="logoutBtn">退出</a>
+                </div>
+                <a href="个人主页.html" class="nav-avatar" id="navAvatarLink" title="个人主页" style="display: none;">
+                    <img src="" alt="头像" id="navAvatar" style="display: none;">
+                    <div class="generated-avatar" id="generatedAvatar" style="display: none;"></div>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 个人主页主内容 -->
+    <main class="container" id="profile-main">
+        <div class="profile-card" role="region" aria-label="个人信息">
+            <div class="profile-info">
+                <div class="avatar-wrapper" id="avatar-wrapper">
+                    <img src="" alt="用户头像" class="profile-avatar" id="profile-avatar" style="display: none;">
+                    <div class="generated-avatar-large" id="generated-avatar-large" style="display: none;"></div>
+                    <div class="avatar-placeholder" id="avatar-placeholder">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="avatar-overlay">
+                        <span class="avatar-hint">上传头像</span>
+                    </div>
+                    <input type="file" id="avatar-input" accept="image/*" hidden>
+                </div>
+                <div class="profile-details">
+                    <h2 id="user-nickname">请设置昵称</h2>
+                    <p id="user-basic-info">请填写年龄、毕业年份、学历</p>
+                    <p id="user-education-info">请填写学校、专业、在校时间</p>
+                    <div class="disability-tags" id="user-disability-types">
+                        <!-- 残疾类型标签将由JS动态生成 -->
+                    </div>
+                </div>
+            </div>
+            <div class="profile-actions">
+                <button class="edit-profile-btn" id="edit-profile-btn" onclick="openEditProfileModal()">
+                    <i class="fas fa-edit"></i> 编辑资料
+                </button>
+                <button class="add-resume-btn" id="add-resume-btn" onclick="location.href='简历.html'">
+                    <i class="fas fa-file-alt"></i> 查看简历
+                </button>
+            </div>
+        </div>
+
+        <div class="job-status-nav" role="tablist" aria-label="求职状态">
+            <a href="#" id="tab-communicated" class="status-item active" data-tab="communicated" role="tab" aria-selected="true">沟通过 <span>0</span></a>
+            <a href="#" id="tab-applied" class="status-item" data-tab="applied" role="tab" aria-selected="false">已投递 <span>0</span></a>
+            <a href="#" id="tab-interview" class="status-item" data-tab="interview" role="tab" aria-selected="false">面试 <span>0</span></a>
+            <a href="#" id="tab-interested" class="status-item" data-tab="interested" role="tab" aria-selected="false">感兴趣 <span>0</span></a>
+        </div>
+
+        <div id="communicated" class="job-list active" role="tabpanel" aria-labelledby="tab-communicated">
+            <!-- 动态内容由JavaScript加载 -->
+        </div>
+
+        <div id="applied" class="job-list" role="tabpanel" aria-labelledby="tab-applied">
+            <!-- 动态内容由JavaScript加载 -->
+        </div>
+
+        <div id="interview" class="job-list" role="tabpanel" aria-labelledby="tab-interview">
+            <!-- 动态内容由JavaScript加载 -->
+        </div>
+
+        <div id="interested" class="job-list" role="tabpanel" aria-labelledby="tab-interested">
+            <!-- 动态内容由JavaScript加载 -->
+        </div>
+    </main>
+
+    <!-- 简历视图（同一页面内切换） -->
+    <main class="resume-view" id="resume-view" style="display: none;">
+        <button class="edit-resume-btn" id="edit-resume-btn" onclick="toggleEditResume()">
+            <i class="fas fa-edit"></i> 修改简历
+        </button>
+
+        <div class="resume-page-inner">
+            <div class="resume-header">
+                <h1 class="resume-title">个人简历</h1>
+                <div class="resume-icons">
+                    <div class="icon-circle"><i class="fas fa-graduation-cap"></i></div>
+                    <div class="icon-circle"><i class="fas fa-briefcase"></i></div>
+                    <div class="icon-circle"><i class="fas fa-bookmark"></i></div>
+                </div>
+            </div>
+
+            <div class="resume-bar-wrapper">
+                <div class="resume-bar"></div>
+            </div>
+
+            <div class="resume-body">
+                <!-- 基本信息 -->
+                <section class="resume-section">
+                    <div class="section-header">
+                        <div class="section-tag">
+                            <span class="tag-text">基本信息</span>
+                        </div>
+                    </div>
+                    <div class="section-content basic-info">
+                        <div class="info-main">
+                            <div class="info-row">
+                                <div class="info-item"><span class="label">姓　　名：</span><span data-editable>姜姜好</span></div>
+                                <div class="info-item"><span class="label">求职意向：</span><span data-editable>工作岗位</span></div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-item"><span class="label">民　　族：</span><span data-editable>汉</span></div>
+                                <div class="info-item"><span class="label">出生年月：</span><span data-editable>C56</span></div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-item"><span class="label">籍　　贯：</span><span data-editable>北京</span></div>
+                                <div class="info-item"><span class="label">毕业院校：</span><span data-editable>北京 XX 大学</span></div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-item"><span class="label">电　　话：</span><span data-editable>138-0000-0000</span></div>
+                                <div class="info-item"><span class="label">学　　历：</span><span data-editable>本科</span></div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-item"><span class="label">邮　　箱：</span><span data-editable>jiang@example.com</span></div>
+                                <div class="info-item"><span class="label">政治面貌：</span><span data-editable></span></div>
+                            </div>
+                        </div>
+                        <div class="info-photo" onclick="document.getElementById('photo-input').click()">
+                            <img id="resume-photo" src="https://api.dicebear.com/7.x/avataaars/svg?seed=jiang" alt="个人照片">
+                            <div class="photo-overlay">
+                                <i class="fas fa-camera"></i>
+                                <span>上传照片</span>
+                            </div>
+                            <input type="file" id="photo-input" accept="image/*" hidden onchange="handlePhotoUpload(event)">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 教育背景 -->
+                <section class="resume-section">
+                    <div class="section-header">
+                        <div class="section-tag">
+                            <span class="tag-text">教育背景</span>
+                        </div>
+                    </div>
+                    <div class="section-content">
+                        <div class="item-header">
+                            <span data-editable>2017.09-2021.06</span>
+                            <span data-editable>北京 XX 大学</span>
+                            <span data-editable>会计（本科）</span>
+                        </div>
+                        <p class="content-text" data-editable><strong>主修课程：</strong>经济学基础、会计基础、经济法、税法、财务会计、成本会计、财务管理、管理会计、企业审计、会计电算化、会计制度设计、电算会计综合实训、企业实践等。</p>
+                    </div>
+                </section>
+
+                <!-- 在校经历 1 -->
+                <section class="resume-section">
+                    <div class="section-header">
+                        <div class="section-tag">
+                            <span class="tag-text">在校经历</span>
+                        </div>
+                    </div>
+                    <div class="section-content">
+                        <div class="item-header">
+                            <span data-editable>2022.00-2022.01</span>
+                            <span data-editable>XXXX 医院</span>
+                            <span data-editable>实习护士</span>
+                        </div>
+                        <p class="content-text" data-editable>实习期间，完成护理规范培训 1</p>
+                    </div>
+                </section>
+
+                <!-- 在校经历 2 -->
+                <section class="resume-section">
+                    <div class="section-header">
+                        <div class="section-tag">
+                            <span class="tag-text">在校经历</span>
+                        </div>
+                    </div>
+                    <div class="section-content">
+                        <ul class="bullet-list">
+                            <li data-editable>担任校学生会宣传部干事，负责相关活动的宣传工作，配合部门成员制作宣传海报、横幅等宣传材料；部门活动的赞助拉取，制作活动赞助方案，并上门拜访企业拉取赞助，建立良好的合作关系；</li>
+                            <li data-editable>参加本学院迎新晚会，担任毕业生晚会幕后场控；</li>
+                            <li data-editable>参加学校话剧社，组织和策划话剧社专场晚会演出，并担任后台场控，且参与演出；</li>
+                            <li data-editable>利用寒暑假从事家教、勤工助学工作，利用课外周末时间进行社会兼职，积极参加学校组织的公益活动等。</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- 技能证书 -->
+                <section class="resume-section">
+                    <div class="section-header">
+                        <div class="section-tag">
+                            <span class="tag-text">技能证书</span>
+                        </div>
+                    </div>
+                    <div class="section-content skills-content">
+                        <p data-editable><strong>专业证书：</strong>初级会计证、英语六级证书、计算机二级；</p>
+                        <p data-editable><strong>办公技能：</strong>熟练使用 MS Office / WPS 办公软件，尤其擅长 Excel；</p>
+                        <p data-editable><strong>职业技能：</strong>具有全面的财务专业知识，熟悉会计报表的处理，会计法规和税法，熟练使用财务软件，有一定的实操经验。</p>
+                    </div>
+                </section>
+
+                <!-- 自我评价 -->
+                <section class="resume-section">
+                    <div class="section-header">
+                        <div class="section-tag">
+                            <span class="tag-text">自我评价</span>
+                        </div>
+                    </div>
+                    <div class="section-content">
+                        <ul class="bullet-list">
+                            <li data-editable>在校期间系统学习并掌握了专业相关的理论和实践知识，并且以企业对人才的需求为方向发展；</li>
+                            <li data-editable>熟悉会计、审计、税务、财务管理、会计电算化、相关法律法规；熟练掌握财务管理软件；</li>
+                            <li data-editable>为人诚实、勤奋、踏实肯干，具有出色的团队协作能力和工作执行力；</li>
+                            <li data-editable>思维敏捷，具有严谨的工作作风、良好的沟通能力，能承受一定的工作压力，能够很快适应新的环境。</li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+
+            <div class="resume-actions">
+                <button class="btn-back" onclick="hideResume()">
+                    <i class="fas fa-arrow-left"></i> 返回个人主页
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#">关于我们</a>
+                <a href="#">服务协议</a>
+                <a href="#">隐私政策</a>
+                <a href="#">无障碍声明</a>
+                <a href="#">法律声明</a>
+                <a href="#">廉洁反馈</a>
+                <a href="#">联系我们</a>
+            </div>
+            <p class="copyright">Copyright &copy; 2026 无声职场. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <div id="toast-notification" class="toast-notification" aria-live="assertive" aria-atomic="true"></div>
+
+    <!-- 编辑资料模态框 -->
+    <div id="edit-profile-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>编辑个人资料</h3>
+                <button class="modal-close" onclick="closeEditProfileModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-profile-form">
+                    <div class="form-group">
+                        <label for="edit-nickname">昵称</label>
+                        <input type="text" id="edit-nickname" name="nickname" placeholder="请输入昵称" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-age">年龄</label>
+                        <input type="number" id="edit-age" name="age" placeholder="请输入年龄" min="16" max="100" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-graduate-year">毕业届别</label>
+                        <select id="edit-graduate-year" name="graduateYear" required>
+                            <option value="25">今年应届生</option>
+                            <option value="26">26年应届生</option>
+                            <option value="27">27年应届生</option>
+                            <option value="28">28年应届生</option>
+                            <option value="29">29年应届生</option>
+                            <option value="社招">社招</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-education">学历</label>
+                        <select id="edit-education" name="education" required>
+                            <option value="高中">高中</option>
+                            <option value="大专">大专</option>
+                            <option value="本科">本科</option>
+                            <option value="硕士">硕士</option>
+                            <option value="博士">博士</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-school">学校</label>
+                        <input type="text" id="edit-school" name="school" placeholder="请输入学校名称" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-major">专业</label>
+                        <input type="text" id="edit-major" name="major" placeholder="请输入专业名称" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-school-years">在校年份</label>
+                        <input type="text" id="edit-school-years" name="schoolYears" placeholder="如：2025-2029" required>
+                    </div>
+                    <div class="form-group">
+                        <label>残疾类型（可多选）</label>
+                        <div class="disability-checkbox-group">
+                            <label class="disability-checkbox-item">
+                                <input type="checkbox" name="disability" value="视力残疾">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-label">视力残疾</span>
+                            </label>
+                            <label class="disability-checkbox-item">
+                                <input type="checkbox" name="disability" value="听力残疾">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-label">听力残疾</span>
+                            </label>
+                            <label class="disability-checkbox-item">
+                                <input type="checkbox" name="disability" value="言语残疾">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-label">言语残疾</span>
+                            </label>
+                            <label class="disability-checkbox-item">
+                                <input type="checkbox" name="disability" value="肢体残疾">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-label">肢体残疾</span>
+                            </label>
+                            <label class="disability-checkbox-item">
+                                <input type="checkbox" name="disability" value="智力残疾">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-label">智力残疾</span>
+                            </label>
+                            <label class="disability-checkbox-item">
+                                <input type="checkbox" name="disability" value="精神残疾">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-label">精神残疾</span>
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel" onclick="closeEditProfileModal()">取消</button>
+                <button type="button" class="btn-save" onclick="saveProfile()">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="个人主页.js"></script>
+    <script>
+        // 简历显示/隐藏
+        function showResume() {
+            document.getElementById('profile-main').style.display = 'none';
+            document.getElementById('resume-view').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        function hideResume() {
+            document.getElementById('resume-view').style.display = 'none';
+            document.getElementById('profile-main').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        // 简历数据恢复
+        document.addEventListener('DOMContentLoaded', () => {
+            const editableElements = document.querySelectorAll('#resume-view [data-editable]');
+            const saved = localStorage.getItem('resumeData');
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    editableElements.forEach((el, index) => {
+                        if (data[index] !== undefined) {
+                            el.innerHTML = data[index];
+                        }
+                    });
+                } catch (e) {
+                    console.error('Failed to load resume data', e);
+                }
+            }
+
+            const savedPhoto = localStorage.getItem('resumePhoto');
+            if (savedPhoto) {
+                const photo = document.getElementById('resume-photo');
+                if (photo) photo.src = savedPhoto;
+            }
+        });
+
+        function handlePhotoUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const dataUrl = e.target.result;
+                const photo = document.getElementById('resume-photo');
+                if (photo) photo.src = dataUrl;
+                localStorage.setItem('resumePhoto', dataUrl);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function toggleEditResume() {
+            const btn = document.getElementById('edit-resume-btn');
+            const editableElements = document.querySelectorAll('#resume-view [data-editable]');
+            const isEditing = btn.dataset.editing === 'true';
+
+            if (!isEditing) {
+                editableElements.forEach(el => el.contentEditable = 'true');
+                btn.dataset.editing = 'true';
+                btn.innerHTML = '<i class="fas fa-save"></i> 保存';
+                if (editableElements.length) editableElements[0].focus();
+            } else {
+                editableElements.forEach(el => el.contentEditable = 'false');
+                const data = Array.from(editableElements).map(el => el.innerHTML);
+                localStorage.setItem('resumeData', JSON.stringify(data));
+                btn.dataset.editing = 'false';
+                btn.innerHTML = '<i class="fas fa-edit"></i> 修改简历';
+            }
+        }
+    </script>
+</body>
+</html>

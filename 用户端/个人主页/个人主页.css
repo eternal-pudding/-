@@ -1,0 +1,1474 @@
+:root {
+    --tencent-blue: #0052D9;
+    --tencent-blue-hover: #0045B5;
+    --bg-white: #FFFFFF;
+    --bg-light: #F6F6F6;
+    --text-main: #333333;
+    --text-title: #000000;
+    --text-desc: #666666;
+    --text-muted: #999999;
+    --border-color: #E8E8E8;
+    --card-radius: 8px;
+    --transition: 0.3s ease-in-out;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--bg-white);
+    color: var(--text-main);
+    margin: 0;
+    line-height: 1.8;
+    overflow-x: hidden;
+}
+
+/* 现代化的布局结构 */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 20px;
+}
+
+/* 吸顶导航 (Sticky Header) */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;
+    z-index: 1000;
+    transition: all var(--transition);
+    background: transparent;
+}
+
+.header.scrolled {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    padding: 15px 60px;
+}
+
+.logo,
+.logo:hover,
+.logo:visited,
+.logo:active {
+    font-size: 26px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #0052D9 0%, #8e44ad 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    outline: none;
+    border: none;
+}
+
+.logo span:first-child {
+    font-style: italic;
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-menu li {
+    position: relative;
+}
+
+.nav-menu a {
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 10px 0;
+    display: block;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-menu a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: var(--tencent-blue);
+    transition: width 0.3s ease;
+}
+
+.nav-menu a:hover::after,
+.nav-menu a.active::after {
+    width: 100%;
+}
+
+.nav-menu a.active {
+    color: var(--tencent-blue);
+    font-weight: 600;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.login-btn {
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    opacity: 1 !important;
+    transition: color 0.3s ease;
+}
+
+.login-btn:hover {
+    color: var(--tencent-blue);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-name {
+    color: #333;
+    font-size: 16px;
+    font-weight: 500;
+    opacity: 1;
+}
+
+.logout-btn {
+    color: #333;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    opacity: 1;
+    transition: color 0.3s ease;
+}
+
+.logout-btn:hover {
+    color: var(--tencent-blue);
+}
+
+.nav-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    flex-shrink: 0;
+    text-decoration: none;
+}
+
+.nav-avatar:hover {
+    border-color: var(--tencent-blue);
+    transform: scale(1.05);
+}
+
+.nav-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.generated-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    user-select: none;
+}
+
+/* 全屏视差与大画幅 (Hero Section) */
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    text-align: center;
+    padding: 0 20px;
+}
+
+/* 细腻的交互与动效 (Animations & Transitions) */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+}
+
+.reveal-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hero h2.reveal-active {
+    transition-delay: 0.2s;
+}
+
+.hero p.reveal-active {
+    transition-delay: 0.4s;
+}
+
+.hero h2 {
+    font-size: 56px;
+    color: var(--text-title);
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.hero p {
+    font-size: 20px;
+    color: var(--text-desc);
+    max-width: 600px;
+}
+
+@keyframes fadeInUp {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 网格与卡片式设计 */
+.profile-card {
+    background-color: var(--bg-white);
+    padding: 30px;
+    border-radius: var(--card-radius);
+    margin-top: 40px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.profile-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+}
+
+.avatar-wrapper {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin-right: 30px;
+    cursor: pointer;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.profile-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    object-fit: cover;
+    object-position: center;
+    transition: all var(--transition);
+    display: block;
+}
+
+.avatar-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity var(--transition);
+    pointer-events: none;
+}
+
+.avatar-wrapper:hover .avatar-overlay {
+    opacity: 1;
+}
+
+.avatar-wrapper:hover .profile-avatar {
+    filter: brightness(0.8);
+}
+
+.avatar-hint {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* 头像占位符 */
+.avatar-placeholder {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #e0e0e0 0%, #f5f5f5 100%);
+    border: 3px solid #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    color: #999;
+}
+
+/* 生成的大头像 */
+.generated-avatar-large {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 32px;
+    font-weight: 600;
+    user-select: none;
+}
+
+.profile-details h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text-title);
+}
+
+.profile-details p {
+    margin: 8px 0;
+    color: var(--text-desc);
+}
+
+.job-status-nav {
+    display: flex;
+    margin-top: 50px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.status-item {
+    position: relative;
+    text-decoration: none;
+    color: var(--text-main);
+    padding: 20px 0;
+    margin-right: 40px;
+    font-weight: 500;
+    transition: color var(--transition);
+}
+
+.status-item::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background-color: var(--tencent-blue);
+    transition: all var(--transition);
+    transform: translateX(-50%);
+}
+
+.status-item.active, .status-item:hover {
+    color: var(--tencent-blue);
+}
+
+.status-item.active::after, .status-item:hover::after {
+    width: 100%;
+}
+
+.status-item span {
+    margin-left: 10px;
+    background-color: var(--bg-light);
+    color: var(--text-muted);
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 12px;
+    transition: all var(--transition);
+}
+
+.status-item.active span, .status-item:hover span {
+    background-color: var(--tencent-blue);
+    color: #fff;
+}
+
+/* 列表展示 */
+.job-list {
+    display: none;
+}
+
+.job-list.active {
+    display: block;
+    animation: listFadeIn 0.6s ease-out;
+}
+
+@keyframes listFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.job-item {
+    background-color: var(--bg-white);
+    padding: 25px;
+    border-radius: var(--card-radius);
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    cursor: pointer;
+    transition: all var(--transition);
+    display: flex;
+    flex-direction: column;
+}
+
+/* 悬停反馈 (Hover States) */
+.job-item:hover {
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    border-color: var(--tencent-blue);
+}
+
+.recruiter-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.recruiter-info img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 12px;
+}
+
+.recruiter-info span {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.recruiter-title {
+    color: var(--text-muted);
+    font-weight: 400;
+    margin-left: 10px;
+}
+
+.job-details-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.job-item-info h3 {
+    margin: 0;
+    font-size: 20px;
+    color: var(--text-title);
+    font-weight: 600;
+}
+
+.job-item-info .salary {
+    font-size: 18px;
+    color: #FF52D9; /* 这里可以根据需要调整 */
+    margin: 10px 0;
+    font-weight: 600;
+}
+
+.job-item-info .tags, .company-info .tags {
+    color: var(--text-desc);
+    font-size: 14px;
+}
+
+.company-info {
+    display: flex;
+    align-items: center;
+    text-align: right;
+}
+
+.company-logo {
+    width: 56px;
+    height: 56px;
+    border-radius: 8px;
+    margin-right: 20px;
+    border: 1px solid var(--border-color);
+}
+
+.btn-communicate {
+    background-color: var(--bg-light);
+    color: var(--tencent-blue);
+    border: 1px solid var(--tencent-blue);
+    padding: 10px 24px;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition);
+    align-self: flex-end;
+    margin-top: 20px;
+}
+
+.btn-communicate:hover {
+    background-color: var(--tencent-blue);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 82, 217, 0.2);
+}
+
+/* 响应式设计 (Responsive Design) */
+@media (max-width: 768px) {
+    .header {
+        padding: 15px 20px;
+    }
+    .header.scrolled {
+        padding: 10px 20px;
+    }
+    .main-nav {
+        display: none; /* 移动端可改为汉堡菜单 */
+    }
+    .hero h2 {
+        font-size: 36px;
+    }
+    .job-details-wrapper {
+        flex-direction: column;
+    }
+    .company-info {
+        margin-top: 20px;
+        text-align: left;
+    }
+    .status-item {
+        margin-right: 20px;
+        padding: 15px 0;
+    }
+}
+
+/* 页脚样式 - 保持简洁形式并提升质感 */
+.footer {
+    background-color: var(--bg-white);
+    padding: 60px 20px;
+    margin-top: 80px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.footer-links {
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: var(--text-desc);
+    padding: 0 15px;
+    font-size: 13px;
+    transition: all var(--transition);
+    position: relative;
+    line-height: 1;
+}
+
+.footer-links a:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 12px;
+    background-color: var(--border-color);
+}
+
+.footer-links a:hover {
+    color: var(--tencent-blue);
+}
+
+.copyright {
+    color: var(--text-muted);
+    font-size: 12px;
+    margin: 0;
+    letter-spacing: 0.5px;
+}
+
+/* 其他组件 */
+.toast-notification {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 50px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition);
+    z-index: 2000;
+}
+
+.toast-notification.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(-10px);
+}
+
+.empty-state {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 80px 0;
+    font-size: 18px;
+}
+
+/* 已投递状态标签 */
+.apply-status {
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(135deg, #52c41a, #73d13d);
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-left: 10px;
+}
+
+.apply-status::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: #fff;
+    border-radius: 50%;
+    margin-right: 6px;
+}
+
+.apply-time {
+    color: var(--text-muted);
+    font-size: 13px;
+    margin-top: 8px;
+}
+
+/* 面试列表样式 */
+.interview-item {
+    border-left: 4px solid #722ed1;
+}
+
+.interview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.interview-status {
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(135deg, #722ed1, #9254de);
+    color: #fff;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.interview-status::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: #fff;
+    border-radius: 50%;
+    margin-right: 8px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(0.9); }
+}
+
+.interview-date {
+    color: #722ed1;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.interview-date i {
+    margin-right: 5px;
+}
+
+.interview-location {
+    display: flex;
+    align-items: center;
+    color: var(--text-desc);
+    font-size: 14px;
+    margin: 12px 0;
+    padding: 10px;
+    background: #f9f0ff;
+    border-radius: 6px;
+}
+
+.interview-location i {
+    color: #722ed1;
+    margin-right: 8px;
+}
+
+.interview-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border-color);
+}
+
+.btn-accept {
+    background: linear-gradient(135deg, #722ed1, #9254de);
+    color: #fff;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition);
+}
+
+.btn-accept:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(114, 46, 209, 0.3);
+}
+
+.accept-time {
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+/* 编辑资料与添加简历按钮容器 */
+.profile-actions {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* 编辑资料按钮 */
+.edit-profile-btn {
+    background-color: var(--tencent-blue);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.edit-profile-btn:hover {
+    background-color: var(--tencent-blue-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 82, 217, 0.3);
+}
+
+.profile-card {
+    position: relative;
+}
+
+/* 添加简历按钮 */
+.add-resume-btn {
+    background-color: #f0f0f0;
+    color: #666;
+    border: 1px solid #ddd;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.add-resume-btn:hover {
+    background-color: #e0e0e0;
+}
+
+/* 模态框样式 */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    background-color: var(--bg-white);
+    border-radius: var(--card-radius);
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-title);
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color var(--transition);
+}
+
+.modal-close:hover {
+    color: var(--text-title);
+}
+
+.modal-body {
+    padding: 24px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 14px;
+    transition: all var(--transition);
+    font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--tencent-blue);
+    box-shadow: 0 0 0 3px rgba(0, 82, 217, 0.1);
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 16px 24px;
+    border-top: 1px solid var(--border-color);
+    background-color: var(--bg-light);
+}
+
+.btn-cancel,
+.btn-save {
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition);
+}
+
+.btn-cancel {
+    background-color: var(--bg-white);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+}
+
+.btn-cancel:hover {
+    border-color: var(--tencent-blue);
+    color: var(--tencent-blue);
+}
+
+.btn-save {
+    background-color: var(--tencent-blue);
+    color: #fff;
+    border: none;
+}
+
+.btn-save:hover {
+    background-color: var(--tencent-blue-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 82, 217, 0.3);
+}
+
+/* 残疾类型标签样式 */
+.disability-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.disability-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    background: #0052D9;
+    color: #fff;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.disability-tag i {
+    margin-right: 4px;
+    font-size: 11px;
+}
+
+/* 残疾类型复选框样式 */
+.disability-checkbox-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.disability-checkbox-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    background-color: var(--bg-light);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all var(--transition);
+    position: relative;
+}
+
+.disability-checkbox-item:hover {
+    border-color: var(--tencent-blue);
+    background-color: rgba(0, 82, 217, 0.05);
+}
+
+.disability-checkbox-item input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkbox-custom {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--text-muted);
+    border-radius: 4px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition);
+    flex-shrink: 0;
+}
+
+.checkbox-custom::after {
+    content: '\f00c';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: #fff;
+    font-size: 11px;
+    opacity: 0;
+    transform: scale(0);
+    transition: all var(--transition);
+}
+
+.disability-checkbox-item input[type="checkbox"]:checked + .checkbox-custom {
+    background-color: var(--tencent-blue);
+    border-color: var(--tencent-blue);
+}
+
+.disability-checkbox-item input[type="checkbox"]:checked + .checkbox-custom::after {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.disability-checkbox-item input[type="checkbox"]:checked ~ .checkbox-label {
+    color: var(--tencent-blue);
+    font-weight: 500;
+}
+
+.checkbox-label {
+    font-size: 14px;
+    color: var(--text-main);
+    transition: color var(--transition);
+}
+
+.disability-checkbox-item:has(input[type="checkbox"]:checked) {
+    border-color: var(--tencent-blue);
+    background-color: rgba(0, 82, 217, 0.08);
+}
+
+@media (max-width: 768px) {
+    .profile-actions {
+        position: static;
+        margin-top: 20px;
+        align-self: flex-start;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 20px;
+    }
+    
+    .disability-checkbox-group {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ================= 简历视图样式（嵌入个人主页） ================= */
+
+.resume-view {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 100px 20px 60px;
+    background: #ffffff;
+}
+
+/* 修改/保存简历按钮 */
+.edit-resume-btn {
+    position: fixed;
+    top: 90px;
+    right: 40px;
+    background: var(--tencent-blue);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+}
+
+.edit-resume-btn:hover {
+    background: var(--tencent-blue-hover);
+}
+
+/* 编辑状态高亮 */
+#resume-view [data-editable="true"] {
+    background-color: rgba(255, 247, 150, 0.4);
+    border-radius: 2px;
+    padding: 0 3px;
+    outline: none;
+    cursor: text;
+}
+
+#resume-view [data-editable="true"]:focus {
+    background-color: rgba(255, 247, 150, 0.8);
+    box-shadow: 0 0 0 2px var(--tencent-blue);
+}
+
+/* 简历内部容器 */
+.resume-page-inner {
+    background: #ffffff;
+}
+
+/* 顶部标题区 */
+.resume-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.resume-title {
+    font-size: 48px;
+    color: #0052D9;
+    font-weight: 700;
+    letter-spacing: 8px;
+    font-family: "SimHei", "Microsoft YaHei", sans-serif;
+}
+
+.resume-icons {
+    display: flex;
+    gap: 14px;
+}
+
+.icon-circle {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--tencent-blue);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+}
+
+/* 蓝色横条，左侧斜切 */
+.resume-bar-wrapper {
+    margin-left: 18px;
+    margin-bottom: 28px;
+    position: relative;
+}
+
+.resume-bar {
+    height: 15px;
+    background: var(--tencent-blue);
+    position: relative;
+}
+
+.resume-bar::before {
+    content: '';
+    position: absolute;
+    left: -18px;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-top: 0 solid transparent;
+    border-bottom: 15px solid transparent;
+    border-right: 18px solid var(--tencent-blue);
+}
+
+/* 模块区块 */
+.resume-section {
+    margin-bottom: 0;
+    border-left: 2px solid var(--tencent-blue);
+}
+
+.section-header {
+    position: relative;
+    margin-bottom: 12px;
+    padding-top: 2px;
+}
+
+/* 丝带标签 */
+.section-tag {
+    display: inline-block;
+    background: var(--tencent-blue);
+    color: #fff;
+    padding: 5px 20px 5px 12px;
+    font-size: 15px;
+    font-weight: 600;
+    position: relative;
+    margin-left: 8px;
+}
+
+/* 左侧折叠装饰 */
+.section-tag::before {
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-top: 14px solid transparent;
+    border-bottom: 14px solid transparent;
+    border-right: 10px solid var(--tencent-blue-hover);
+}
+
+/* 右侧箭头 */
+.section-tag::after {
+    content: '';
+    position: absolute;
+    right: -14px;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-top: 14px solid transparent;
+    border-bottom: 14px solid transparent;
+    border-left: 14px solid var(--tencent-blue);
+}
+
+/* 模块内容 */
+.resume-section .section-content {
+    padding: 0 24px 18px 28px;
+    border-bottom: 1px solid #d0d0d0;
+}
+
+/* 基本信息 */
+.resume-section .basic-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 30px;
+}
+
+.resume-section .info-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.resume-section .info-row {
+    display: flex;
+}
+
+.resume-section .info-item {
+    flex: 1;
+    font-size: 15px;
+    color: #333;
+    min-width: 0;
+}
+
+.resume-section .info-item .label {
+    color: #000;
+    font-weight: 500;
+    letter-spacing: 2px;
+    display: inline-block;
+    min-width: 80px;
+}
+
+.resume-section .info-photo {
+    width: 105px;
+    height: 135px;
+    border: 1px solid #d0d0d0;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: #f8f8f8;
+    position: relative;
+    cursor: pointer;
+}
+
+.resume-section .info-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.photo-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.45);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.resume-section .info-photo:hover .photo-overlay {
+    opacity: 1;
+}
+
+.photo-overlay i {
+    font-size: 16px;
+}
+
+/* 教育背景/经历标题行 */
+.item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 8px;
+}
+
+.item-header span:nth-child(1) {
+    flex: 1;
+    text-align: left;
+}
+
+.item-header span:nth-child(2) {
+    flex: 1;
+    text-align: center;
+}
+
+.item-header span:nth-child(3) {
+    flex: 1;
+    text-align: right;
+}
+
+.content-text {
+    font-size: 15px;
+    line-height: 1.85;
+    text-align: justify;
+}
+
+/* 列表 */
+.bullet-list {
+    list-style: disc;
+    padding-left: 18px;
+}
+
+.bullet-list li {
+    margin-bottom: 6px;
+    font-size: 15px;
+    line-height: 1.75;
+    text-align: justify;
+}
+
+/* 技能证书 */
+.skills-content p {
+    margin-bottom: 6px;
+    font-size: 15px;
+    line-height: 1.75;
+}
+
+/* 简历页按钮 */
+.resume-actions {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.resume-actions .btn-back {
+    background: var(--tencent-blue);
+    color: #fff;
+    border: none;
+    padding: 10px 28px;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.resume-actions .btn-back:hover {
+    background: var(--tencent-blue-hover);
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .edit-resume-btn {
+        top: 70px;
+        right: 15px;
+        padding: 8px 14px;
+        font-size: 13px;
+    }
+    .resume-title {
+        font-size: 34px;
+        letter-spacing: 4px;
+    }
+    .resume-bar-wrapper {
+        margin-left: 12px;
+        margin-bottom: 20px;
+    }
+    .resume-bar {
+        height: 12px;
+    }
+    .resume-bar::before {
+        left: -12px;
+        border-bottom-width: 12px;
+        border-right-width: 12px;
+    }
+    .resume-section .basic-info {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .resume-section .info-photo {
+        align-self: flex-start;
+    }
+    .item-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 3px;
+    }
+    .item-header span {
+        text-align: left !important;
+    }
+    .resume-section .section-content {
+        padding: 0 16px 14px 18px;
+    }
+}

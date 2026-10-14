@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简历详情 - HR招聘中心</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0052D9;
+            --primary-light: #2B6DE5;
+            --primary-dark: #003BB3;
+            --text-white: #FFFFFF;
+            --text-gray: #666666;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* 导航栏 - 与首页统一风格 */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            height: 70px;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .top-nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            height: 100%;
+            padding: 0 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 15px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .message-link {
+            position: relative;
+        }
+
+        .badge {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: #ff4d4f;
+            color: #fff;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 10px;
+        }
+
+        .nav-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--border-color);
+            transition: border-color 0.3s;
+        }
+
+        .nav-avatar:hover {
+            border-color: var(--primary);
+        }
+
+        .nav-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .logout-btn {
+            color: var(--text-dark);
+            font-size: 15px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            color: var(--primary);
+        }
+
+        :root {
+            --primary: #0052D9;
+            --primary-hover: #0045B5;
+            --text-dark: #333;
+            --text-gray: #666;
+            --text-light: #999;
+            --bg-gray: #f5f7fa;
+            --border-color: #e8e8e8;
+        }
+
+        /* 主内容 */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 90px 20px 40px;
+        }
+
+        /* 简历头部 */
+        .resume-header {
+            background: #fff;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+        }
+
+        .candidate-info {
+            display: flex;
+            gap: 24px;
+        }
+
+        .candidate-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #f0f0f0;
+        }
+
+        .candidate-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .candidate-basic {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .candidate-name {
+            font-size: 28px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .candidate-tags {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .candidate-tag {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: #f5f7fa;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .candidate-tag i {
+            color: var(--primary);
+            font-size: 12px;
+        }
+
+        .apply-info {
+            text-align: right;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .apply-info .job-title {
+            color: var(--primary);
+            font-weight: 500;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .apply-time {
+            margin-top: 8px;
+        }
+
+        /* 操作按钮 */
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+            padding-top: 24px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 82, 217, 0.3);
+        }
+
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #666;
+            border: 1px solid #e8e8e8;
+        }
+
+        .btn-secondary:hover {
+            background: #e8e8e8;
+        }
+
+        .btn-success {
+            background: #52c41a;
+            color: #fff;
+        }
+
+        .btn-success:hover {
+            background: #389e0d;
+        }
+
+        .btn-danger {
+            background: #fff2f0;
+            color: #ff4d4f;
+            border: 1px solid #ffccc7;
+        }
+
+        .btn-danger:hover {
+            background: #ff4d4f;
+            color: #fff;
+        }
+
+        /* 内容区块 */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .info-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-title i {
+            color: var(--primary);
+        }
+
+        .info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .info-label {
+            width: 80px;
+            color: #999;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .info-value {
+            flex: 1;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .info-value.highlight {
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        /* 自我评价 */
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .description-text {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        /* 工作经历 */
+        .experience-item {
+            padding: 20px 0;
+            border-bottom: 1px dashed #eee;
+        }
+
+        .experience-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .company-name {
+            font-weight: 600;
+            color: #333;
+            font-size: 15px;
+        }
+
+        .work-time {
+            color: #999;
+            font-size: 13px;
+        }
+
+        .position-name {
+            color: var(--primary);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .work-desc {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* 技能标签 */
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-tag {
+            padding: 8px 16px;
+            background: #f0f7ff;
+            color: var(--primary);
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        /* 联系方式 */
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .contact-item:last-child {
+            border-bottom: none;
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: #f5f7fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-label {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 2px;
+        }
+
+        .contact-value {
+            font-size: 14px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            header {
+                padding: 0 20px;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-top {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .apply-info {
+                text-align: left;
+            }
+
+            .action-buttons {
+                flex-wrap: wrap;
+            }
+
+            .btn {
+                flex: 1 1 calc(50% - 8px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="top-nav">
+            <div class="nav-left">
+                <a href="求职招聘.html" class="logo">HR招聘中心</a>
+            </div>
+            <div class="nav-links">
+                <a href="../首页/index.html">首页</a>
+                <a href="求职招聘.html" class="active">职位管理</a>
+                <a href="../聊天窗口/index.html" class="message-link">
+                    消息中心
+                    <span class="badge">5</span>
+                </a>
+                <a href="javascript:void(0)" class="logout-btn" onclick="logout()">退出</a>
+                <a href="../个人主页/个人主页.html" class="nav-avatar" title="个人主页">
+                    <img src="https://img.bosszhipin.com/beijin/mcs/chatphoto/20200810/202a73eda0742d2b63ab76274c45543835a935b38495b428634570621439c635_s.png" alt="企业Logo" id="header-avatar">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- 简历头部 -->
+        <div class="resume-header">
+            <div class="header-top">
+                <div class="candidate-info">
+                    <div class="candidate-avatar">
+                        <img src="" alt="候选人头像" id="avatarImg" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MCA4MCI+PGNpcmNsZSBjeD0iNDAiIGN5PSI0MCIgcj0iNDAiIGZpbGw9IiNmNWY1ZjUiLz48Y2lyY2xlIGN4PSI0MCIgY3k9IjMwIiByPSIxNCIgZmlsbD0iI2NjYyIvPjxlbGxpcHNlIGN4PSI0MCIgY3k9IjY4IiByeD0iMjIiIHJ5PSIyNiIgZmlsbD0iI2NjYyIvPjwvc3ZnPg=='">
+                    </div>
+                    <div class="candidate-basic">
+                        <h1 class="candidate-name" id="candidateName">--</h1>
+                        <div class="candidate-tags">
+                            <span class="candidate-tag"><i class="fas fa-user"></i><span id="candidateGender">--</span></span>
+                            <span class="candidate-tag"><i class="fas fa-birthday-cake"></i><span id="candidateAge">--</span></span>
+                            <span class="candidate-tag"><i class="fas fa-graduation-cap"></i><span id="candidateEducation">--</span></span>
+                            <span class="candidate-tag"><i class="fas fa-briefcase"></i><span id="candidateExperience">--</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="apply-info">
+                    <div class="job-title" id="applyJob">--</div>
+                    <div>投递时间：<span class="apply-time" id="applyTime">--</span></div>
+                    <div style="margin-top: 4px;">当前状态：<span id="applyStatus" style="color: #fa8c16; font-weight: 500;">待查看</span></div>
+                </div>
+            </div>
+            <div class="action-buttons">
+                <button class="btn btn-success" onclick="passResume()">
+                    <i class="fas fa-check"></i> 通过筛选
+                </button>
+
+                <button class="btn btn-secondary" onclick="printResume()">
+                    <i class="fas fa-print"></i> 打印简历
+                </button>
+                <button class="btn btn-danger" onclick="rejectResume()">
+                    <i class="fas fa-times"></i> 不合适
+                </button>
+            </div>
+        </div>
+
+        <!-- 内容网格 -->
+        <div class="content-grid">
+            <!-- 基本信息 -->
+            <div class="info-card">
+                <div class="card-title">
+                    <i class="fas fa-id-card"></i>
+                    基本信息
+                </div>
+                <div class="info-list">
+                    <div class="info-item">
+                        <span class="info-label">姓名</span>
+                        <span class="info-value" id="infoName">--</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">性别</span>
+                        <span class="info-value" id="infoGender">--</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">出生年月</span>
+                        <span class="info-value" id="infoBirth">--</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">政治面貌</span>
+                        <span class="info-value" id="infoPolitical">--</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">残疾类型</span>
+                        <span class="info-value highlight" id="infoDisability">--</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">残疾等级</span>
+                        <span class="info-value" id="infoLevel">--</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">户籍所在地</span>
+                        <span class="info-value" id="infoHometown">--</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">现居住地</span>
+                        <span class="info-value" id="infoAddress">--</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 求职意向 -->
+            <div class="info-card">
+                <div class="card-title">
+                    <i class="fas fa-bullseye"></i>
+                    求职意向
+                </div>
+                <div class="info-list">
+                    <div class="info-item">
+                        <span class="info-label">期望职位</span>
+                        <span class="info-value highlight" id="expectJob">--</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">期望薪资</span>
+                        <span class="info-value highlight" id="expectSalary">--</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">期望城市</span>
+                        <span class="info-value" id="expectCity">--</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">到岗时间</span>
+                        <span class="info-value" id="availableTime">--</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">工作性质</span>
+                        <span class="info-value" id="jobType">--</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 联系方式 -->
+            <div class="info-card">
+                <div class="card-title">
+                    <i class="fas fa-phone-alt"></i>
+                    联系方式
+                </div>
+                <div class="contact-list">
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-mobile-alt"></i></div>
+                        <div class="contact-info">
+                            <div class="contact-label">手机号码</div>
+                            <div class="contact-value" id="contactPhone">--</div>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="contact-info">
+                            <div class="contact-label">电子邮箱</div>
+                            <div class="contact-value" id="contactEmail">--</div>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fab fa-weixin"></i></div>
+                        <div class="contact-info">
+                            <div class="contact-label">微信号</div>
+                            <div class="contact-value" id="contactWechat">--</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 教育背景 -->
+            <div class="info-card">
+                <div class="card-title">
+                    <i class="fas fa-university"></i>
+                    教育背景
+                </div>
+                <div class="info-list">
+                    <div class="info-item">
+                        <span class="info-label">最高学历</span>
+                        <span class="info-value highlight" id="eduLevel">--</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">毕业院校</span>
+                        <span class="info-value" id="eduSchool">--</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">所学专业</span>
+                        <span class="info-value" id="eduMajor">--</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">在校时间</span>
+                        <span class="info-value" id="eduTime">--</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 技能特长 -->
+            <div class="info-card">
+                <div class="card-title">
+                    <i class="fas fa-tools"></i>
+                    技能特长
+                </div>
+                <div class="skill-tags" id="skillTags">
+                    <span class="skill-tag">熟练使用Office办公软件</span>
+                    <span class="skill-tag">良好的沟通能力</span>
+                    <span class="skill-tag">手语翻译</span>
+                </div>
+            </div>
+
+            <!-- 证书资质 -->
+            <div class="info-card">
+                <div class="card-title">
+                    <i class="fas fa-certificate"></i>
+                    证书资质
+                </div>
+                <div class="info-list">
+                    <div class="info-item">
+                        <span class="info-label">残疾证号</span>
+                        <span class="info-value" id="certDisability">--</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">其他证书</span>
+                        <span class="info-value" id="certOther">--</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 工作经历 -->
+            <div class="info-card full-width">
+                <div class="card-title">
+                    <i class="fas fa-building"></i>
+                    工作经历
+                </div>
+                <div class="experience-list" id="experienceList">
+                    <div class="experience-item">
+                        <div class="experience-header">
+                            <span class="company-name">南京某某科技有限公司</span>
+                            <span class="work-time">2022.06 - 2024.03</span>
+                        </div>
+                        <div class="position-name">行政专员</div>
+                        <div class="work-desc">
+                            负责公司日常行政事务管理，包括办公用品采购、档案管理、会议安排等。协助人事部门进行招聘面试安排，处理员工入离职手续。
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 自我评价 -->
+            <div class="info-card full-width">
+                <div class="card-title">
+                    <i class="fas fa-user-edit"></i>
+                    自我评价
+                </div>
+                <div class="description-text" id="selfEvaluation">
+                    本人性格开朗，为人真诚，具有良好的团队协作精神。虽然听力有一定障碍，但通过助听器辅助和手语学习，能够进行正常的日常沟通。工作认真负责，学习能力强，熟练使用各类办公软件，希望能够在贵公司获得发展机会。
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 多个候选人简历数据
+        const resumeDataMap = {
+            1: {
+                id: 1,
+                name: '张小明',
+                avatar: 'https://img.bosszhipin.com/beijin/upload/avatar/20210609/d8922c74373c386934f3231f94096cc42569bf6476d1f21550636549e45f988b_s.png',
+                gender: '男',
+                age: '25岁',
+                birth: '1999年3月',
+                education: '本科',
+                experience: '2年经验',
+                political: '党员',
+                disability: '听力残疾',
+                disabilityLevel: '四级',
+                hometown: '江苏省南京市',
+                address: '南京市玄武区',
+                phone: '139****1234',
+                email: 'zhangxiaoming@email.com',
+                wechat: 'zxm_1999',
+                expectJob: '人事专员',
+                expectSalary: '6000-9000元/月',
+                expectCity: '南京市',
+                availableTime: '一周内到岗',
+                jobType: '全职',
+                eduLevel: '本科',
+                eduSchool: '南京工业大学',
+                eduMajor: '人力资源管理',
+                eduTime: '2017.09 - 2021.06',
+                certDisability: '320102**********51',
+                certOther: '人力资源管理师三级、计算机二级',
+                skills: ['招聘渠道管理', '员工关系', 'Office办公软件', '绩效考核'],
+                applyJob: '人事专员',
+                applyTime: '2024-04-08',
+                status: 'pending'
+            },
+            2: {
+                id: 2,
+                name: '李小红',
+                avatar: 'https://img.bosszhipin.com/beijin/upload/avatar/20210609/d8922c74373c386934f3231f94096cc42569bf6476d1f21550636549e45f988b_s.png',
+                gender: '女',
+                age: '23岁',
+                birth: '2001年5月',
+                education: '大专',
+                experience: '应届生',
+                political: '共青团员',
+                disability: '肢体残疾',
+                disabilityLevel: '四级',
+                hometown: '江苏省南京市',
+                address: '南京市江宁区',
+                phone: '138****5678',
+                email: 'lixiaohong@email.com',
+                wechat: 'lxh_2001',
+                expectJob: '行政助理',
+                expectSalary: '5000-8000元/月',
+                expectCity: '南京市',
+                availableTime: '随时到岗',
+                jobType: '全职',
+                eduLevel: '大专',
+                eduSchool: '南京信息职业技术学院',
+                eduMajor: '行政管理',
+                eduTime: '2019.09 - 2022.06',
+                certDisability: '320102**********52',
+                certOther: '计算机一级证书、普通话二级甲等',
+                skills: ['熟练使用Office办公软件', '良好的沟通能力', '档案管理', '会议组织'],
+                applyJob: '行政助理',
+                applyTime: '2024-04-07',
+                status: 'pending'
+            },
+            3: {
+                id: 3,
+                name: '王小华',
+                avatar: 'https://img.bosszhipin.com/beijin/upload/avatar/20210609/d8922c74373c386934f3231f94096cc42569bf6476d1f21550636549e45f988b_s.png',
+                gender: '男',
+                age: '27岁',
+                birth: '1997年8月',
+                education: '本科',
+                experience: '3年经验',
+                political: '群众',
+                disability: '听力残疾',
+                disabilityLevel: '三级',
+                hometown: '江苏省苏州市',
+                address: '南京市建邺区',
+                phone: '137****9012',
+                email: 'wangxiaohua@email.com',
+                wechat: 'wxh_design',
+                expectJob: 'UI设计师',
+                expectSalary: '8000-12000元/月',
+                expectCity: '南京市',
+                availableTime: '一个月内到岗',
+                jobType: '全职',
+                eduLevel: '本科',
+                eduSchool: '江南大学',
+                eduMajor: '视觉传达设计',
+                eduTime: '2015.09 - 2019.06',
+                certDisability: '320102**********53',
+                certOther: '平面设计师证书、Adobe认证',
+                skills: ['Photoshop', 'Illustrator', 'UI设计', '品牌设计', 'Figma'],
+                applyJob: '设计师',
+                applyTime: '2024-04-07',
+                status: 'interview'
+            }
+        };
+
+        // 获取URL参数中的id
+        function getResumeIdFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = parseInt(urlParams.get('id'));
+            return id || 1; // 默认显示第一个
+        }
+
+        // 获取当前简历数据
+        let resumeData = resumeDataMap[getResumeIdFromUrl()];
+        if (!resumeData) {
+            resumeData = resumeDataMap[1]; // 如果id不存在，默认显示第一个
+        }
+
+        // 页面加载时填充数据
+        document.addEventListener('DOMContentLoaded', function() {
+            fillResumeData();
+        });
+
+        function fillResumeData() {
+            // 头部信息
+            document.getElementById('avatarImg').src = resumeData.avatar;
+            document.getElementById('candidateName').textContent = resumeData.name;
+            document.getElementById('candidateGender').textContent = resumeData.gender;
+            document.getElementById('candidateAge').textContent = resumeData.age;
+            document.getElementById('candidateEducation').textContent = resumeData.education;
+            document.getElementById('candidateExperience').textContent = resumeData.experience;
+            document.getElementById('applyJob').textContent = '应聘：' + resumeData.applyJob;
+            document.getElementById('applyTime').textContent = resumeData.applyTime;
+
+            // 基本信息
+            document.getElementById('infoName').textContent = resumeData.name;
+            document.getElementById('infoGender').textContent = resumeData.gender;
+            document.getElementById('infoBirth').textContent = resumeData.birth;
+            document.getElementById('infoPolitical').textContent = resumeData.political;
+            document.getElementById('infoDisability').textContent = resumeData.disability;
+            document.getElementById('infoLevel').textContent = resumeData.disabilityLevel;
+            document.getElementById('infoHometown').textContent = resumeData.hometown;
+            document.getElementById('infoAddress').textContent = resumeData.address;
+
+            // 求职意向
+            document.getElementById('expectJob').textContent = resumeData.expectJob;
+            document.getElementById('expectSalary').textContent = resumeData.expectSalary;
+            document.getElementById('expectCity').textContent = resumeData.expectCity;
+            document.getElementById('availableTime').textContent = resumeData.availableTime;
+            document.getElementById('jobType').textContent = resumeData.jobType;
+
+            // 联系方式
+            document.getElementById('contactPhone').textContent = resumeData.phone;
+            document.getElementById('contactEmail').textContent = resumeData.email;
+            document.getElementById('contactWechat').textContent = resumeData.wechat;
+
+            // 教育背景
+            document.getElementById('eduLevel').textContent = resumeData.eduLevel;
+            document.getElementById('eduSchool').textContent = resumeData.eduSchool;
+            document.getElementById('eduMajor').textContent = resumeData.eduMajor;
+            document.getElementById('eduTime').textContent = resumeData.eduTime;
+
+            // 证书
+            document.getElementById('certDisability').textContent = resumeData.certDisability;
+            document.getElementById('certOther').textContent = resumeData.certOther;
+
+            // 技能标签
+            const skillTags = document.getElementById('skillTags');
+            skillTags.innerHTML = resumeData.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('');
+
+            // 状态
+            const statusMap = {
+                'pending': { text: '待查看', color: '#fa8c16' },
+                'screened': { text: '已通过', color: '#52c41a' },
+                'interview': { text: '待面试', color: '#1890ff' },
+                'rejected': { text: '不合适', color: '#999' }
+            };
+            const status = statusMap[resumeData.status];
+            if (status) {
+                document.getElementById('applyStatus').textContent = status.text;
+                document.getElementById('applyStatus').style.color = status.color;
+            }
+        }
+
+        // 通过筛选
+        function passResume() {
+            if (confirm('确定将该候选人标记为【已通过】吗？')) {
+                alert('已通过筛选！可以安排面试了。');
+                document.getElementById('applyStatus').textContent = '已通过';
+                document.getElementById('applyStatus').style.color = '#52c41a';
+            }
+        }
+
+        // 打印简历
+        function printResume() {
+            window.print();
+        }
+
+        // 不合适
+        function rejectResume() {
+            if (confirm('确定将该候选人标记为【不合适】吗？')) {
+                alert('已标记为不合适。');
+                document.getElementById('applyStatus').textContent = '不合适';
+                document.getElementById('applyStatus').style.color = '#999';
+            }
+        }
+
+        // 更新消息中心红点
+        function updateMessageBadge() {
+            const badge = document.querySelector('.message-link .badge');
+            if (!badge) return;
+            const unreadCount = parseInt(localStorage.getItem('hrUnreadCount') || '0', 10);
+            if (unreadCount > 0) {
+                badge.textContent = unreadCount > 99 ? '99+' : unreadCount;
+                badge.style.display = 'inline-block';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        // 加载导航栏头像
+        function loadNavAvatar() {
+            const savedAvatar = localStorage.getItem('userAvatar');
+            const headerAvatar = document.getElementById('header-avatar');
+            
+            if (savedAvatar && headerAvatar) {
+                headerAvatar.src = savedAvatar;
+            }
+            updateMessageBadge();
+        }
+        
+        // 页面加载时执行
+        document.addEventListener('DOMContentLoaded', function() {
+            loadNavAvatar();
+        });
+
+        // 退出登录
+        function logout() {
+            localStorage.removeItem('loginInfo');
+            sessionStorage.removeItem('loginInfo');
+            alert('已退出登录');
+            window.location.href = '../../用户端/首页/index.html';
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR招聘中心 - 就业平台</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="logo"></div>
+        <div class="nav-container">
+            <div class="nav-menu">
+                <a href="index.html" class="active">首页</a>
+                <a href="../企业主页/HR端导航栏企业主页.html">企业主页</a>
+                <a href="../求职招聘/求职招聘.html">职位管理</a>
+                <a href="../聊天窗口/index.html" class="message-link">
+                    消息中心
+                    <span class="badge">5</span>
+                </a>
+            </div>
+            <div class="nav-right">
+                <a href="javascript:void(0)" class="logout-btn" id="loginBtn" onclick="logout()">退出</a>
+                <a href="../个人主页/个人主页.html" class="nav-avatar" title="个人主页" id="nav-avatar-link">
+                    <img src="https://img.bosszhipin.com/beijin/mcs/chatphoto/20200810/202a73eda0742d2b63ab76274c45543835a935b38495b428634570621439c635_s.png" alt="企业Logo" id="header-avatar">
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-section">
+        <div class="hero-carousel">
+            <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=2070');"></div>
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=2070');"></div>
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2070');;"></div>
+        </div>
+        <div class="hero-content">
+            <h1>为企业寻找优秀人才</h1>
+            <p class="subtitle">连接残障人才，共创包容职场</p>
+            <div class="hero-actions">
+                <!-- 按钮已删除 -->
+            </div>
+        </div>
+        <div class="carousel-controls">
+            <div class="carousel-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="main-container">
+            <!-- 左侧：人才推荐 -->
+            <section class="candidates-section">
+                <div class="section-header">
+                    <h2 class="section-title">人才推荐</h2>
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" onclick="filterCandidates('all')">全部</button>
+                        <button class="filter-tab" onclick="filterCandidates('communicated')">已沟通</button>
+                        <button class="filter-tab" onclick="filterCandidates('uncommunicated')">未沟通</button>
+                    </div>
+                </div>
+                <div class="candidate-list" id="candidateList">
+                    <!-- 动态生成 -->
+                </div>
+            </section>
+
+            <!-- 右侧：招聘数据 -->
+            <aside class="stats-sidebar">
+                <div class="stats-card">
+                    <h3>今日数据</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-number">12</span>
+                            <span class="stat-label">新投递</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">8</span>
+                            <span class="stat-label">新沟通</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">3</span>
+                            <span class="stat-label">待面试</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">256</span>
+                            <span class="stat-label">职位曝光</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tips-section">
+                    <h3>招聘小贴士</h3>
+                    <div class="tip-item">
+                        <i class="fas fa-lightbulb"></i>
+                        <p>及时回复求职者消息，可提升企业活跃度</p>
+                    </div>
+                    <div class="tip-item">
+                        <i class="fas fa-lightbulb"></i>
+                        <p>完善企业资料和职位描述，可获更多曝光</p>
+                    </div>
+                    <div class="tip-item">
+                        <i class="fas fa-lightbulb"></i>
+                        <p>标注"接受残障人群"可触达更多优质人才</p>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <footer>
+        <p>我们致力于为残障人士提供平等的就业机会。</p>
+    </footer>
+
+    <!-- 置顶按钮 -->
+    <div class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18,15 12,9 6,15"></polyline></svg>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <script>
+        // 候选人数据
+        const candidates = [
+            {
+                id: 1,
+                name: '张小明',
+                avatar: 'https://img.bosszhipin.com/beijin/upload/avatar/20210609/d8922c74373c386934f3231f94096cc42569bf6476d1f21550636549e45f988b_s.png',
+                age: 25,
+                education: '本科',
+                experience: '2年经验',
+                disability: '听力残疾',
+                jobTitle: '人事专员',
+                skills: ['Office', '招聘', '员工关系'],
+                match: 95,
+                communicated: false
+            },
+            {
+                id: 2,
+                name: '李小红',
+                avatar: 'https://img.bosszhipin.com/beijin/upload/avatar/20210609/d8922c74373c386934f3231f94096cc42569bf6476d1f21550636549e45f988b_s.png',
+                age: 23,
+                education: '大专',
+                experience: '应届生',
+                disability: '肢体残疾',
+                jobTitle: '行政助理',
+                skills: ['文档管理', '会议安排', 'WPS'],
+                match: 88,
+                communicated: true
+            },
+            {
+                id: 3,
+                name: '王小华',
+                avatar: 'https://img.bosszhipin.com/beijin/upload/avatar/20210609/d8922c74373c386934f3231f94096cc42569bf6476d1f21550636549e45f988b_s.png',
+                age: 27,
+                education: '本科',
+                experience: '3年经验',
+                disability: '听力残疾',
+                jobTitle: '设计师',
+                skills: ['PS', 'AI', 'UI设计'],
+                match: 92,
+                communicated: false
+            },
+            {
+                id: 4,
+                name: '赵小芳',
+                avatar: 'https://img.bosszhipin.com/beijin/upload/avatar/20210609/d8922c74373c386934f3231f94096cc42569bf6476d1f21550636549e45f988b_s.png',
+                age: 24,
+                education: '本科',
+                experience: '1年经验',
+                disability: '言语残疾',
+                jobTitle: '数据录入员',
+                skills: ['Excel', '数据整理', '细心'],
+                match: 90,
+                communicated: false
+            },
+            {
+                id: 5,
+                name: '陈小军',
+                avatar: 'https://img.bosszhipin.com/beijin/upload/avatar/20210609/d8922c74373c386934f3231f94096cc42569bf6476d1f21550636549e45f988b_s.png',
+                age: 26,
+                education: '大专',
+                experience: '2年经验',
+                disability: '肢体残疾',
+                jobTitle: '客服专员',
+                skills: ['打字快', '耐心', '在线沟通'],
+                match: 85,
+                communicated: true
+            },
+            {
+                id: 6,
+                name: '刘小伟',
+                avatar: 'https://img.bosszhipin.com/beijin/upload/avatar/20210609/d8922c74373c386934f3231f94096cc42569bf6476d1f21550636549e45f988b_s.png',
+                age: 28,
+                education: '本科',
+                experience: '4年经验',
+                disability: '视力残疾',
+                jobTitle: '前端工程师',
+                skills: ['Vue', 'React', 'JavaScript'],
+                match: 93,
+                communicated: false
+            },
+            {
+                id: 7,
+                name: '周小丽',
+                avatar: 'https://img.bosszhipin.com/beijin/upload/avatar/20210609/d8922c74373c386934f3231f94096cc42569bf6476d1f21550636549e45f988b_s.png',
+                age: 24,
+                education: '本科',
+                experience: '1年经验',
+                disability: '听力残疾',
+                jobTitle: '运营专员',
+                skills: ['文案撰写', '活动策划', '新媒体'],
+                match: 87,
+                communicated: true
+            },
+            {
+                id: 8,
+                name: '吴小东',
+                avatar: 'https://img.bosszhipin.com/beijin/upload/avatar/20210609/d8922c74373c386934f3231f94096cc42569bf6476d1f21550636549e45f988b_s.png',
+                age: 29,
+                education: '硕士',
+                experience: '5年经验',
+                disability: '肢体残疾',
+                jobTitle: '产品经理',
+                skills: ['产品规划', '数据分析', '用户研究'],
+                match: 96,
+                communicated: false
+            },
+            {
+                id: 9,
+                name: '郑小霞',
+                avatar: 'https://img.bosszhipin.com/beijin/upload/avatar/20210609/d8922c74373c386934f3231f94096cc42569bf6476d1f21550636549e45f988b_s.png',
+                age: 22,
+                education: '大专',
+                experience: '应届生',
+                disability: '言语残疾',
+                jobTitle: '财务助理',
+                skills: ['财务软件', '票据管理', 'Excel'],
+                match: 84,
+                communicated: false
+            },
+            {
+                id: 10,
+                name: '马小超',
+                avatar: 'https://img.bosszhipin.com/beijin/upload/avatar/20210609/d8922c74373c386934f3231f94096cc42569bf6476d1f21550636549e45f988b_s.png',
+                age: 26,
+                education: '本科',
+                experience: '3年经验',
+                disability: '听力残疾',
+                jobTitle: '视频剪辑',
+                skills: ['Pr', 'AE', '剪映'],
+                match: 91,
+                communicated: true
+            },
+            {
+                id: 11,
+                name: '孙小芳',
+                avatar: 'https://img.bosszhipin.com/beijin/upload/avatar/20210609/d8922c74373c386934f3231f94096cc42569bf6476d1f21550636549e45f988b_s.png',
+                age: 25,
+                education: '本科',
+                experience: '2年经验',
+                disability: '肢体残疾',
+                jobTitle: '市场专员',
+                skills: ['市场调研', '活动执行', '文案撰写'],
+                match: 89,
+                communicated: false
+            },
+            {
+                id: 12,
+                name: '杨小波',
+                avatar: 'https://img.bosszhipin.com/beijin/upload/avatar/20210609/d8922c74373c386934f3231f94096cc42569bf6476d1f21550636549e45f988b_s.png',
+                age: 27,
+                education: '大专',
+                experience: '4年经验',
+                disability: '视力残疾',
+                jobTitle: '客服主管',
+                skills: ['团队管理', '客户服务', '抗压能力'],
+                match: 94,
+                communicated: true
+            }
+        ];
+
+        let currentFilter = 'all';
+
+        // 根据名字生成头像颜色
+        function generateAvatarColor(name) {
+            const colors = [
+                '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7',
+                '#DDA0DD', '#98D8C8', '#F7DC6F', '#BB8FCE', '#85C1E2',
+                '#F8B500', '#6C5CE7', '#A29BFE', '#74B9FF', '#00B894'
+            ];
+            let hash = 0;
+            for (let i = 0; i < name.length; i++) {
+                hash = name.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            return colors[Math.abs(hash) % colors.length];
+        }
+
+        // 获取显示名称的首字母
+        function getInitials(name) {
+            if (!name) return '?';
+            return name.slice(-2);
+        }
+
+        // 生成SVG头像
+        function generateAvatarSvg(name) {
+            const bgColor = generateAvatarColor(name);
+            const initials = getInitials(name);
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><circle cx="40" cy="40" r="40" fill="${bgColor}"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="28" font-family="Arial, sans-serif">${initials}</text></svg>`;
+            return 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg)));
+        }
+
+        // 渲染候选人列表
+        function renderCandidates(filter = 'all') {
+            const list = document.getElementById('candidateList');
+            let filteredCandidates = candidates;
+            
+            if (filter === 'communicated') {
+                filteredCandidates = candidates.filter(c => c.communicated);
+            } else if (filter === 'uncommunicated') {
+                filteredCandidates = candidates.filter(c => !c.communicated);
+            }
+            
+            // 按匹配度降序排序
+            filteredCandidates.sort((a, b) => b.match - a.match);
+            
+            list.innerHTML = filteredCandidates.map(candidate => `
+                <div class="candidate-card" onclick="viewCandidate(${candidate.id})">
+                    <div class="candidate-header">
+                        <img src="${generateAvatarSvg(candidate.name)}" alt="${candidate.name}" class="candidate-avatar">
+                        <div class="candidate-info">
+                            <div class="candidate-name-row">
+                                <span class="candidate-name">${candidate.name}</span>
+                                <span class="match-score">匹配度 ${candidate.match}%</span>
+                            </div>
+                            <div class="candidate-meta">
+                                <span>${candidate.age}岁</span>
+                                <span>|</span>
+                                <span>${candidate.education}</span>
+                                <span>|</span>
+                                <span>${candidate.experience}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="candidate-job">
+                        <span class="job-label">应聘：</span>
+                        <span class="job-title">${candidate.jobTitle}</span>
+                    </div>
+                    <div class="candidate-tags">
+                        <span class="tag disability-tag">${candidate.disability}</span>
+                        ${candidate.skills.map(skill => `<span class="tag skill-tag">${skill}</span>`).join('')}
+                    </div>
+                    <div class="candidate-actions">
+                        <button class="btn-view" onclick="event.stopPropagation(); viewResume(${candidate.id})">查看简历</button>
+                        <button class="btn-contact" onclick="event.stopPropagation(); contactCandidate(${candidate.id})">立即沟通</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 筛选候选人
+        function filterCandidates(type) {
+            currentFilter = type;
+            
+            // 更新按钮active状态
+            const tabs = document.querySelectorAll('.filter-tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // 根据type给对应按钮添加active类
+            const typeMap = {
+                'all': 0,
+                'communicated': 1,
+                'uncommunicated': 2
+            };
+            if (tabs[typeMap[type]]) {
+                tabs[typeMap[type]].classList.add('active');
+            }
+            
+            renderCandidates(type);
+        }
+
+        // 查看候选人详情（跳转简历详情页）
+        function viewCandidate(id) {
+            window.open(`简历详情.html?id=${id}`, '_blank');
+        }
+
+        // 查看简历（跳转简历详情页）
+        function viewResume(id) {
+            window.open(`简历详情.html?id=${id}`, '_blank');
+        }
+
+        // 联系候选人（跳转聊天窗口并带上候选人ID）
+        function contactCandidate(id) {
+            const candidate = candidates.find(c => c.id === id);
+            if (candidate) {
+                window.location.href = `../聊天窗口/index.html?candidate=${id}&name=${encodeURIComponent(candidate.name)}&job=${encodeURIComponent(candidate.jobTitle)}`;
+            }
+        }
+
+        // 轮播图
+        const slides = document.querySelectorAll('.hero-slide');
+        const dots = document.querySelectorAll('.dot');
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentSlide = index;
+                showSlide(currentSlide);
+            });
+        });
+
+        setInterval(nextSlide, 5000);
+
+        // 置顶按钮
+        const backToTopBtn = document.getElementById('backToTop');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+
+        // 更新消息中心红点
+        function updateMessageBadge() {
+            const badge = document.querySelector('.message-link .badge');
+            if (!badge) return;
+            const unreadCount = parseInt(localStorage.getItem('hrUnreadCount') || '0', 10);
+            if (unreadCount > 0) {
+                badge.textContent = unreadCount > 99 ? '99+' : unreadCount;
+                badge.style.display = 'inline-block';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        // 加载导航栏头像
+        function loadNavAvatar() {
+            const savedAvatar = localStorage.getItem('userAvatar');
+            const headerAvatar = document.getElementById('header-avatar');
+            
+            if (savedAvatar && headerAvatar) {
+                headerAvatar.src = savedAvatar;
+            }
+            updateMessageBadge();
+        }
+        
+        // 初始化
+        renderCandidates();
+        loadNavAvatar();
+
+        // 退出登录功能
+        function logout() {
+            // 清除登录状态
+            localStorage.removeItem('loginInfo');
+            sessionStorage.removeItem('loginInfo');
+            
+            // 显示退出提示
+            alert('已退出登录');
+            
+            // 跳转到用户端首页
+            window.location.href = '../../用户端/首页/index.html';
+        }
+    </script>
+</body>
+</html>

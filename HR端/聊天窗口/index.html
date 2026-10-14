@@ -1,0 +1,1943 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR消息中心 - 就业平台</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0052D9;
+            --primary-light: #2B6DE5;
+            --primary-dark: #003BB3;
+            --text-white: #FFFFFF;
+            --text-gray: #666666;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* 导航栏样式 */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 0 60px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #fff;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo span:first-child {
+            font-style: italic;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .logout-btn {
+            color: #333;
+            font-size: 16px;
+            font-weight: 500;
+            text-decoration: none;
+            opacity: 1;
+            transition: color 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            color: #0052D9;
+        }
+
+        .nav-menu a {
+            color: #333;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 10px 0;
+            display: block;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        .nav-menu a.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* 导航头像 */
+        .nav-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        .nav-avatar:hover {
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        .nav-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 50%;
+            display: block;
+            flex-shrink: 0;
+        }
+
+        /* 主内容区 */
+        .main-container {
+            display: flex;
+            max-width: 1200px;
+            margin: 100px auto 20px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            height: calc(100vh - 120px);
+            overflow: hidden;
+        }
+
+        /* 左侧联系人列表 */
+        .sidebar {
+            width: 360px;
+            border-right: 1px solid #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+        }
+
+        .search-box {
+            padding: 20px;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .search-input-wrap {
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 16px 12px 44px;
+            border: 1px solid #e8e8e8;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: var(--transition);
+            background: #f5f7fa;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary);
+            background: #fff;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+
+        /* 筛选标签 */
+        .filter-tabs {
+            display: flex;
+            padding: 0 20px 15px;
+            gap: 10px;
+            border-bottom: 1px solid #f5f5f5;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            padding: 6px 14px;
+            border: none;
+            background: #f5f5f5;
+            border-radius: 20px;
+            font-size: 13px;
+            color: #666;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-tab:hover {
+            background: #e8e8e8;
+        }
+
+        .filter-tab.active {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        /* 联系人列表 */
+        .contact-list {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .contact-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .contact-list::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .contact-list::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 3px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            border-bottom: 1px solid #f8f8f8;
+        }
+
+        .contact-item:hover {
+            background: #f8f9fa;
+        }
+
+        .contact-item.active {
+            background: #f0f7ff;
+            border-left: 3px solid var(--primary);
+        }
+
+        .contact-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            margin-right: 12px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .contact-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .contact-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .contact-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .contact-name {
+            font-weight: 600;
+            font-size: 15px;
+            color: #333;
+        }
+
+        .contact-tag {
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: #e6f7ff;
+            color: var(--primary);
+        }
+
+        .contact-preview {
+            font-size: 13px;
+            color: #999;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .contact-meta {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            margin-left: 10px;
+        }
+
+        .contact-time {
+            font-size: 12px;
+            color: #bbb;
+            margin-bottom: 4px;
+        }
+
+        .unread-badge {
+            background: #ff4d4f;
+            color: #fff;
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            min-width: 18px;
+            text-align: center;
+        }
+
+        /* 右侧聊天区域 */
+        .chat-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #f5f7fa;
+        }
+
+        /* 聊天头部 */
+        .chat-header {
+            padding: 16px 24px;
+            background: #fff;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .chat-user-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .chat-user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .chat-user-details h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .chat-user-details p {
+            font-size: 13px;
+            color: #999;
+        }
+
+        .chat-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .chat-action-btn {
+            padding: 8px 16px;
+            border: 1px solid #e8e8e8;
+            background: #fff;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #666;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .chat-action-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .chat-action-btn.primary {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        .chat-action-btn.primary:hover {
+            background: var(--primary-dark);
+        }
+
+        /* 简历预览面板 */
+        .resume-panel {
+            padding: 16px 24px;
+            background: #fff;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .resume-info-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .resume-info-item i {
+            color: var(--primary);
+        }
+
+        .resume-info-item .label {
+            color: #999;
+        }
+
+        /* 消息区域 */
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 24px;
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 3px;
+        }
+
+        .message-time-divider {
+            text-align: center;
+            color: #bbb;
+            font-size: 12px;
+            margin: 20px 0;
+        }
+
+        .message {
+            display: flex;
+            margin-bottom: 20px;
+            animation: messageSlideIn 0.3s ease;
+        }
+
+        @keyframes messageSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.self {
+            flex-direction: row;
+            justify-content: flex-end;
+        }
+
+        .message.self .message-avatar {
+            order: 2;
+        }
+
+        .message.self .message-content {
+            order: 1;
+        }
+
+        .message-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            margin: 0 12px;
+        }
+
+        .message-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .message-content {
+            max-width: 60%;
+        }
+
+        .message-bubble {
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            line-height: 1.6;
+            word-wrap: break-word;
+        }
+
+        .message-bubble img {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: block;
+        }
+
+        .message-bubble .file-message {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px;
+            background: rgba(0,0,0,0.05);
+            border-radius: 8px;
+            min-width: 200px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .message-bubble .file-message:hover {
+            background: rgba(0,0,0,0.08);
+        }
+
+        .message-bubble .file-message i {
+            font-size: 36px;
+            color: var(--primary);
+        }
+
+        .message-bubble .file-message .file-info {
+            flex: 1;
+        }
+
+        .message-bubble .file-message .file-name {
+            font-weight: 500;
+            font-size: 14px;
+            color: #333;
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .message-bubble .file-message .file-size {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .message.self .message-bubble .file-message .file-name {
+            color: #fff;
+        }
+
+        .message.self .message-bubble .file-message .file-size {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .message.self .message-bubble {
+            background: var(--primary);
+            color: #fff;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message:not(.self) .message-bubble {
+            background: #fff;
+            color: #333;
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .message-time {
+            font-size: 11px;
+            color: #bbb;
+            margin-top: 4px;
+            text-align: right;
+        }
+
+        .message.self .message-time {
+            text-align: left;
+        }
+
+        /* 快捷回复 */
+        .quick-replies {
+            display: flex;
+            gap: 10px;
+            padding: 10px 24px;
+            background: #fff;
+            border-top: 1px solid #f0f0f0;
+            overflow-x: auto;
+        }
+
+        .quick-reply {
+            padding: 6px 14px;
+            background: #f5f7fa;
+            border: 1px solid #e8e8e8;
+            border-radius: 20px;
+            font-size: 13px;
+            color: #666;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+
+        .quick-reply:hover {
+            background: #e6f7ff;
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* 输入区域 */
+        .chat-input-area {
+            padding: 16px 24px;
+            background: #fff;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .chat-toolbar {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+
+        .toolbar-btn {
+            color: #999;
+            font-size: 18px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .toolbar-btn:hover {
+            color: var(--primary);
+        }
+
+        /* 表情选择器 */
+        .emoji-picker {
+            position: absolute;
+            bottom: 160px;
+            left: 24px;
+            right: 24px;
+            max-width: 600px;
+            max-height: 320px;
+            background: #fff;
+            border: 1px solid #e8e8e8;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            z-index: 100;
+            overflow: hidden;
+        }
+
+        .emoji-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 6px;
+            padding: 16px;
+            max-height: 300px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .emoji-grid::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .emoji-grid::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .emoji-grid::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 3px;
+        }
+
+        .emoji-grid::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .emoji-grid::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .emoji-grid::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 3px;
+        }
+
+        .emoji-item {
+            font-size: 22px;
+            padding: 6px;
+            cursor: pointer;
+            text-align: center;
+            border-radius: 6px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 36px;
+        }
+
+        .emoji-item:hover {
+            background: #f0f0f0;
+            transform: scale(1.1);
+        }
+
+        .chat-input-area {
+            position: relative;
+        }
+
+        .chat-input-wrap {
+            display: flex;
+            gap: 12px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #e8e8e8;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            resize: none;
+            transition: var(--transition);
+        }
+
+        .chat-input:focus {
+            border-color: var(--primary);
+        }
+
+        .send-btn {
+            padding: 12px 28px;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .send-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* 空状态 */
+        .empty-state {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #bbb;
+        }
+
+        .empty-state i {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+
+        .empty-state p {
+            font-size: 15px;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            header {
+                padding: 0 20px;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .main-container {
+                margin: 80px 10px 10px;
+                height: calc(100vh - 90px);
+            }
+
+            .sidebar {
+                width: 100%;
+            }
+
+            .chat-area {
+                display: none;
+            }
+
+            .chat-area.active {
+                display: flex;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 2000;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="../首页/index.html" class="logo">
+            <span style="font-style: italic;">HR</span>
+            <span>招聘中心</span>
+        </a>
+        <div class="nav-container">
+            <div class="nav-menu">
+                <a href="../首页/index.html">首页</a>
+                <a href="../企业主页/HR端导航栏企业主页.html">企业主页</a>
+                <a href="../求职招聘/求职招聘.html">职位管理</a>
+                <a href="index.html" class="active">消息中心</a>
+            </div>
+            <div class="nav-right">
+                <a href="javascript:void(0)" class="logout-btn" onclick="logout()">退出</a>
+                <a href="../个人主页/个人主页.html" class="nav-avatar" title="个人主页">
+                    <img src="https://img.bosszhipin.com/beijin/mcs/chatphoto/20200810/202a73eda0742d2b63ab76274c45543835a935b38495b428634570621439c635_s.png" alt="企业Logo" id="header-avatar">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- 左侧联系人列表 -->
+        <aside class="sidebar">
+            <div class="search-box">
+                <div class="search-input-wrap">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="搜索候选人/职位...">
+                </div>
+            </div>
+            <div class="filter-tabs">
+                <button class="filter-tab active">全部</button>
+                <button class="filter-tab">新投递</button>
+                <button class="filter-tab">待回复</button>
+                <button class="filter-tab">已约面</button>
+            </div>
+            <div class="contact-list" id="contactList">
+                <!-- 动态生成 -->
+            </div>
+        </aside>
+
+        <!-- 右侧聊天区域 -->
+        <main class="chat-area" id="chatArea">
+            <!-- 空状态 -->
+            <div class="empty-state" id="emptyState">
+                <i class="fas fa-comments"></i>
+                <p>选择一个候选人开始沟通</p>
+            </div>
+
+            <!-- 聊天内容（选中后显示） -->
+            <div class="chat-content" id="chatContent" style="display: none; flex-direction: column; height: 100%;">
+                <!-- 聊天头部 -->
+                <div class="chat-header">
+                    <div class="chat-user-info">
+                        <div class="chat-user-avatar">
+                            <img src="" alt="" id="chatUserAvatar">
+                        </div>
+                        <div class="chat-user-details">
+                            <h4 id="chatUserName">--</h4>
+                            <p id="chatUserJob">应聘职位：--</p>
+                        </div>
+                    </div>
+                    <div class="chat-actions">
+                        <button class="chat-action-btn" onclick="viewResume()">
+                            <i class="fas fa-file-alt"></i> 查看简历
+                        </button>
+                        <button class="chat-action-btn primary" onclick="scheduleInterview()">
+                            <i class="fas fa-calendar-check"></i> 约面试
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 简历预览 -->
+                <div class="resume-panel">
+                    <div class="resume-info-item">
+                        <i class="fas fa-user"></i>
+                        <span class="label">年龄：</span>
+                        <span id="resumeAge">--</span>
+                    </div>
+                    <div class="resume-info-item">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span class="label">学历：</span>
+                        <span id="resumeEducation">--</span>
+                    </div>
+                    <div class="resume-info-item">
+                        <i class="fas fa-briefcase"></i>
+                        <span class="label">经验：</span>
+                        <span id="resumeExperience">--</span>
+                    </div>
+                    <div class="resume-info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span class="label">地点：</span>
+                        <span id="resumeLocation">--</span>
+                    </div>
+                </div>
+
+                <!-- 消息区域 -->
+                <div class="chat-messages" id="chatMessages">
+                    <!-- 动态生成 -->
+                </div>
+
+                <!-- 快捷回复 -->
+                <div class="quick-replies">
+                    <span class="quick-reply" onclick="sendQuickReply('您好，感谢您的投递，请问您目前在职吗？')">询问在职状态</span>
+                    <span class="quick-reply" onclick="sendQuickReply('您好，您的简历已通过初筛，方便电话沟通吗？')">通过初筛</span>
+                    <span class="quick-reply" onclick="sendQuickReply('您好，想跟您约个面试时间，您什么时间方便？')">约面试</span>
+                    <span class="quick-reply" onclick="sendQuickReply('您好，感谢您对我司职位的关注，但目前您的经历与岗位不太匹配，祝您找到更合适的工作！')">婉拒</span>
+                </div>
+
+                <!-- 输入区域 -->
+                <div class="chat-input-area">
+                    <div class="chat-toolbar">
+                        <i class="fas fa-smile toolbar-btn" title="表情" onclick="toggleEmojiPicker()"></i>
+                        <i class="fas fa-image toolbar-btn" title="图片" onclick="selectImage()"></i>
+                        <i class="fas fa-file toolbar-btn" title="文件" onclick="selectFile()"></i>
+                        <i class="fas fa-phone-alt toolbar-btn" title="语音通话"></i>
+                        <input type="file" id="imageInput" accept="image/*" style="display: none;" onchange="handleImageSelect(event)">
+                        <input type="file" id="fileInput" style="display: none;" onchange="handleFileSelect(event)">
+                    </div>
+                    <!-- 表情选择器 -->
+                    <div class="emoji-picker" id="emojiPicker" style="display: none;">
+                        <div class="emoji-grid">
+                            <span class="emoji-item" onclick="selectEmoji('😀')">😀</span>
+                            <span class="emoji-item" onclick="selectEmoji('😃')">😃</span>
+                            <span class="emoji-item" onclick="selectEmoji('😄')">😄</span>
+                            <span class="emoji-item" onclick="selectEmoji('😁')">😁</span>
+                            <span class="emoji-item" onclick="selectEmoji('😅')">😅</span>
+                            <span class="emoji-item" onclick="selectEmoji('😂')">😂</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤣')">🤣</span>
+                            <span class="emoji-item" onclick="selectEmoji('😊')">😊</span>
+                            <span class="emoji-item" onclick="selectEmoji('😇')">😇</span>
+                            <span class="emoji-item" onclick="selectEmoji('🙂')">🙂</span>
+                            <span class="emoji-item" onclick="selectEmoji('🙃')">🙃</span>
+                            <span class="emoji-item" onclick="selectEmoji('😉')">😉</span>
+                            <span class="emoji-item" onclick="selectEmoji('😌')">😌</span>
+                            <span class="emoji-item" onclick="selectEmoji('😍')">😍</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥰')">🥰</span>
+                            <span class="emoji-item" onclick="selectEmoji('😘')">😘</span>
+                            <span class="emoji-item" onclick="selectEmoji('😗')">😗</span>
+                            <span class="emoji-item" onclick="selectEmoji('😙')">😙</span>
+                            <span class="emoji-item" onclick="selectEmoji('😚')">😚</span>
+                            <span class="emoji-item" onclick="selectEmoji('😋')">😋</span>
+                            <span class="emoji-item" onclick="selectEmoji('😛')">😛</span>
+                            <span class="emoji-item" onclick="selectEmoji('😝')">😝</span>
+                            <span class="emoji-item" onclick="selectEmoji('😜')">😜</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤪')">🤪</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤨')">🤨</span>
+                            <span class="emoji-item" onclick="selectEmoji('🧐')">🧐</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤓')">🤓</span>
+                            <span class="emoji-item" onclick="selectEmoji('😎')">😎</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥸')">🥸</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤩')">🤩</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥳')">🥳</span>
+                            <span class="emoji-item" onclick="selectEmoji('😏')">😏</span>
+                            <span class="emoji-item" onclick="selectEmoji('😒')">😒</span>
+                            <span class="emoji-item" onclick="selectEmoji('😞')">😞</span>
+                            <span class="emoji-item" onclick="selectEmoji('😔')">😔</span>
+                            <span class="emoji-item" onclick="selectEmoji('😟')">😟</span>
+                            <span class="emoji-item" onclick="selectEmoji('😕')">😕</span>
+                            <span class="emoji-item" onclick="selectEmoji('🙁')">🙁</span>
+                            <span class="emoji-item" onclick="selectEmoji('☹️')">☹️</span>
+                            <span class="emoji-item" onclick="selectEmoji('😣')">😣</span>
+                            <span class="emoji-item" onclick="selectEmoji('😖')">😖</span>
+                            <span class="emoji-item" onclick="selectEmoji('😫')">😫</span>
+                            <span class="emoji-item" onclick="selectEmoji('😩')">😩</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥺')">🥺</span>
+                            <span class="emoji-item" onclick="selectEmoji('😢')">😢</span>
+                            <span class="emoji-item" onclick="selectEmoji('😭')">😭</span>
+                            <span class="emoji-item" onclick="selectEmoji('😤')">😤</span>
+                            <span class="emoji-item" onclick="selectEmoji('😠')">😠</span>
+                            <span class="emoji-item" onclick="selectEmoji('😡')">😡</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤬')">🤬</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤯')">🤯</span>
+                            <span class="emoji-item" onclick="selectEmoji('😳')">😳</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥵')">🥵</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥶')">🥶</span>
+                            <span class="emoji-item" onclick="selectEmoji('😱')">😱</span>
+                            <span class="emoji-item" onclick="selectEmoji('😨')">😨</span>
+                            <span class="emoji-item" onclick="selectEmoji('😰')">😰</span>
+                            <span class="emoji-item" onclick="selectEmoji('😥')">😥</span>
+                            <span class="emoji-item" onclick="selectEmoji('😓')">😓</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤗')">🤗</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤔')">🤔</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤭')">🤭</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤫')">🤫</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤥')">🤥</span>
+                            <span class="emoji-item" onclick="selectEmoji('😶')">😶</span>
+                            <span class="emoji-item" onclick="selectEmoji('😐')">😐</span>
+                            <span class="emoji-item" onclick="selectEmoji('😑')">😑</span>
+                            <span class="emoji-item" onclick="selectEmoji('😬')">😬</span>
+                            <span class="emoji-item" onclick="selectEmoji('🙄')">🙄</span>
+                            <span class="emoji-item" onclick="selectEmoji('😯')">😯</span>
+                            <span class="emoji-item" onclick="selectEmoji('😦')">😦</span>
+                            <span class="emoji-item" onclick="selectEmoji('😧')">😧</span>
+                            <span class="emoji-item" onclick="selectEmoji('😮')">😮</span>
+                            <span class="emoji-item" onclick="selectEmoji('😲')">😲</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥱')">🥱</span>
+                            <span class="emoji-item" onclick="selectEmoji('😴')">😴</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤤')">🤤</span>
+                            <span class="emoji-item" onclick="selectEmoji('😪')">😪</span>
+                            <span class="emoji-item" onclick="selectEmoji('😵')">😵</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤐')">🤐</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥴')">🥴</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤢')">🤢</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤮')">🤮</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤧')">🤧</span>
+                            <span class="emoji-item" onclick="selectEmoji('😷')">😷</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤒')">🤒</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤕')">🤕</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤑')">🤑</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤠')">🤠</span>
+                            <span class="emoji-item" onclick="selectEmoji('😈')">😈</span>
+                            <span class="emoji-item" onclick="selectEmoji('👿')">👿</span>
+                            <span class="emoji-item" onclick="selectEmoji('👹')">👹</span>
+                            <span class="emoji-item" onclick="selectEmoji('👺')">👺</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤡')">🤡</span>
+                            <span class="emoji-item" onclick="selectEmoji('💩')">💩</span>
+                            <span class="emoji-item" onclick="selectEmoji('👻')">👻</span>
+                            <span class="emoji-item" onclick="selectEmoji('💀')">💀</span>
+                            <span class="emoji-item" onclick="selectEmoji('☠️')">☠️</span>
+                            <span class="emoji-item" onclick="selectEmoji('👽')">👽</span>
+                            <span class="emoji-item" onclick="selectEmoji('👾')">👾</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤖')">🤖</span>
+                            <span class="emoji-item" onclick="selectEmoji('🎃')">🎃</span>
+                            <span class="emoji-item" onclick="selectEmoji('😺')">😺</span>
+                            <span class="emoji-item" onclick="selectEmoji('😸')">😸</span>
+                            <span class="emoji-item" onclick="selectEmoji('😹')">😹</span>
+                            <span class="emoji-item" onclick="selectEmoji('😻')">😻</span>
+                            <span class="emoji-item" onclick="selectEmoji('😼')">😼</span>
+                            <span class="emoji-item" onclick="selectEmoji('😽')">😽</span>
+                            <span class="emoji-item" onclick="selectEmoji('🙀')">🙀</span>
+                            <span class="emoji-item" onclick="selectEmoji('😿')">😿</span>
+                            <span class="emoji-item" onclick="selectEmoji('😾')">😾</span>
+                            <span class="emoji-item" onclick="selectEmoji('❤️')">❤️</span>
+                            <span class="emoji-item" onclick="selectEmoji('🧡')">🧡</span>
+                            <span class="emoji-item" onclick="selectEmoji('💛')">💛</span>
+                            <span class="emoji-item" onclick="selectEmoji('💚')">💚</span>
+                            <span class="emoji-item" onclick="selectEmoji('💙')">💙</span>
+                            <span class="emoji-item" onclick="selectEmoji('💜')">💜</span>
+                            <span class="emoji-item" onclick="selectEmoji('🖤')">🖤</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤍')">🤍</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤎')">🤎</span>
+                            <span class="emoji-item" onclick="selectEmoji('💔')">💔</span>
+                            <span class="emoji-item" onclick="selectEmoji('❣️')">❣️</span>
+                            <span class="emoji-item" onclick="selectEmoji('💕')">💕</span>
+                            <span class="emoji-item" onclick="selectEmoji('💞')">💞</span>
+                            <span class="emoji-item" onclick="selectEmoji('💓')">💓</span>
+                            <span class="emoji-item" onclick="selectEmoji('💗')">💗</span>
+                            <span class="emoji-item" onclick="selectEmoji('💖')">💖</span>
+                            <span class="emoji-item" onclick="selectEmoji('💘')">💘</span>
+                            <span class="emoji-item" onclick="selectEmoji('💝')">💝</span>
+                            <span class="emoji-item" onclick="selectEmoji('👍')">👍</span>
+                            <span class="emoji-item" onclick="selectEmoji('👎')">👎</span>
+                            <span class="emoji-item" onclick="selectEmoji('👏')">👏</span>
+                            <span class="emoji-item" onclick="selectEmoji('🙌')">🙌</span>
+                            <span class="emoji-item" onclick="selectEmoji('👐')">👐</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤲')">🤲</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤝')">🤝</span>
+                            <span class="emoji-item" onclick="selectEmoji('🙏')">🙏</span>
+                            <span class="emoji-item" onclick="selectEmoji('✌️')">✌️</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤟')">🤟</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤘')">🤘</span>
+                            <span class="emoji-item" onclick="selectEmoji('👌')">👌</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤌')">🤌</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤏')">🤏</span>
+                            <span class="emoji-item" onclick="selectEmoji('👈')">👈</span>
+                            <span class="emoji-item" onclick="selectEmoji('👉')">👉</span>
+                            <span class="emoji-item" onclick="selectEmoji('👆')">👆</span>
+                            <span class="emoji-item" onclick="selectEmoji('👇')">👇</span>
+                            <span class="emoji-item" onclick="selectEmoji('☝️')">☝️</span>
+                            <span class="emoji-item" onclick="selectEmoji('✋')">✋</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤚')">🤚</span>
+                            <span class="emoji-item" onclick="selectEmoji('🖐️')">🖐️</span>
+                            <span class="emoji-item" onclick="selectEmoji('🖖')">🖖</span>
+                            <span class="emoji-item" onclick="selectEmoji('👋')">👋</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤙')">🤙</span>
+                            <span class="emoji-item" onclick="selectEmoji('💪')">💪</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦾')">🦾</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦿')">🦿</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦵')">🦵</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦶')">🦶</span>
+                            <span class="emoji-item" onclick="selectEmoji('👂')">👂</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦻')">🦻</span>
+                            <span class="emoji-item" onclick="selectEmoji('👃')">👃</span>
+                            <span class="emoji-item" onclick="selectEmoji('🧠')">🧠</span>
+                            <span class="emoji-item" onclick="selectEmoji('🫀')">🫀</span>
+                            <span class="emoji-item" onclick="selectEmoji('🫁')">🫁</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦷')">🦷</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦴')">🦴</span>
+                            <span class="emoji-item" onclick="selectEmoji('👀')">👀</span>
+                            <span class="emoji-item" onclick="selectEmoji('👁️')">👁️</span>
+                            <span class="emoji-item" onclick="selectEmoji('👅')">👅</span>
+                            <span class="emoji-item" onclick="selectEmoji('👄')">👄</span>
+                            <span class="emoji-item" onclick="selectEmoji('👶')">👶</span>
+                            <span class="emoji-item" onclick="selectEmoji('🧒')">🧒</span>
+                            <span class="emoji-item" onclick="selectEmoji('👦')">👦</span>
+                            <span class="emoji-item" onclick="selectEmoji('👧')">👧</span>
+                            <span class="emoji-item" onclick="selectEmoji('🧑')">🧑</span>
+                            <span class="emoji-item" onclick="selectEmoji('👱')">👱</span>
+                            <span class="emoji-item" onclick="selectEmoji('👨')">👨</span>
+                            <span class="emoji-item" onclick="selectEmoji('🧔')">🧔</span>
+                            <span class="emoji-item" onclick="selectEmoji('👩')">👩</span>
+                            <span class="emoji-item" onclick="selectEmoji('🧓')">🧓</span>
+                            <span class="emoji-item" onclick="selectEmoji('👴')">👴</span>
+                            <span class="emoji-item" onclick="selectEmoji('👵')">👵</span>
+                            <span class="emoji-item" onclick="selectEmoji('🙍')">🙍</span>
+                            <span class="emoji-item" onclick="selectEmoji('🙎')">🙎</span>
+                            <span class="emoji-item" onclick="selectEmoji('🙅')">🙅</span>
+                            <span class="emoji-item" onclick="selectEmoji('🙆')">🙆</span>
+                            <span class="emoji-item" onclick="selectEmoji('💁')">💁</span>
+                            <span class="emoji-item" onclick="selectEmoji('🙋')">🙋</span>
+                            <span class="emoji-item" onclick="selectEmoji('🧏')">🧏</span>
+                            <span class="emoji-item" onclick="selectEmoji('🙇')">🙇</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤦')">🤦</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤷')">🤷</span>
+                            <span class="emoji-item" onclick="selectEmoji('🧑‍⚕️')">🧑‍⚕️</span>
+                            <span class="emoji-item" onclick="selectEmoji('👨‍⚕️')">👨‍⚕️</span>
+                            <span class="emoji-item" onclick="selectEmoji('👩‍⚕️')">👩‍⚕️</span>
+                            <span class="emoji-item" onclick="selectEmoji('🎉')">🎉</span>
+                            <span class="emoji-item" onclick="selectEmoji('🎊')">🎊</span>
+                            <span class="emoji-item" onclick="selectEmoji('🎁')">🎁</span>
+                            <span class="emoji-item" onclick="selectEmoji('🎈')">🎈</span>
+                            <span class="emoji-item" onclick="selectEmoji('🌹')">🌹</span>
+                            <span class="emoji-item" onclick="selectEmoji('🌺')">🌺</span>
+                            <span class="emoji-item" onclick="selectEmoji('🌻')">🌻</span>
+                            <span class="emoji-item" onclick="selectEmoji('🌼')">🌼</span>
+                            <span class="emoji-item" onclick="selectEmoji('🌷')">🌷</span>
+                            <span class="emoji-item" onclick="selectEmoji('🌿')">🌿</span>
+                            <span class="emoji-item" onclick="selectEmoji('☘️')">☘️</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍀')">🍀</span>
+                            <span class="emoji-item" onclick="selectEmoji('🌸')">🌸</span>
+                            <span class="emoji-item" onclick="selectEmoji('💐')">💐</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍎')">🍎</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍐')">🍐</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍊')">🍊</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍋')">🍋</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍌')">🍌</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍉')">🍉</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍇')">🍇</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍓')">🍓</span>
+                            <span class="emoji-item" onclick="selectEmoji('🫐')">🫐</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍈')">🍈</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍒')">🍒</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍑')">🍑</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥭')">🥭</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍍')">🍍</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥥')">🥥</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥝')">🥝</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍅')">🍅</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍆')">🍆</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥑')">🥑</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥦')">🥦</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥬')">🥬</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥒')">🥒</span>
+                            <span class="emoji-item" onclick="selectEmoji('🌶️')">🌶️</span>
+                            <span class="emoji-item" onclick="selectEmoji('🫑')">🫑</span>
+                            <span class="emoji-item" onclick="selectEmoji('🌽')">🌽</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥕')">🥕</span>
+                            <span class="emoji-item" onclick="selectEmoji('🧄')">🧄</span>
+                            <span class="emoji-item" onclick="selectEmoji('🧅')">🧅</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥔')">🥔</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍠')">🍠</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥐')">🥐</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥯')">🥯</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍞')">🍞</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥖')">🥖</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥨')">🥨</span>
+                            <span class="emoji-item" onclick="selectEmoji('🧀')">🧀</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥚')">🥚</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍳')">🍳</span>
+                            <span class="emoji-item" onclick="selectEmoji('🧈')">🧈</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥞')">🥞</span>
+                            <span class="emoji-item" onclick="selectEmoji('🧇')">🧇</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥓')">🥓</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥩')">🥩</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍗')">🍗</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍖')">🍖</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦴')">🦴</span>
+                            <span class="emoji-item" onclick="selectEmoji('🌭')">🌭</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍔')">🍔</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍟')">🍟</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍕')">🍕</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥪')">🥪</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥙')">🥙</span>
+                            <span class="emoji-item" onclick="selectEmoji('🧆')">🧆</span>
+                            <span class="emoji-item" onclick="selectEmoji('🌮')">🌮</span>
+                            <span class="emoji-item" onclick="selectEmoji('🌯')">🌯</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥗')">🥗</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥘')">🥘</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥫')">🥫</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍝')">🍝</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍜')">🍜</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍲')">🍲</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍛')">🍛</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍣')">🍣</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍱')">🍱</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥟')">🥟</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍤')">🍤</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍙')">🍙</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍚')">🍚</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍘')">🍘</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍥')">🍥</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥠')">🥠</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥮')">🥮</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍢')">🍢</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍡')">🍡</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍧')">🍧</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍨')">🍨</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍦')">🍦</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥧')">🥧</span>
+                            <span class="emoji-item" onclick="selectEmoji('🧁')">🧁</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍰')">🍰</span>
+                            <span class="emoji-item" onclick="selectEmoji('🎂')">🎂</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍮')">🍮</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍭')">🍭</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍬')">🍬</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍫')">🍫</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍿')">🍿</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍩')">🍩</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍪')">🍪</span>
+                            <span class="emoji-item" onclick="selectEmoji('🌰')">🌰</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥜')">🥜</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍯')">🍯</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥛')">🥛</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍼')">🍼</span>
+                            <span class="emoji-item" onclick="selectEmoji('☕')">☕</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍵')">🍵</span>
+                            <span class="emoji-item" onclick="selectEmoji('🧃')">🧃</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥤')">🥤</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍶')">🍶</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍺')">🍺</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍻')">🍻</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥂')">🥂</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍷')">🍷</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥃')">🥃</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍸')">🍸</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍹')">🍹</span>
+                            <span class="emoji-item" onclick="selectEmoji('🧉')">🧉</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍾')">🍾</span>
+                            <span class="emoji-item" onclick="selectEmoji('🧊')">🧊</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥄')">🥄</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍴')">🍴</span>
+                            <span class="emoji-item" onclick="selectEmoji('🍽️')">🍽️</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥣')">🥣</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥡')">🥡</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥢')">🥢</span>
+                            <span class="emoji-item" onclick="selectEmoji('🧂')">🧂</span>
+                            <span class="emoji-item" onclick="selectEmoji('⚽')">⚽</span>
+                            <span class="emoji-item" onclick="selectEmoji('🏀')">🏀</span>
+                            <span class="emoji-item" onclick="selectEmoji('🏈')">🏈</span>
+                            <span class="emoji-item" onclick="selectEmoji('⚾')">⚾</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥎')">🥎</span>
+                            <span class="emoji-item" onclick="selectEmoji('🎾')">🎾</span>
+                            <span class="emoji-item" onclick="selectEmoji('🏐')">🏐</span>
+                            <span class="emoji-item" onclick="selectEmoji('🏉')">🏉</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥏')">🥏</span>
+                            <span class="emoji-item" onclick="selectEmoji('🎱')">🎱</span>
+                            <span class="emoji-item" onclick="selectEmoji('🪀')">🪀</span>
+                            <span class="emoji-item" onclick="selectEmoji('🏓')">🏓</span>
+                            <span class="emoji-item" onclick="selectEmoji('🏸')">🏸</span>
+                            <span class="emoji-item" onclick="selectEmoji('🏒')">🏒</span>
+                            <span class="emoji-item" onclick="selectEmoji('🏑')">🏑</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥍')">🥍</span>
+                            <span class="emoji-item" onclick="selectEmoji('🏏')">🏏</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥅')">🥅</span>
+                            <span class="emoji-item" onclick="selectEmoji('⛳')">⛳</span>
+                            <span class="emoji-item" onclick="selectEmoji('🏹')">🏹</span>
+                            <span class="emoji-item" onclick="selectEmoji('🎣')">🎣</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤿')">🤿</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥊')">🥊</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥋')">🥋</span>
+                            <span class="emoji-item" onclick="selectEmoji('🎽')">🎽</span>
+                            <span class="emoji-item" onclick="selectEmoji('🛹')">🛹</span>
+                            <span class="emoji-item" onclick="selectEmoji('🛼')">🛼</span>
+                            <span class="emoji-item" onclick="selectEmoji('🛷')">🛷</span>
+                            <span class="emoji-item" onclick="selectEmoji('⛸️')">⛸️</span>
+                            <span class="emoji-item" onclick="selectEmoji('🥌')">🥌</span>
+                            <span class="emoji-item" onclick="selectEmoji('🎿')">🎿</span>
+                            <span class="emoji-item" onclick="selectEmoji('⛷️')">⛷️</span>
+                            <span class="emoji-item" onclick="selectEmoji('🏂')">🏂</span>
+                            <span class="emoji-item" onclick="selectEmoji('🪂')">🪂</span>
+                            <span class="emoji-item" onclick="selectEmoji('🏋️')">🏋️</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤼')">🤼</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤸')">🤸</span>
+                            <span class="emoji-item" onclick="selectEmoji('⛹️')">⛹️</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤺')">🤺</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤾')">🤾</span>
+                            <span class="emoji-item" onclick="selectEmoji('🏌️')">🏌️</span>
+                            <span class="emoji-item" onclick="selectEmoji('🏇')">🏇</span>
+                            <span class="emoji-item" onclick="selectEmoji('🧘')">🧘</span>
+                            <span class="emoji-item" onclick="selectEmoji('🏄')">🏄</span>
+                            <span class="emoji-item" onclick="selectEmoji('🏊')">🏊</span>
+                            <span class="emoji-item" onclick="selectEmoji('🤽')">🤽</span>
+                            <span class="emoji-item" onclick="selectEmoji('🚶')">🚶</span>
+                            <span class="emoji-item" onclick="selectEmoji('🧍')">🧍</span>
+                            <span class="emoji-item" onclick="selectEmoji('🧎')">🧎</span>
+                            <span class="emoji-item" onclick="selectEmoji('🏃')">🏃</span>
+                            <span class="emoji-item" onclick="selectEmoji('🧑‍🤝‍🧑')">🧑‍🤝‍🧑</span>
+                            <span class="emoji-item" onclick="selectEmoji('👭')">👭</span>
+                            <span class="emoji-item" onclick="selectEmoji('👫')">👫</span>
+                            <span class="emoji-item" onclick="selectEmoji('👬')">👬</span>
+                            <span class="emoji-item" onclick="selectEmoji('💑')">💑</span>
+                            <span class="emoji-item" onclick="selectEmoji('👩‍❤️‍👨')">👩‍❤️‍👨</span>
+                            <span class="emoji-item" onclick="selectEmoji('👨‍❤️‍👨')">👨‍❤️‍👨</span>
+                            <span class="emoji-item" onclick="selectEmoji('👩‍❤️‍👩')">👩‍❤️‍👩</span>
+                            <span class="emoji-item" onclick="selectEmoji('👪')">👪</span>
+                            <span class="emoji-item" onclick="selectEmoji('👨‍👩‍👦')">👨‍👩‍👦</span>
+                            <span class="emoji-item" onclick="selectEmoji('👨‍👩‍👧')">👨‍👩‍👧</span>
+                            <span class="emoji-item" onclick="selectEmoji('👨‍👩‍👧‍👦')">👨‍👩‍👧‍👦</span>
+                            <span class="emoji-item" onclick="selectEmoji('👨‍👩‍👦‍👦')">👨‍👩‍👦‍👦</span>
+                            <span class="emoji-item" onclick="selectEmoji('👨‍👩‍👧‍👧')">👨‍👩‍👧‍👧</span>
+                            <span class="emoji-item" onclick="selectEmoji('👩‍👩‍👦')">👩‍👩‍👦</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐶')">🐶</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐱')">🐱</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐭')">🐭</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐹')">🐹</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐰')">🐰</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦊')">🦊</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐻')">🐻</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐼')">🐼</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐨')">🐨</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐯')">🐯</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦁')">🦁</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐮')">🐮</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐷')">🐷</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐽')">🐽</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐸')">🐸</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐵')">🐵</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐔')">🐔</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐧')">🐧</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐦')">🐦</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐤')">🐤</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐣')">🐣</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐥')">🐥</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦆')">🦆</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦅')">🦅</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦉')">🦉</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦇')">🦇</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐺')">🐺</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐗')">🐗</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐴')">🐴</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦄')">🦄</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐝')">🐝</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐛')">🐛</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦋')">🦋</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐌')">🐌</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐞')">🐞</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐜')">🐜</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦟')">🦟</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦗')">🦗</span>
+                            <span class="emoji-item" onclick="selectEmoji('🕷️')">🕷️</span>
+                            <span class="emoji-item" onclick="selectEmoji('🕸️')">🕸️</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦂')">🦂</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐢')">🐢</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐍')">🐍</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦎')">🦎</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦖')">🦖</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦕')">🦕</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐙')">🐙</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦑')">🦑</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦐')">🦐</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦞')">🦞</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦀')">🦀</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐡')">🐡</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐠')">🐠</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐟')">🐟</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐬')">🐬</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐳')">🐳</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐋')">🐋</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦈')">🦈</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐊')">🐊</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐅')">🐅</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐆')">🐆</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦓')">🦓</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦍')">🦍</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦧')">🦧</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐘')">🐘</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦛')">🦛</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦏')">🦏</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐪')">🐪</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐫')">🐫</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦒')">🦒</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦘')">🦘</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐃')">🐃</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐂')">🐂</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐄')">🐄</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐎')">🐎</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐖')">🐖</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐏')">🐏</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐑')">🐑</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦙')">🦙</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐐')">🐐</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦌')">🦌</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐕')">🐕</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐩')">🐩</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦮')">🦮</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐕‍🦺')">🐕‍🦺</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐈')">🐈</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐈‍⬛')">🐈‍⬛</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐓')">🐓</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦃')">🦃</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦚')">🦚</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦜')">🦜</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦢')">🦢</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦩')">🦩</span>
+                            <span class="emoji-item" onclick="selectEmoji('🕊️')">🕊️</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐇')">🐇</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦝')">🦝</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦨')">🦨</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦡')">🦡</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦫')">🦫</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦦')">🦦</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦥')">🦥</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐁')">🐁</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐀')">🐀</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐿️')">🐿️</span>
+                            <span class="emoji-item" onclick="selectEmoji('🦔')">🦔</span>
+                            <span class="emoji-item" onclick="selectEmoji('🐾')">🐾</span>
+                        </div>
+                    </div>
+                    <div class="chat-input-wrap">
+                        <textarea class="chat-input" id="messageInput" rows="2" placeholder="请输入消息..."></textarea>
+                        <button class="send-btn" onclick="sendMessage()">发送</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // 模拟联系人数据
+        const contacts = [
+            {
+                id: 1,
+                name: '张小明',
+                avatar: 'https://ui-avatars.com/api/?name=张明&background=FFFFFF&color=999999&size=48',
+                jobTitle: '人事专员',
+                tag: '新投递',
+                preview: '您好，我对这个职位很感兴趣...',
+                time: '10:30',
+                unread: 2,
+                age: '25岁',
+                education: '本科',
+                experience: '2年',
+                location: '南京',
+                resumeId: 1
+            },
+            {
+                id: 2,
+                name: '李小红',
+                avatar: 'https://ui-avatars.com/api/?name=李小红&background=FFFFFF&color=999999&size=48',
+                jobTitle: '行政助理',
+                tag: '待回复',
+                preview: '请问面试时间可以调整到下午吗？',
+                time: '昨天',
+                unread: 1,
+                age: '23岁',
+                education: '大专',
+                experience: '应届生',
+                location: '南京',
+                resumeId: 2
+            },
+            {
+                id: 3,
+                name: '王小华',
+                avatar: 'https://ui-avatars.com/api/?name=王小华&background=FFFFFF&color=999999&size=48',
+                jobTitle: '人事专员',
+                tag: '已约面',
+                preview: '好的，周四下午两点见',
+                time: '昨天',
+                unread: 0,
+                age: '27岁',
+                education: '本科',
+                experience: '3年',
+                location: '南京',
+                resumeId: 3
+            }
+        ];
+
+        // HR头像
+        const hrAvatar = 'https://ui-avatars.com/api/?name=HR&background=0052D9&color=fff&size=48';
+        
+        // 默认用户头像 (灰色字体、白底背景)
+        const defaultUserAvatar = 'https://ui-avatars.com/api/?name=User&background=FFFFFF&color=999999&size=48';
+
+        // 模拟消息数据
+        const messages = {
+            1: [
+                { self: false, content: '您好，我对这个职位很感兴趣，请问还招人吗？', time: '10:25' },
+                { self: true, content: '您好，还在招聘的，请问您目前在职吗？', time: '10:28' },
+                { self: false, content: '目前在职，但想换个环境', time: '10:30' }
+            ],
+            2: [
+                { self: true, content: '您好，您的简历已通过初筛，想跟您约个面试', time: '昨天 16:30' },
+                { self: false, content: '好的，请问是什么时间呢？', time: '昨天 16:35' },
+                { self: true, content: '周四下午两点方便吗？', time: '昨天 16:40' },
+                { self: false, content: '请问面试时间可以调整到下午吗？', time: '昨天 18:00' }
+            ],
+            3: [
+                { self: true, content: '面试邀请：周四下午两点，南京市江宁区XX大厦15楼', time: '前天 14:00' },
+                { self: false, content: '收到，我会准时到达', time: '前天 14:30' },
+                { self: true, content: '好的，期待与您见面', time: '前天 14:35' },
+                { self: false, content: '好的，周四下午两点见', time: '昨天 09:00' }
+            ]
+        };
+
+        let currentContactId = null;
+        let currentFilter = '全部';
+
+        // 从本地存储加载未读状态
+        function loadChatState() {
+            const saved = localStorage.getItem('hrChatUnread');
+            if (saved) {
+                try {
+                    const unreadMap = JSON.parse(saved);
+                    unreadMap.forEach(item => {
+                        const contact = contacts.find(c => c.id === item.id);
+                        if (contact) contact.unread = item.unread;
+                    });
+                } catch (e) {}
+            }
+        }
+
+        // 保存未读状态到本地存储
+        function saveChatState() {
+            const unreadMap = contacts.map(c => ({ id: c.id, unread: c.unread }));
+            localStorage.setItem('hrChatUnread', JSON.stringify(unreadMap));
+            const totalUnread = contacts.reduce((sum, c) => sum + c.unread, 0);
+            localStorage.setItem('hrUnreadCount', totalUnread);
+        }
+
+        // 初始化联系人列表
+        function renderContacts() {
+            const list = document.getElementById('contactList');
+            // 根据当前筛选条件过滤联系人
+            const filteredContacts = currentFilter === '全部' 
+                ? contacts 
+                : contacts.filter(contact => contact.tag === currentFilter);
+            
+            if (filteredContacts.length === 0) {
+                list.innerHTML = `
+                    <div style="padding: 40px 20px; text-align: center; color: #999;">
+                        <i class="fas fa-inbox" style="font-size: 48px; margin-bottom: 16px; color: #ddd;"></i>
+                        <p>暂无${currentFilter}的候选人</p>
+                    </div>
+                `;
+                saveChatState();
+                return;
+            }
+            
+            list.innerHTML = filteredContacts.map(contact => `
+                <div class="contact-item ${contact.id === currentContactId ? 'active' : ''}" 
+                     onclick="selectContact(${contact.id})" data-id="${contact.id}">
+                    <div class="contact-avatar">
+                        <img src="${contact.avatar || defaultUserAvatar}" alt="${contact.name}" onerror="this.src='${defaultUserAvatar}'">
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-header">
+                            <span class="contact-name">${contact.name}</span>
+                            <span class="contact-tag">${contact.tag}</span>
+                        </div>
+                        <div class="contact-preview">${contact.preview}</div>
+                    </div>
+                    <div class="contact-meta">
+                        <span class="contact-time">${contact.time}</span>
+                        ${contact.unread > 0 ? `<span class="unread-badge">${contact.unread}</span>` : ''}
+                    </div>
+                </div>
+            `).join('');
+            saveChatState();
+        }
+
+        // 选择联系人
+        function selectContact(id) {
+            currentContactId = id;
+            const contact = contacts.find(c => c.id === id);
+            
+            // 更新选中状态
+            document.querySelectorAll('.contact-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelector(`.contact-item[data-id="${id}"]`).classList.add('active');
+            
+            // 显示聊天区域
+            document.getElementById('emptyState').style.display = 'none';
+            document.getElementById('chatContent').style.display = 'flex';
+            
+            // 更新聊天头部信息
+            document.getElementById('chatUserAvatar').src = contact.avatar;
+            document.getElementById('chatUserName').textContent = contact.name;
+            document.getElementById('chatUserJob').textContent = `应聘职位：${contact.jobTitle}`;
+            
+            // 更新简历预览
+            document.getElementById('resumeAge').textContent = contact.age;
+            document.getElementById('resumeEducation').textContent = contact.education;
+            document.getElementById('resumeExperience').textContent = contact.experience;
+            document.getElementById('resumeLocation').textContent = contact.location;
+            
+            // 渲染消息
+            renderMessages(id);
+            
+            // 清除未读标记
+            contact.unread = 0;
+            renderContacts();
+        }
+
+        // 渲染消息
+        function renderMessages(contactId) {
+            const container = document.getElementById('chatMessages');
+            const msgs = messages[contactId] || [];
+            const contact = contacts.find(c => c.id === contactId);
+            const userAvatar = contact ? (contact.avatar || defaultUserAvatar) : defaultUserAvatar;
+            
+            container.innerHTML = msgs.map(msg => {
+                const avatarHtml = !msg.self 
+                    ? `<div class="message-avatar"><img src="${userAvatar}" alt="用户头像" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=U&background=FFFFFF&color=999999&size=36'"></div>`
+                    : `<div class="message-avatar"><img src="${hrAvatar}" alt="HR头像" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=HR&background=0052D9&color=fff&size=36'"></div>`;
+                
+                return `
+                <div class="message ${msg.self ? 'self' : ''}">
+                    ${!msg.self ? avatarHtml : ''}
+                    <div class="message-content">
+                        <div class="message-bubble">${msg.content}</div>
+                        <div class="message-time">${msg.time}</div>
+                    </div>
+                    ${msg.self ? avatarHtml : ''}
+                </div>
+                `;
+            }).join('');
+            
+            // 滚动到底部
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // 发送消息
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const content = input.value.trim();
+            if (!content || !currentContactId) return;
+            
+            const now = new Date();
+            const time = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+            
+            if (!messages[currentContactId]) {
+                messages[currentContactId] = [];
+            }
+            messages[currentContactId].push({ self: true, content, time });
+            
+            // 更新联系人预览
+            const contact = contacts.find(c => c.id === currentContactId);
+            contact.preview = content;
+            contact.time = time;
+            
+            input.value = '';
+            renderMessages(currentContactId);
+            renderContacts();
+            
+            // 自动回复已关闭
+        }
+
+        // 快捷回复
+        function sendQuickReply(text) {
+            document.getElementById('messageInput').value = text;
+        }
+
+        // 查看简历
+        function viewResume() {
+            const contact = contacts.find(c => c.id === currentContactId);
+            if (contact && contact.resumeId) {
+                window.location.href = '../求职招聘/简历详情.html?id=' + contact.resumeId;
+            } else {
+                alert('暂无该候选人简历');
+            }
+        }
+
+        // 约面试
+        function scheduleInterview() {
+            window.location.href = '../求职招聘/约面试.html';
+        }
+
+        // 回车发送
+        document.getElementById('messageInput')?.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        // 筛选标签
+        document.querySelectorAll('.filter-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                currentFilter = this.textContent.trim();
+                renderContacts();
+            });
+        });
+
+        // 切换表情选择器
+        function toggleEmojiPicker() {
+            const picker = document.getElementById('emojiPicker');
+            if (picker.style.display === 'none') {
+                picker.style.display = 'block';
+            } else {
+                picker.style.display = 'none';
+            }
+        }
+
+        // 选择表情
+        function selectEmoji(emoji) {
+            if (!currentContactId) {
+                alert('请先选择一个聊天对象');
+                return;
+            }
+            
+            // 将表情插入到输入框
+            const input = document.getElementById('messageInput');
+            const cursorPos = input.selectionStart;
+            const textBefore = input.value.substring(0, cursorPos);
+            const textAfter = input.value.substring(cursorPos);
+            input.value = textBefore + emoji + textAfter;
+            
+            // 恢复焦点并设置光标位置
+            input.focus();
+            input.setSelectionRange(cursorPos + emoji.length, cursorPos + emoji.length);
+        }
+
+        // 点击其他地方关闭表情选择器
+        document.addEventListener('click', function(e) {
+            const picker = document.getElementById('emojiPicker');
+            const emojiBtn = document.querySelector('.fa-smile');
+            if (picker && !picker.contains(e.target) && !emojiBtn.contains(e.target)) {
+                picker.style.display = 'none';
+            }
+        });
+
+        // 选择图片
+        function selectImage() {
+            if (!currentContactId) {
+                alert('请先选择一个聊天对象');
+                return;
+            }
+            document.getElementById('imageInput').click();
+        }
+
+        // 处理图片选择
+        function handleImageSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imageUrl = e.target.result;
+                const now = new Date();
+                const time = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+                
+                if (!messages[currentContactId]) {
+                    messages[currentContactId] = [];
+                }
+                
+                // 添加图片消息
+                messages[currentContactId].push({ 
+                    self: true, 
+                    content: `<img src="${imageUrl}" alt="图片" onclick="previewImage('${imageUrl}')">`, 
+                    time: time,
+                    type: 'image'
+                });
+                
+                // 更新联系人预览
+                const contact = contacts.find(c => c.id === currentContactId);
+                contact.preview = '[图片]';
+                contact.time = time;
+                
+                renderMessages(currentContactId);
+                renderContacts();
+                
+                // 自动回复已关闭
+            };
+            reader.readAsDataURL(file);
+            
+            // 清空input以便可以重复选择同一文件
+            event.target.value = '';
+        }
+
+        // 预览图片
+        function previewImage(url) {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0,0,0,0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 9999;
+                cursor: zoom-out;
+            `;
+            modal.innerHTML = `<img src="${url}" style="max-width: 90%; max-height: 90%; border-radius: 8px;">`;
+            modal.onclick = () => modal.remove();
+            document.body.appendChild(modal);
+        }
+
+        // 选择文件
+        function selectFile() {
+            if (!currentContactId) {
+                alert('请先选择一个聊天对象');
+                return;
+            }
+            document.getElementById('fileInput').click();
+        }
+
+        // 格式化文件大小
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 B';
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // 处理文件选择
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const now = new Date();
+            const time = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+            
+            if (!messages[currentContactId]) {
+                messages[currentContactId] = [];
+            }
+            
+            // 判断文件类型
+            let iconClass = 'fa-file';
+            if (file.name.match(/\.(pdf)$/i)) iconClass = 'fa-file-pdf';
+            else if (file.name.match(/\.(doc|docx)$/i)) iconClass = 'fa-file-word';
+            else if (file.name.match(/\.(xls|xlsx)$/i)) iconClass = 'fa-file-excel';
+            else if (file.name.match(/\.(ppt|pptx)$/i)) iconClass = 'fa-file-powerpoint';
+            else if (file.name.match(/\.(zip|rar|7z)$/i)) iconClass = 'fa-file-archive';
+            else if (file.name.match(/\.(jpg|jpeg|png|gif|bmp|webp)$/i)) iconClass = 'fa-file-image';
+            else if (file.name.match(/\.(mp4|avi|mov|wmv)$/i)) iconClass = 'fa-file-video';
+            
+            // 添加文件消息
+            messages[currentContactId].push({ 
+                self: true, 
+                content: `
+                    <div class="file-message">
+                        <i class="fas ${iconClass}"></i>
+                        <div class="file-info">
+                            <div class="file-name">${file.name}</div>
+                            <div class="file-size">${formatFileSize(file.size)}</div>
+                        </div>
+                    </div>
+                `, 
+                time: time,
+                type: 'file'
+            });
+            
+            // 更新联系人预览
+            const contact = contacts.find(c => c.id === currentContactId);
+            contact.preview = '[文件] ' + file.name;
+            contact.time = time;
+            
+            renderMessages(currentContactId);
+            renderContacts();
+            
+            // 自动回复已关闭
+            
+            // 清空input以便可以重复选择同一文件
+            event.target.value = '';
+        }
+
+        // 加载导航栏头像
+        function loadNavAvatar() {
+            const savedAvatar = localStorage.getItem('userAvatar');
+            const headerAvatar = document.getElementById('header-avatar');
+            
+            if (savedAvatar && headerAvatar) {
+                headerAvatar.src = savedAvatar;
+            }
+        }
+
+        // 初始化
+        loadChatState();
+        renderContacts();
+        loadNavAvatar();
+
+        // 退出登录功能
+        function logout() {
+            localStorage.removeItem('loginInfo');
+            sessionStorage.removeItem('loginInfo');
+            alert('已退出登录');
+            window.location.href = '../../用户端/首页/index.html';
+        }
+    </script>
+</body>
+</html>

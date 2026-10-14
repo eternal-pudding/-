@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录 - 手语翻译与求职平台</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <nav class="top-nav">
+        <div class="logo"></div>
+        <div class="nav-links">
+            <a href="../首页/index.html">返回首页</a>
+        </div>
+    </nav>
+
+    <!-- 背景轮播 -->
+    <div class="hero-bg">
+        <div class="bg-slide active" style="background-image: url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=2144');"></div>
+        <div class="bg-slide" style="background-image: url('https://images.unsplash.com/photo-1519501025264-65ba15a82390?q=80&w=2144');"></div>
+        <div class="bg-slide" style="background-image: url('https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?q=80&w=2144');"></div>
+        <div class="bg-overlay"></div>
+    </div>
+
+    <!-- 登录区域 -->
+    <div class="login-container">
+        <div class="login-box">
+            <h2 class="login-title">欢迎登录</h2>
+            
+            <!-- 身份选择 -->
+            <div class="role-selector">
+                <label class="role-option">
+                    <input type="radio" name="role" value="jobseeker" checked>
+                    <span class="role-label">
+                        <span class="role-icon">👤</span>
+                        <span class="role-text">求职者</span>
+                    </span>
+                </label>
+                <label class="role-option">
+                    <input type="radio" name="role" value="hr">
+                    <span class="role-label">
+                        <span class="role-icon">🏢</span>
+                        <span class="role-text">HR</span>
+                    </span>
+                </label>
+                <label class="role-option">
+                    <input type="radio" name="role" value="volunteer">
+                    <span class="role-label">
+                        <span class="role-icon">🤝</span>
+                        <span class="role-text">志愿者</span>
+                    </span>
+                </label>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-link active" data-tab="password-login">密码登录</button>
+                <button class="tab-link" data-tab="sms-login">短信登录</button>
+            </div>
+
+            <div id="password-login" class="tab-content active">
+                <form id="passwordForm">
+                    <div class="input-group">
+                        <input type="text" name="account" placeholder="请输入手机号码/邮箱" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" name="password" placeholder="请输入密码" required>
+                    </div>
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" name="remember" checked>
+                            <span>记住我</span>
+                        </label>
+                        <a href="forgot-password.html" class="forgot-password">忘记密码？</a>
+                    </div>
+                    <button type="submit" class="login-btn">登录</button>
+                </form>
+            </div>
+
+            <div id="sms-login" class="tab-content">
+                <form id="smsForm">
+                    <div class="input-group">
+                        <input type="tel" name="phone" placeholder="请输入手机号码" required>
+                    </div>
+                    <div class="input-group verification-group">
+                        <input type="text" inputmode="numeric" pattern="[0-9]*" name="code" placeholder="请输入短信验证码" required>
+                        <button type="button" class="get-code-btn">获取验证码</button>
+                    </div>
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" name="remember" checked>
+                            <span>记住我</span>
+                        </label>
+                    </div>
+                    <button type="submit" class="login-btn">登录</button>
+                </form>
+            </div>
+
+            <div class="footer-links">
+                <span>还没有账号？</span>
+                <a href="register.html">立即注册</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部信息 -->
+    <footer class="login-footer">
+        <p>我们致力于为残障人士提供便捷的求职和交流服务</p>
+    </footer>
+
+    <script src="login.js"></script>
+</body>
+</html>

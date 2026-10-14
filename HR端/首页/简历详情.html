@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简历详情 - HR招聘中心</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* 导航栏 - 与首页统一风格 */
+        :root {
+            --primary: #0052D9;
+            --primary-hover: #0045B5;
+            --text-dark: #333;
+            --text-gray: #666;
+            --text-light: #999;
+            --bg-gray: #f5f7fa;
+            --border-color: #e8e8e8;
+        }
+
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            height: 70px;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .top-nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            height: 100%;
+            padding: 0 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 15px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .message-link {
+            position: relative;
+        }
+
+        .badge {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: #ff4d4f;
+            color: #fff;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 10px;
+        }
+
+        .nav-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--border-color);
+            transition: border-color 0.3s;
+        }
+
+        .nav-avatar:hover {
+            border-color: var(--primary);
+        }
+
+        .nav-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .logout-btn {
+            color: var(--text-dark);
+            font-size: 15px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            color: var(--primary);
+        }
+
+        /* 主内容区 */
+        .main-container {
+            max-width: 1000px;
+            margin: 90px auto 40px;
+            padding: 0 20px;
+        }
+
+        /* 简历头部 */
+        .resume-header {
+            background: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .candidate-main {
+            display: flex;
+            gap: 20px;
+        }
+
+        .candidate-avatar-large {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #f0f0f0;
+        }
+
+        .candidate-basic-info h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .candidate-status {
+            font-size: 13px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            background: #e6f7ff;
+            color: #1890ff;
+        }
+
+        .candidate-status.communicated {
+            background: #f6ffed;
+            color: #52c41a;
+        }
+
+        .candidate-meta {
+            display: flex;
+            gap: 20px;
+            color: #666;
+            font-size: 14px;
+            margin-top: 12px;
+        }
+
+        .candidate-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .candidate-meta i {
+            color: #999;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-primary {
+            background: #0052D9;
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            background: #003bb3;
+        }
+
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #666;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: #e8e8e8;
+        }
+
+        /* 求职意向 */
+        .intention-bar {
+            display: flex;
+            gap: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .intention-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .intention-label {
+            font-size: 13px;
+            color: #999;
+        }
+
+        .intention-value {
+            font-size: 15px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        /* 简历内容区块 */
+        .resume-section {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .section-title {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title i {
+            color: #0052D9;
+        }
+
+        /* 优势亮点 */
+        .advantage-content {
+            color: #555;
+            line-height: 1.8;
+            font-size: 14px;
+        }
+
+        /* 工作经历 */
+        .experience-item {
+            padding: 16px 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .experience-item:last-child {
+            border-bottom: none;
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .company-name {
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .work-time {
+            color: #999;
+            font-size: 13px;
+        }
+
+        .position-name {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .work-desc {
+            color: #555;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* 教育经历 */
+        .education-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .school-info h4 {
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        .school-major {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .education-time {
+            color: #999;
+            font-size: 13px;
+        }
+
+        /* 技能标签 */
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-tag {
+            padding: 6px 16px;
+            background: #f5f7fa;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        /* 残疾信息 */
+        .disability-info {
+            display: flex;
+            gap: 30px;
+        }
+
+        .disability-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        /* 空状态 */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 16px;
+            color: #ddd;
+        }
+
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="top-nav-container">
+            <div class="nav-left">
+                <a href="index.html" class="logo">HR招聘中心</a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="active">首页</a>
+                <a href="../求职招聘/求职招聘.html">职位管理</a>
+                <a href="../聊天窗口/index.html" class="message-link">
+                    消息中心
+                    <span class="badge">5</span>
+                </a>
+                <a onclick="logout()" class="logout-btn">退出</a>
+                <a href="../个人主页/个人主页.html" class="nav-avatar" title="个人主页">
+                    <img src="https://img.bosszhipin.com/beijin/mcs/chatphoto/20200810/202a73eda0742d2b63ab76274c45543835a935b38495b428634570621439c635_s.png" alt="企业Logo" id="header-avatar">
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <!-- 动态加载简历内容 -->
+        <div id="resumeContent"></div>
+    </div>
+
+    <script>
+        // 候选人详细数据（前三个有详细内容）
+        const candidatesDetail = {
+            1: {
+                id: 1,
+                name: '张小明',
+                avatar: 'https://img.bosszhipin.com/beijin/upload/avatar/20210609/d8922c74373c386934f3231f94096cc42569bf6476d1f21550636549e45f988b_s.png',
+                age: 25,
+                education: '本科',
+                experience: '2年经验',
+                disability: '听力残疾',
+                disabilityLevel: '三级',
+                jobTitle: '人事专员',
+                expectedSalary: '8000-12000元/月',
+                expectedCity: '南京市',
+                status: '未沟通',
+                communicated: false,
+                advantage: '本人性格开朗，做事认真负责，有较强的沟通协调能力。熟练使用Office办公软件，熟悉招聘流程和员工关系管理。曾在大型企业从事人力资源工作2年，积累了丰富的招聘经验，擅长通过各种渠道寻找优质人才。因听力障碍，更善于通过文字和视觉方式进行沟通，在纯打字客服和文案工作方面有独特优势。',
+                workExperience: [
+                    {
+                        company: '南京某科技有限公司',
+                        position: '人事专员',
+                        time: '2022.06 - 2024.03',
+                        desc: '负责公司招聘工作，包括职位发布、简历筛选、面试安排等；协助办理员工入职、离职手续；维护人事档案，处理员工关系问题。'
+                    },
+                    {
+                        company: '南京某贸易公司',
+                        position: '行政助理',
+                        time: '2021.03 - 2022.05',
+                        desc: '协助处理日常行政事务，负责文档管理、会议安排；接待来访客户，处理电话和邮件咨询。'
+                    }
+                ],
+                education: {
+                    school: '南京师范大学',
+                    major: '人力资源管理',
+                    degree: '本科',
+                    time: '2017.09 - 2021.06'
+                },
+                skills: ['Office办公软件', '招聘流程', '员工关系', '档案管理', '手语交流', '打字速度120字/分']
+            },
+            2: {
+                id: 2,
+                name: '李小红',
+                avatar: 'https://img.bosszhipin.com/beijin/upload/avatar/20210609/d8922c74373c386934f3231f94096cc42569bf6476d1f21550636549e45f988b_s.png',
+                age: 23,
+                education: '大专',
+                experience: '应届生',
+                disability: '肢体残疾',
+                disabilityLevel: '四级',
+                jobTitle: '行政助理',
+                expectedSalary: '5000-7000元/月',
+                expectedCity: '南京市',
+                status: '已沟通',
+                communicated: true,
+                advantage: '应届毕业生，学习能力强，工作态度端正。熟练使用WPS办公软件，具备良好的文字处理能力。在校期间担任班级干部，有较强的组织协调能力。虽然下肢有轻度残疾，但不影响日常办公工作，行动自如。性格温和细心，适合从事行政、文员等工作。',
+                workExperience: [
+                    {
+                        company: '南京某企业（实习）',
+                        position: '行政实习生',
+                        time: '2023.09 - 2024.01',
+                        desc: '协助行政部门处理日常事务，负责文件整理、资料归档；协助组织公司活动，负责物资准备和现场协调。'
+                    }
+                ],
+                education: {
+                    school: '南京信息职业技术学院',
+                    major: '行政管理',
+                    degree: '大专',
+                    time: '2021.09 - 2024.06'
+                },
+                skills: ['WPS办公', '文档管理', '会议安排', '沟通协调', '档案整理', '基础PS']
+            },
+            3: {
+                id: 3,
+                name: '王小华',
+                avatar: 'https://img.bosszhipin.com/beijin/upload/avatar/20210609/d8922c74373c386934f3231f94096cc42569bf6476d1f21550636549e45f988b_s.png',
+                age: 27,
+                education: '本科',
+                experience: '3年经验',
+                disability: '听力残疾',
+                disabilityLevel: '二级',
+                jobTitle: '设计师',
+                expectedSalary: '10000-15000元/月',
+                expectedCity: '南京市',
+                status: '未沟通',
+                communicated: false,
+                advantage: '3年UI/UX设计经验，擅长移动端和Web端界面设计。精通Photoshop、Illustrator、Figma等设计工具。有完整的项目经验，参与过多个上线产品的设计工作。因听力障碍，视觉感知能力更强，对色彩、排版、细节把控更加敏锐。具备良好的审美能力和用户思维，能够独立完成从需求分析到设计交付的全流程工作。',
+                workExperience: [
+                    {
+                        company: '南京某互联网公司',
+                        position: 'UI设计师',
+                        time: '2021.04 - 2024.03',
+                        desc: '负责公司主要产品线的UI设计工作，包括移动端App和Web端界面设计；参与产品需求讨论，提供设计解决方案；制定和维护设计规范，确保产品视觉一致性。'
+                    },
+                    {
+                        company: '南京某设计公司',
+                        position: '平面设计师',
+                        time: '2020.06 - 2021.03',
+                        desc: '负责品牌视觉设计，包括LOGO、VI、宣传物料等；参与多个品牌项目的创意设计工作。'
+                    }
+                ],
+                education: {
+                    school: '江南大学',
+                    major: '视觉传达设计',
+                    degree: '本科',
+                    time: '2016.09 - 2020.06'
+                },
+                skills: ['Photoshop', 'Illustrator', 'Figma', 'Sketch', 'UI设计', '品牌设计', '动效设计']
+            },
+            4: {
+                id: 4,
+                name: '赵小芳',
+                avatar: 'https://img.bosszhipin.com/beijin/upload/avatar/20210609/d8922c74373c386934f3231f94096cc42569bf6476d1f21550636549e45f988b_s.png',
+                age: 24,
+                education: '本科',
+                experience: '1年经验',
+                disability: '言语残疾',
+                disabilityLevel: '四级',
+                jobTitle: '数据录入员',
+                expectedSalary: '5000-7000元/月',
+                expectedCity: '南京市',
+                status: '未沟通',
+                communicated: false,
+                advantage: '工作认真细致，有较强的数据敏感度和责任心。熟练掌握Excel数据处理、表格整理及信息录入，打字速度快，准确率极高。在校期间多次参与数据整理类社会实践，能够快速适应重复性工作并保证零差错。因言语障碍，更专注于书面和数据沟通，适合纯数据录入及后台支持类岗位。',
+                workExperience: [
+                    {
+                        company: '南京某电子商务公司',
+                        position: '数据录入专员',
+                        time: '2023.07 - 2024.03',
+                        desc: '负责商品信息、订单数据及客户资料的录入与核对；协助进行基础数据整理和报表制作；确保数据准确性和录入效率，月平均处理数据条目超过2万条。'
+                    }
+                ],
+                education: {
+                    school: '南京财经大学',
+                    major: '信息管理与信息系统',
+                    degree: '本科',
+                    time: '2019.09 - 2023.06'
+                },
+                skills: ['Excel', '数据整理', '细心', '信息录入', '表格制作', '数据核对']
+            },
+            5: {
+                id: 5,
+                name: '陈小军',
+                avatar: 'https://img.bosszhipin.com/beijin/upload/avatar/20210609/d8922c74373c386934f3231f94096cc42569bf6476d1f21550636549e45f988b_s.png',
+                age: 26,
+                education: '大专',
+                experience: '2年经验',
+                disability: '肢体残疾',
+                disabilityLevel: '四级',
+                jobTitle: '客服专员',
+                expectedSalary: '5000-8000元/月',
+                expectedCity: '南京市',
+                status: '已沟通',
+                communicated: true,
+                advantage: '具备2年在线客服工作经验，打字速度快，沟通耐心细致。熟悉主流电商平台的客服流程和售后处理规范。因下肢轻度残疾，不影响日常办公，行动自如。擅长通过文字沟通解决客户问题，客户满意度保持在95%以上，适合纯线上客服及售后支持岗位。',
+                workExperience: [
+                    {
+                        company: '南京某电商企业',
+                        position: '在线客服专员',
+                        time: '2022.04 - 2024.03',
+                        desc: '负责天猫、京东店铺的日常在线客服工作，处理客户咨询、订单查询及售后问题；维护客户关系，提升店铺评分；月均接待客户咨询3000+，好评率98%。'
+                    }
+                ],
+                education: {
+                    school: '南京信息职业技术学院',
+                    major: '电子商务',
+                    degree: '大专',
+                    time: '2019.09 - 2022.06'
+                },
+                skills: ['打字快', '耐心', '在线沟通', '售后处理', '客户关系', '电商平台操作']
+            },
+            6: {
+                id: 6,
+                name: '刘小伟',
+                avatar: 'https://img.bosszhipin.com/beijin/upload/avatar/20210609/d8922c74373c386934f3231f94096cc42569bf6476d1f21550636549e45f988b_s.png',
+                age: 28,
+                education: '本科',
+                experience: '4年经验',
+                disability: '视力残疾',
+                disabilityLevel: '四级',
+                jobTitle: '前端工程师',
+                expectedSalary: '12000-18000元/月',
+                expectedCity: '南京市',
+                status: '未沟通',
+                communicated: false,
+                advantage: '4年前端开发经验，精通Vue、React等主流框架，熟悉微信小程序及移动端H5开发。具备独立负责前端项目的能力，擅长组件化开发和性能优化。因视力轻度障碍，对代码规范和细节把控极为严格，习惯使用辅助开发工具提高效率。具有良好的团队协作能力和技术文档编写能力。',
+                workExperience: [
+                    {
+                        company: '南京某软件科技公司',
+                        position: '前端开发工程师',
+                        time: '2020.06 - 2024.03',
+                        desc: '负责公司B端管理后台及C端小程序的前端开发工作；参与技术选型，主导前端组件库建设；优化页面性能，提升首屏加载速度30%以上；编写技术文档，指导初级开发人员。'
+                    },
+                    {
+                        company: '南京某互联网公司',
+                        position: '前端开发实习生',
+                        time: '2019.09 - 2020.05',
+                        desc: '参与公司官网及活动页面的前端开发；协助完成页面切图、动画效果实现；学习并实践Vue框架开发。'
+                    }
+                ],
+                education: {
+                    school: '南京邮电大学',
+                    major: '计算机科学与技术',
+                    degree: '本科',
+                    time: '2016.09 - 2020.06'
+                },
+                skills: ['Vue', 'React', 'JavaScript', 'HTML5', 'CSS3', '微信小程序', 'Git版本控制']
+            },
+            7: {
+                id: 7,
+                name: '周小丽',
+                avatar: 'https://img.bosszhipin.com/beijin/upload/avatar/20210609/d8922c74373c386934f3231f94096cc42569bf6476d1f21550636549e45f988b_s.png',
+                age: 24,
+                education: '本科',
+                experience: '1年经验',
+                disability: '听力残疾',
+                disabilityLevel: '三级',
+                jobTitle: '运营专员',
+                expectedSalary: '6000-9000元/月',
+                expectedCity: '南京市',
+                status: '已沟通',
+                communicated: true,
+                advantage: '具备扎实的文案功底和新媒体运营经验，擅长公众号排版、活动策划及内容创作。熟练使用各类新媒体工具和数据分析平台。因听力障碍，视觉敏感度和文字表达能力突出，善于通过图文、视频等内容形式与用户建立连接。具有创新思维和较强的执行力。',
+                workExperience: [
+                    {
+                        company: '南京某文化传媒公司',
+                        position: '新媒体运营',
+                        time: '2023.07 - 2024.03',
+                        desc: '负责公司微信公众号、小红书账号的日常运营及内容策划；撰写原创推文，设计活动方案；分析运营数据，优化内容策略，粉丝增长20%，阅读量提升35%。'
+                    }
+                ],
+                education: {
+                    school: '南京师范大学',
+                    major: '新闻传播学',
+                    degree: '本科',
+                    time: '2019.09 - 2023.06'
+                },
+                skills: ['文案撰写', '活动策划', '新媒体运营', '公众号排版', '数据分析', 'Photoshop']
+            },
+            8: {
+                id: 8,
+                name: '吴小东',
+                avatar: 'https://img.bosszhipin.com/beijin/upload/avatar/20210609/d8922c74373c386934f3231f94096cc42569bf6476d1f21550636549e45f988b_s.png',
+                age: 29,
+                education: '硕士',
+                experience: '5年经验',
+                disability: '肢体残疾',
+                disabilityLevel: '四级',
+                jobTitle: '产品经理',
+                expectedSalary: '18000-25000元/月',
+                expectedCity: '南京市',
+                status: '未沟通',
+                communicated: false,
+                advantage: '5年互联网产品经验，硕士学历，具备从0到1的产品规划和落地能力。擅长用户研究、数据分析和跨部门协作，主导过多款百万级用户产品的设计迭代。因下肢轻度残疾，不影响日常办公及出差，反而培养了更强的逻辑思维和文档表达能力。熟练使用Axure、XMind、SQL等产品工具，对B端和C端产品均有深入理解。',
+                workExperience: [
+                    {
+                        company: '南京某互联网科技公司',
+                        position: '高级产品经理',
+                        time: '2021.03 - 2024.03',
+                        desc: '负责公司核心SaaS产品的规划与迭代，主导需求分析、原型设计及项目推进；通过数据驱动产品优化，核心功能使用率提升40%；协调技术、设计、运营等多部门资源，确保产品按时上线。'
+                    },
+                    {
+                        company: '上海某知名互联网公司',
+                        position: '产品经理',
+                        time: '2019.07 - 2021.02',
+                        desc: '负责移动端App的功能规划和用户体验优化；进行竞品分析和用户调研，输出产品需求文档；跟进开发测试流程，推动产品版本迭代。'
+                    }
+                ],
+                education: {
+                    school: '东南大学',
+                    major: '管理科学与工程',
+                    degree: '硕士',
+                    time: '2016.09 - 2019.06'
+                },
+                skills: ['产品规划', '数据分析', '用户研究', 'Axure', 'SQL', '项目管理', '需求文档']
+            },
+            9: {
+                id: 9,
+                name: '郑小霞',
+                avatar: 'https://img.bosszhipin.com/beijin/upload/avatar/20210609/d8922c74373c386934f3231f94096cc42569bf6476d1f21550636549e45f988b_s.png',
+                age: 22,
+                education: '大专',
+                experience: '应届生',
+                disability: '言语残疾',
+                disabilityLevel: '四级',
+                jobTitle: '财务助理',
+                expectedSalary: '4000-6000元/月',
+                expectedCity: '南京市',
+                status: '未沟通',
+                communicated: false,
+                advantage: '财务专业应届毕业生，理论基础扎实，工作细心负责。熟练使用财务软件及Excel，熟悉票据管理、凭证录入及基础账务处理。因言语障碍，更注重书面沟通的准确性和规范性，适合财务后台支持类工作。已取得初级会计职称，学习能力强，希望能在实践中快速成长。',
+                workExperience: [
+                    {
+                        company: '南京某制造企业（实习）',
+                        position: '财务实习生',
+                        time: '2023.09 - 2024.01',
+                        desc: '协助财务部门进行原始凭证整理、票据审核及账务录入；参与月度报表的基础数据汇总；学习使用金蝶财务软件，熟悉企业财务流程。'
+                    }
+                ],
+                education: {
+                    school: '江苏财经职业技术学院',
+                    major: '会计',
+                    degree: '大专',
+                    time: '2021.09 - 2024.06'
+                },
+                skills: ['财务软件', '票据管理', 'Excel', '凭证录入', '初级会计职称', '细心']
+            },
+            10: {
+                id: 10,
+                name: '马小超',
+                avatar: 'https://img.bosszhipin.com/beijin/upload/avatar/20210609/d8922c74373c386934f3231f94096cc42569bf6476d1f21550636549e45f988b_s.png',
+                age: 26,
+                education: '本科',
+                experience: '3年经验',
+                disability: '听力残疾',
+                disabilityLevel: '二级',
+                jobTitle: '视频剪辑',
+                expectedSalary: '8000-13000元/月',
+                expectedCity: '南京市',
+                status: '已沟通',
+                communicated: true,
+                advantage: '3年视频剪辑经验，熟练掌握Premiere、After Effects、剪映等专业剪辑软件。擅长短视频、宣传片及vlog的剪辑制作，对节奏把控、转场特效及调色有独特见解。因听力障碍，视觉感知力和画面节奏感更为敏锐，能够通过画面语言精准传达情绪。具备独立完成从素材整理到成片输出的全流程能力。',
+                workExperience: [
+                    {
+                        company: '南京某MCN机构',
+                        position: '短视频剪辑师',
+                        time: '2021.06 - 2024.03',
+                        desc: '负责旗下达人账号的短视频剪辑工作，包括口播、剧情、探店等多种类型；独立完成视频剪辑、字幕制作、特效包装及基础调色；月均产出视频50+条，多条视频播放量破百万。'
+                    },
+                    {
+                        company: '南京某广告公司',
+                        position: '后期制作实习生',
+                        time: '2020.09 - 2021.05',
+                        desc: '参与企业宣传片及广告片的后期剪辑工作；协助进行素材整理、粗剪及字幕添加；学习AE特效制作和基础调色技术。'
+                    }
+                ],
+                education: {
+                    school: '南京艺术学院',
+                    major: '广播电视编导',
+                    degree: '本科',
+                    time: '2017.09 - 2021.06'
+                },
+                skills: ['Pr', 'AE', '剪映', '达芬奇调色', '字幕制作', '短视频剪辑', '特效包装']
+            },
+            11: {
+                id: 11,
+                name: '孙小芳',
+                avatar: 'https://img.bosszhipin.com/beijin/upload/avatar/20210609/d8922c74373c386934f3231f94096cc42569bf6476d1f21550636549e45f988b_s.png',
+                age: 25,
+                education: '本科',
+                experience: '2年经验',
+                disability: '肢体残疾',
+                disabilityLevel: '四级',
+                jobTitle: '市场专员',
+                expectedSalary: '7000-11000元/月',
+                expectedCity: '南京市',
+                status: '未沟通',
+                communicated: false,
+                advantage: '2年市场营销经验，具备市场调研、活动策划及文案撰写能力。熟悉线上线下活动执行流程，擅长通过数据驱动营销决策。因下肢轻度残疾，不影响办公室日常工作及短途出差。性格开朗，沟通能力强，具备较好的抗压能力和团队协作精神，能够快速适应快节奏的市场工作。',
+                workExperience: [
+                    {
+                        company: '南京某快消品公司',
+                        position: '市场专员',
+                        time: '2022.04 - 2024.03',
+                        desc: '负责区域市场活动策划与执行，包括促销活动、地推及线上推广；进行竞品市场调研，输出分析报告；撰写营销文案及宣传物料，协助品牌传播。'
+                    }
+                ],
+                education: {
+                    school: '南京财经大学',
+                    major: '市场营销',
+                    degree: '本科',
+                    time: '2018.09 - 2022.06'
+                },
+                skills: ['市场调研', '活动执行', '文案撰写', '数据分析', '品牌推广', '活动策划']
+            },
+            12: {
+                id: 12,
+                name: '杨小波',
+                avatar: 'https://img.bosszhipin.com/beijin/upload/avatar/20210609/d8922c74373c386934f3231f94096cc42569bf6476d1f21550636549e45f988b_s.png',
+                age: 27,
+                education: '大专',
+                experience: '4年经验',
+                disability: '视力残疾',
+                disabilityLevel: '四级',
+                jobTitle: '客服主管',
+                expectedSalary: '7000-10000元/月',
+                expectedCity: '南京市',
+                status: '已沟通',
+                communicated: true,
+                advantage: '4年客户服务经验，2年团队管理经验，擅长客服团队建设、流程优化及服务质量监控。具备较强的沟通协调能力和突发事件处理能力。因视力轻度残疾，习惯通过语音辅助工具和放大软件高效办公，不影响日常管理工作。注重团队氛围建设，所带团队客户满意度常年保持在98%以上，流失率低于行业平均水平。',
+                workExperience: [
+                    {
+                        company: '南京某大型电商企业',
+                        position: '客服主管',
+                        time: '2022.03 - 2024.03',
+                        desc: '管理15人客服团队，负责团队排班、绩效考核及培训；优化客服流程和话术，提升问题解决率；处理重大客诉，维护客户关系，团队满意度从92%提升至98%。'
+                    },
+                    {
+                        company: '南京某客服外包公司',
+                        position: '资深客服专员',
+                        time: '2020.06 - 2022.02',
+                        desc: '负责高端品牌客户的售后服务工作，处理复杂客诉；因表现优异晋升为团队组长，协助主管进行新人带教和日常管理。'
+                    }
+                ],
+                education: {
+                    school: '南京信息职业技术学院',
+                    major: '工商管理',
+                    degree: '大专',
+                    time: '2017.09 - 2020.06'
+                },
+                skills: ['团队管理', '客户服务', '抗压能力', '流程优化', '客诉处理', '培训带教']
+            }
+        };
+
+        // 生成头像颜色
+        function generateAvatarColor(name) {
+            const colors = [
+                '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7',
+                '#DDA0DD', '#98D8C8', '#F7DC6F', '#BB8FCE', '#85C1E2',
+                '#F8B500', '#6C5CE7', '#A29BFE', '#74B9FF', '#00B894'
+            ];
+            let hash = 0;
+            for (let i = 0; i < name.length; i++) {
+                hash = name.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            return colors[Math.abs(hash) % colors.length];
+        }
+
+        // 获取显示名称的首字母
+        function getInitials(name) {
+            if (!name) return '?';
+            return name.slice(-2);
+        }
+
+        // 生成SVG头像
+        function generateAvatarSvg(name) {
+            const bgColor = generateAvatarColor(name);
+            const initials = getInitials(name);
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><circle cx="40" cy="40" r="40" fill="${bgColor}"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="28" font-family="Arial, sans-serif">${initials}</text></svg>`;
+            return 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg)));
+        }
+
+        // 获取URL参数
+        function getUrlParam(name) {
+            const params = new URLSearchParams(window.location.search);
+            return params.get(name);
+        }
+
+        // 渲染简历详情
+        function renderResume(candidateId) {
+            const candidate = candidatesDetail[candidateId];
+            const container = document.getElementById('resumeContent');
+
+            if (!candidate) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-file-alt"></i>
+                        <p>该候选人简历暂未完善</p>
+                        <a href="index.html" class="btn-primary" style="margin-top: 20px; display: inline-flex;">返回首页</a>
+                    </div>
+                `;
+                return;
+            }
+
+            const statusClass = candidate.communicated ? 'communicated' : '';
+            const statusText = candidate.communicated ? '已沟通' : '未沟通';
+
+            container.innerHTML = `
+                <!-- 简历头部 -->
+                <div class="resume-header">
+                    <div class="header-top">
+                        <div class="candidate-main">
+                            <img src="${generateAvatarSvg(candidate.name)}" alt="${candidate.name}" class="candidate-avatar-large">
+                            <div class="candidate-basic-info">
+                                <h1>
+                                    ${candidate.name}
+                                    <span class="candidate-status ${statusClass}">${statusText}</span>
+                                </h1>
+                                <div class="candidate-meta">
+                                    <span><i class="fas fa-birthday-cake"></i> ${candidate.age}岁</span>
+                                    <span><i class="fas fa-graduation-cap"></i> ${candidate.education}</span>
+                                    <span><i class="fas fa-briefcase"></i> ${candidate.experience}</span>
+                                    <span><i class="fas fa-map-marker-alt"></i> ${candidate.expectedCity}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="header-actions">
+                            <a href="../聊天窗口/index.html?candidate=${candidate.id}" class="btn-primary">
+                                <i class="fas fa-comments"></i> 立即沟通
+                            </a>
+                            <button class="btn-secondary" onclick="window.print()">
+                                <i class="fas fa-download"></i> 下载简历
+                            </button>
+                        </div>
+                    </div>
+                    <div class="intention-bar">
+                        <div class="intention-item">
+                            <span class="intention-label">期望职位</span>
+                            <span class="intention-value">${candidate.jobTitle}</span>
+                        </div>
+                        <div class="intention-item">
+                            <span class="intention-label">期望薪资</span>
+                            <span class="intention-value" style="color: #ff6b6b;">${candidate.expectedSalary}</span>
+                        </div>
+                        <div class="intention-item">
+                            <span class="intention-label">残疾类型</span>
+                            <span class="intention-value">${candidate.disability}（${candidate.disabilityLevel}）</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 优势亮点 -->
+                <div class="resume-section">
+                    <h2 class="section-title"><i class="fas fa-star"></i> 个人优势</h2>
+                    <div class="advantage-content">${candidate.advantage}</div>
+                </div>
+
+                <!-- 工作经历 -->
+                <div class="resume-section">
+                    <h2 class="section-title"><i class="fas fa-building"></i> 工作经历</h2>
+                    ${candidate.workExperience.map(work => `
+                        <div class="experience-item">
+                            <div class="experience-header">
+                                <span class="company-name">${work.company}</span>
+                                <span class="work-time">${work.time}</span>
+                            </div>
+                            <div class="position-name">${work.position}</div>
+                            <div class="work-desc">${work.desc}</div>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <!-- 教育经历 -->
+                <div class="resume-section">
+                    <h2 class="section-title"><i class="fas fa-university"></i> 教育经历</h2>
+                    <div class="education-item">
+                        <div class="school-info">
+                            <h4>${candidate.education.school}</h4>
+                            <div class="school-major">${candidate.education.major} · ${candidate.education.degree}</div>
+                        </div>
+                        <span class="education-time">${candidate.education.time}</span>
+                    </div>
+                </div>
+
+                <!-- 技能特长 -->
+                <div class="resume-section">
+                    <h2 class="section-title"><i class="fas fa-tools"></i> 技能特长</h2>
+                    <div class="skills-list">
+                        ${candidate.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+                    </div>
+                </div>
+            `;
+
+        }
+
+        // 初始化
+        const candidateId = getUrlParam('id') || 1;
+        renderResume(candidateId);
+
+        // 更新消息中心红点
+        function updateMessageBadge() {
+            const badge = document.querySelector('.message-link .badge');
+            if (!badge) return;
+            const unreadCount = parseInt(localStorage.getItem('hrUnreadCount') || '0', 10);
+            if (unreadCount > 0) {
+                badge.textContent = unreadCount > 99 ? '99+' : unreadCount;
+                badge.style.display = 'inline-block';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        // 加载导航栏头像
+        function loadNavAvatar() {
+            const savedAvatar = localStorage.getItem('userAvatar');
+            const headerAvatar = document.getElementById('header-avatar');
+            
+            if (savedAvatar && headerAvatar) {
+                headerAvatar.src = savedAvatar;
+            }
+            updateMessageBadge();
+        }
+        
+        loadNavAvatar();
+
+        // 退出登录
+        function logout() {
+            localStorage.removeItem('loginInfo');
+            sessionStorage.removeItem('loginInfo');
+            alert('已退出登录');
+            window.location.href = '../../用户端/首页/index.html';
+        }
+    </script>
+</body>
+</html>
